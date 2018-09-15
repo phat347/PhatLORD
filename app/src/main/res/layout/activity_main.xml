@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/Btemp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/btn_nhap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đổi màu"
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
+
     <TextView
         android:layout_marginTop="30dp"
         android:id="@+id/text1"
@@ -18,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_marginTop="100dp">
+        android:layout_marginTop="10dp">
 
         <Button
             android:id="@+id/btn_edit"
@@ -34,6 +50,59 @@
             android:textAllCaps="false"
             android:layout_marginRight="10dp"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Username:"
+                android:textSize="10pt"
+                />
+            <EditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password:"
+                android:textSize="10pt"
+                />
+            <EditText
+                android:id="@+id/et_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
 
 
-</LinearLayout>
+        </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOGIN"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            />
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+
