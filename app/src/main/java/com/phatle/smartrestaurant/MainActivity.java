@@ -2,16 +2,20 @@ package com.phatle.smartrestaurant;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.ramotion.circlemenu.CircleMenuView;
+
+import cdflynn.android.library.crossview.CrossView;
+
 
 public class MainActivity extends Activity {
     int count = 0;
@@ -25,6 +29,38 @@ public class MainActivity extends Activity {
         Button btnReset = findViewById(R.id.btn_reset);
         Button btn_temp = findViewById(R.id.btn_nhap);
         final LinearLayout background= findViewById(R.id.Btemp);
+        CircleMenuView menu = findViewById(R.id.circle_menu);
+        menu.setEventListener(new CircleMenuView.EventListener(){
+        @Override
+        public void onMenuOpenAnimationStart(@NonNull CircleMenuView view) {
+            Log.d("D", "onMenuOpenAnimationStart");
+        }
+
+        @Override
+        public void onMenuOpenAnimationEnd(@NonNull CircleMenuView view) {
+            Log.d("D", "onMenuOpenAnimationEnd");
+        }
+
+        @Override
+        public void onMenuCloseAnimationStart(@NonNull CircleMenuView view) {
+            Log.d("D", "onMenuCloseAnimationStart");
+        }
+
+        @Override
+        public void onMenuCloseAnimationEnd(@NonNull CircleMenuView view) {
+            Log.d("D", "onMenuCloseAnimationEnd");
+        }
+
+        @Override
+        public void onButtonClickAnimationStart(@NonNull CircleMenuView view, int index) {
+            Log.d("D", "onButtonClickAnimationStart| index: " + index);
+        }
+
+        @Override
+        public void onButtonClickAnimationEnd(@NonNull CircleMenuView view, int index) {
+            Log.d("D", "onButtonClickAnimationEnd| index: " + index);
+        }
+    });
         final int[] colors = {getResources().getColor(R.color.chocolate), getResources().getColor(R.color.cadet_blue),getResources().getColor(R.color.dark_cyan)};
         btn_temp.setOnClickListener(new View.OnClickListener() {
             @Override
