@@ -59,18 +59,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Username:"
-                android:textSize="10pt"
-                />
+            android:orientation="horizontal"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp">
+
             <EditText
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:hint="Username"
+                android:textColorHint="@color/gray"
+                android:textSize="10pt"
+                android:padding="10dp"
+                android:maxLines="1"/>
 
         </LinearLayout>
 
@@ -78,15 +80,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="20dp"
             >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:text="Password:"
-                android:textSize="10pt" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/etPasswordLayout"
@@ -99,7 +96,12 @@
                     android:id="@+id/et_pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:background="@drawable/border"
+                    android:textColorHint="@color/gray"
+                    android:hint="Password"
+                    android:textSize="10pt"
+                    android:padding="10dp"/>
             </android.support.design.widget.TextInputLayout>
 
 
