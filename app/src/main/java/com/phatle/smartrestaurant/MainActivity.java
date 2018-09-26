@@ -97,6 +97,7 @@ public class MainActivity extends Activity {
             }
         });
         Button btnLogin = findViewById(R.id.btn_login);
+        Button btnRegister = findViewById(R.id.btn_register);
         etUser.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -127,6 +128,17 @@ public class MainActivity extends Activity {
                 }
                 else
                     textInputLayoutUsername.setError(null);
+
+            }
+        });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginManager.getInstance().logOut();
+                profile.setProfileId(null);
+                facebookUsername.setText("Tên tài khoản");
+                Toast bread = Toast.makeText(getApplicationContext(),"Đăng xuất thành công",Toast.LENGTH_LONG);
+                bread.show();
 
             }
         });
