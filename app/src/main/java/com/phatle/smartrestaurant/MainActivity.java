@@ -1,119 +1,161 @@
 package com.phatle.smartrestaurant;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
+import android.text.Editable;
+import android.text.Html;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.ramotion.circlemenu.CircleMenuView;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.ProfilePictureView;
 
-import cdflynn.android.library.crossview.CrossView;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MainActivity extends Activity {
-    int count = 0;
+    ProfilePictureView profile;
+    TextView facebookUsername;
+    CallbackManager callbackManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        callbackManager = CallbackManager.Factory.create();
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        final TextView tv = findViewById(R.id.text1);
-        Button btnEdit = findViewById(R.id.btn_edit);
-        Button btnReset = findViewById(R.id.btn_reset);
-        Button btn_temp = findViewById(R.id.btn_nhap);
-        final LinearLayout background= findViewById(R.id.Btemp);
-        CircleMenuView menu = findViewById(R.id.circle_menu);
-        menu.setEventListener(new CircleMenuView.EventListener(){
-        @Override
-        public void onMenuOpenAnimationStart(@NonNull CircleMenuView view) {
-            Log.d("D", "onMenuOpenAnimationStart");
-        }
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
-        @Override
-        public void onMenuOpenAnimationEnd(@NonNull CircleMenuView view) {
-            Log.d("D", "onMenuOpenAnimationEnd");
-        }
+        final List<String> permissionNeeds= Arrays.asList("user_photos", "email", "user_birthday", "user_friends");
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
 
-        @Override
-        public void onMenuCloseAnimationStart(@NonNull CircleMenuView view) {
-            Log.d("D", "onMenuCloseAnimationStart");
-        }
 
-        @Override
-        public void onMenuCloseAnimationEnd(@NonNull CircleMenuView view) {
-            Log.d("D", "onMenuCloseAnimationEnd");
+        final TextInputLayout textInputLayoutPassword= findViewById(R.id.etPasswordLayout);
+        final TextInputLayout textInputLayoutUsername= findViewById(R.id.etUsernameLayout);
+        final TextInputEditText etUser= findViewById(R.id.et_user);
+        final TextInputEditText etPass= findViewById(R.id.et_pass);
+        TextView facebookLogin = findViewById(R.id.facebook_login);
+        profile = (ProfilePictureView)findViewById(R.id.picture);
+        facebookUsername = findViewById(R.id.facebook_username);
+        if(AccessToken.getCurrentAccessToken() != null){
+            RequestData();
         }
-
-        @Override
-        public void onButtonClickAnimationStart(@NonNull CircleMenuView view, int index) {
-            Log.d("D", "onButtonClickAnimationStart| index: " + index);
-        }
-
-        @Override
-        public void onButtonClickAnimationEnd(@NonNull CircleMenuView view, int index) {
-            Log.d("D", "onButtonClickAnimationEnd| index: " + index);
-        }
-    });
-        final int[] colors = {getResources().getColor(R.color.chocolate), getResources().getColor(R.color.cadet_blue),getResources().getColor(R.color.dark_cyan)};
-        btn_temp.setOnClickListener(new View.OnClickListener() {
+        facebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               background.setBackgroundColor(colors[count]);
-//                switch (count)
-//                {
-//                    case 0:
-//                        background.setBackgroundColor(getResources().getColor(R.color.chocolate));
-//                        break;
-//                    case 1:
-//                        background.setBackgroundColor(getResources().getColor(R.color.cadet_blue));
-//                        break;
-//                    case 2:
-//                        background.setBackgroundColor(getResources().getColor(R.color.dark_cyan));
-//                        break;
-//                    case 3:
-//                        background.setBackgroundColor(getResources().getColor(R.color.goldenrod));
-//                        break;
-//                    default:
-//                        count = 0;
-//                        break;
-//                }
-               count ++;
-               if (count == 3)
-               {
-                   count = 0;
-               }
+                LoginManager.getInstance().logInWithReadPermissions(MainActivity.this, permissionNeeds);
+                LoginManager.getInstance().registerCallback(callbackManager,
+                        new FacebookCallback<LoginResult>() {
+                            @Override
+                            public void onSuccess(LoginResult loginResult) {
+                                // App code
+                                Toast bread = Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_LONG);
+                                bread.show();
+                                RequestData();
+                            }
+
+                            @Override
+                            public void onCancel() {
+                                // App code
+                            }
+
+                            @Override
+                            public void onError(FacebookException exception) {
+                                // App code
+                            }
+                        });
             }
         });
-        btn_temp.setOnLongClickListener(new View.OnLongClickListener() {
+        Button btnLogin = findViewById(R.id.btn_login);
+        etUser.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onLongClick(View view) {
-                background.setBackgroundColor(getResources().getColor(R.color.tomato));
-                return true;
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
-        });
-        btnEdit.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View view) {
-                tv.setText("Sau khi sửa");
-                tv.setTextColor(Color.RED);
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
-        });
-        btnReset.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View view) {
-                tv.setText("Trước khi sửa");
-                tv.setTextColor(getResources().getColor(R.color.defaultTextColor));
-                background.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                count = 0;
+            public void afterTextChanged(Editable editable) {
 
             }
         });
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (etPass.getText().toString().length() == 0) {
+                    textInputLayoutPassword.setError("Vui lòng nhập mật khẩu");
+                }
+                else
+                    textInputLayoutPassword.setError(null);
+                if (etUser.getText().toString().length() == 0) {
+                    textInputLayoutUsername.setError("Vui lòng nhập tên tài khoản");
+                }
+                else
+                    textInputLayoutUsername.setError(null);
+
+            }
+        });
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+    public void RequestData(){
+        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+
+                JSONObject json = response.getJSONObject();
+                try {
+                    if(json != null){
+                        profile.setProfileId(json.getString("id"));
+                        facebookUsername.setText(json.getString("name"));
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,link,email,picture");
+        request.setParameters(parameters);
+        request.executeAsync();
     }
 }

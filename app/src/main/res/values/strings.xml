@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Smart Restaurant</string>
+    <string name="facebook_app_id">1099750763508336</string>
+    <string name="fb_login_protocol_scheme">fb1099750763508336</string>
 </resources>
