@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +33,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.ProfilePictureView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +44,7 @@ import java.util.List;
 
 
 public class MainActivity extends Activity {
-    ProfilePictureView profile;
+    ImageView profile;
     TextView facebookUsername;
     CallbackManager callbackManager;
     @Override
@@ -65,7 +68,7 @@ public class MainActivity extends Activity {
         final TextInputEditText etUser= findViewById(R.id.et_user);
         final TextInputEditText etPass= findViewById(R.id.et_pass);
         TextView facebookLogin = findViewById(R.id.facebook_login);
-        profile = (ProfilePictureView)findViewById(R.id.picture);
+        profile = findViewById(R.id.picture);
         facebookUsername = findViewById(R.id.facebook_username);
         if(AccessToken.getCurrentAccessToken() != null){
             RequestData();
@@ -79,7 +82,7 @@ public class MainActivity extends Activity {
                             @Override
                             public void onSuccess(LoginResult loginResult) {
                                 // App code
-                                Toast bread = Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_LONG);
+                                Toast bread = Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_SHORT);
                                 bread.show();
                                 RequestData();
                             }
@@ -96,6 +99,9 @@ public class MainActivity extends Activity {
                         });
             }
         });
+        Picasso.with(MainActivity.this)
+                .load(R.drawable.left_menu_ten_tai_khoan)
+                .into(profile);
         Button btnLogin = findViewById(R.id.btn_login);
         Button btnRegister = findViewById(R.id.btn_register);
         etUser.addTextChangedListener(new TextWatcher() {
@@ -135,9 +141,12 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 LoginManager.getInstance().logOut();
-                profile.setProfileId(null);
+//                profile.setProfileId(null);
+                Picasso.with(MainActivity.this)
+                        .load(R.drawable.left_menu_ten_tai_khoan)
+                        .into(profile);
                 facebookUsername.setText("Tên tài khoản");
-                Toast bread = Toast.makeText(getApplicationContext(),"Đăng xuất thành công",Toast.LENGTH_LONG);
+                Toast bread = Toast.makeText(getApplicationContext(),"Đăng xuất thành công",Toast.LENGTH_SHORT);
                 bread.show();
 
             }
@@ -156,7 +165,14 @@ public class MainActivity extends Activity {
                 JSONObject json = response.getJSONObject();
                 try {
                     if(json != null){
-                        profile.setProfileId(json.getString("id"));
+
+
+                        Picasso.with(MainActivity.this)
+                                .load("https://graph.facebook.com/v2.2/" + json.getString("id") + "/picture?height=120&type=normal") //extract as User instance method
+                                .transform(new CropCircleTransformation())
+                                .resize(100, 100)
+                                .into(profile);
+//                        profile.setProfileId(json.getString("id"));
                         facebookUsername.setText(json.getString("name"));
                     }
 
