@@ -100,7 +100,7 @@ public class MainActivity extends Activity {
             }
         });
         Picasso.with(MainActivity.this)
-                .load(R.drawable.left_menu_ten_tai_khoan)
+                .load(R.drawable.ic_usersvg)
                 .into(profile);
         Button btnLogin = findViewById(R.id.btn_login);
         Button btnRegister = findViewById(R.id.btn_register);
@@ -143,7 +143,7 @@ public class MainActivity extends Activity {
                 LoginManager.getInstance().logOut();
 //                profile.setProfileId(null);
                 Picasso.with(MainActivity.this)
-                        .load(R.drawable.left_menu_ten_tai_khoan)
+                        .load(R.drawable.user)
                         .into(profile);
                 facebookUsername.setText("Tên tài khoản");
                 Toast bread = Toast.makeText(getApplicationContext(),"Đăng xuất thành công",Toast.LENGTH_SHORT);

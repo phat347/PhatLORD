@@ -145,8 +145,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="7pt"
-                android:gravity="center_vertical"
-                android:layout_marginStart="20dp"
+                android:gravity="center"
                 />
         </LinearLayout>
         <LinearLayout
@@ -172,8 +171,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/gray"
                 android:textSize="7pt"
-                android:gravity="center_vertical"
-                android:layout_marginStart="20dp"
+                android:gravity="center"
                 />
         </LinearLayout>
 
