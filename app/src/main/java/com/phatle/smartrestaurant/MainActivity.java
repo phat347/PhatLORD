@@ -33,6 +33,14 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.ProfilePictureView;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.tasks.Task;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -47,12 +55,15 @@ public class MainActivity extends Activity {
     ImageView profile;
     TextView facebookUsername;
     CallbackManager callbackManager;
+    GoogleSignInClient mGoogleSignInClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         callbackManager = CallbackManager.Factory.create();
-
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -68,8 +79,16 @@ public class MainActivity extends Activity {
         final TextInputEditText etUser= findViewById(R.id.et_user);
         final TextInputEditText etPass= findViewById(R.id.et_pass);
         TextView facebookLogin = findViewById(R.id.facebook_login);
+
         profile = findViewById(R.id.picture);
         facebookUsername = findViewById(R.id.facebook_username);
+        TextView googleLogin = findViewById(R.id.google_login);
+        googleLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
+            }
+        });
         if(AccessToken.getCurrentAccessToken() != null){
             RequestData();
         }
@@ -100,7 +119,7 @@ public class MainActivity extends Activity {
             }
         });
         Picasso.with(MainActivity.this)
-                .load(R.drawable.ic_usersvg)
+                .load(R.drawable.user)
                 .into(profile);
         Button btnLogin = findViewById(R.id.btn_login);
         Button btnRegister = findViewById(R.id.btn_register);
@@ -141,6 +160,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 LoginManager.getInstance().logOut();
+                signOut();
 //                profile.setProfileId(null);
                 Picasso.with(MainActivity.this)
                         .load(R.drawable.user)
@@ -156,6 +176,40 @@ public class MainActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 123) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+    private void handleSignInResult(GoogleSignInResult result) {
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+
+
+            String personName = acct.getDisplayName();
+            String personPhotoUrl = acct.getPhotoUrl().toString();
+            String email = acct.getEmail();
+            Picasso.with(MainActivity.this)
+                    .load(personPhotoUrl) //extract as User instance method
+                    .transform(new CropCircleTransformation())
+                    .resize(100, 100)
+                    .into(profile);
+//                        profile.setProfileId(json.getString("id"));
+            facebookUsername.setText(personName);
+            Toast bread = Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_SHORT);
+            bread.show();
+
+        }
+    }
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, 123);
+    }
+    private void signOut() {
+        mGoogleSignInClient.signOut();
     }
     public void RequestData(){
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
