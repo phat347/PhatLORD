@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "807796449624",
+    "firebase_url": "https://smartrestaurant-1538460956308.firebaseio.com",
+    "project_id": "smartrestaurant-1538460956308",
+    "storage_bucket": "smartrestaurant-1538460956308.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807796449624:android:ab09e71a5c4e1c05",
+        "android_client_info": {
+          "package_name": "com.phatle.smartrestaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807796449624-c1br5hamavpq6r6b298vhd3u4vtm48q4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.phatle.smartrestaurant",
+            "certificate_hash": "6968e7dab7fbd6f841b40a8280833c1dff964fc1"
+          }
+        },
+        {
+          "client_id": "807796449624-h8p1uibncu0hc2p71d5gue2lv2jkhg27.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ4ZtabsdQC39yo1GLbedOSPTJ6E1rxiI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807796449624-h8p1uibncu0hc2p71d5gue2lv2jkhg27.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

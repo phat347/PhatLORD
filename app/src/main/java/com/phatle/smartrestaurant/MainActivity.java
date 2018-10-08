@@ -168,6 +168,8 @@ public class MainActivity extends Activity {
                 facebookUsername.setText("Tên tài khoản");
                 Toast bread = Toast.makeText(getApplicationContext(),"Đăng xuất thành công",Toast.LENGTH_SHORT);
                 bread.show();
+                Intent register = new Intent(MainActivity.this,RegisterActivity.class);
+                startActivity(register);
 
             }
         });
