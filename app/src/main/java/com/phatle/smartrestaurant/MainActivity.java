@@ -80,8 +80,6 @@ public class MainActivity extends Activity {
         final List<String> permissionNeeds= Arrays.asList("user_photos", "email", "user_birthday", "user_friends");
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-
-
         final TextInputLayout textInputLayoutPassword= findViewById(R.id.etPasswordLayout);
         final TextInputLayout textInputLayoutUsername= findViewById(R.id.etUsernameLayout);
         final TextInputEditText etUser= findViewById(R.id.et_user);
@@ -202,10 +200,16 @@ public class MainActivity extends Activity {
 //                Toast bread = Toast.makeText(getApplicationContext(),"Đăng xuất thành công",Toast.LENGTH_SHORT);
 //                bread.show();
                 Intent register = new Intent(MainActivity.this,RegisterActivity.class);
-                startActivity(register);
+                startActivityForResult(register,456);
 
             }
         });
+    }
+    private void UpdateUI(String email, String pass){
+        TextInputEditText etUser= findViewById(R.id.et_user);
+        TextInputEditText etPass= findViewById(R.id.et_pass);
+        etUser.setText(email);
+        etPass.setText(pass);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -216,6 +220,17 @@ public class MainActivity extends Activity {
             // a listener.
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
+        }
+        if (requestCode == 456)
+        {
+            if(resultCode == Activity.RESULT_OK) {
+            // Nhận dữ liệu từ Intent trả về
+             String resultEmail = data.getStringExtra("IntentEmail");
+             String resultPass = data.getStringExtra("IntentPassword");
+             UpdateUI(resultEmail,resultPass);
+        } else {
+            // DetailActivity không thành công, không có data trả về.
+        }
         }
     }
     private void handleSignInResult(GoogleSignInResult result) {

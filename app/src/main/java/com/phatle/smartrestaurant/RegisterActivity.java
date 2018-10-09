@@ -1,5 +1,6 @@
 package com.phatle.smartrestaurant;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -78,11 +79,16 @@ public class RegisterActivity extends AppCompatActivity {
         }
         return isValid;
     }
+    @Override
+    public void onBackPressed() {
+        setResult(Activity.RESULT_CANCELED);
+        super.onBackPressed();
+    }
     private void registerUser() {
         final String username = etUser.getText().toString();
-        String password = etPass.getText().toString();
+        final String password = etPass.getText().toString();
         String passwordConfirm = etPassConfirm.getText().toString();
-        String email = etEmail.getText().toString();
+        final String email = etEmail.getText().toString();
         boolean valid= true;
         if (TextUtils.isEmpty(username))
         {
@@ -155,6 +161,10 @@ public class RegisterActivity extends AppCompatActivity {
                                 user.updateProfile(profileUpdate);
                                 Toast bread = Toast.makeText(getApplicationContext(),"Đăng ký thành công",Toast.LENGTH_SHORT);
                                 bread.show();
+                                Intent data = new Intent();
+                                data.putExtra("IntentEmail",email);
+                                data.putExtra("IntentPassword",password);
+                                setResult(Activity.RESULT_OK,data);
                                 finish();
                             }
                             else {
