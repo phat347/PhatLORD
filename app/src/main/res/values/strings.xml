@@ -3,9 +3,8 @@
     <string name="facebook_app_id">1099750763508336</string>
     <string name="fb_login_protocol_scheme">fb1099750763508336</string>
     <string name="textViewUsername">Tên tài khoản</string>
-    <string name="username">Tên tài khoản</string>
     <string name="password">Mật khẩu</string>
-    <string name="confirm_password">Nhập lại mật khẫu</string>
+    <string name="confirm_password">Nhập lại mật khẩu</string>
     <string name="register">Đăng ký</string>
     <string name="email">Email</string>
 </resources>

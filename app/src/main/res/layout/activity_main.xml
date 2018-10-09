@@ -48,13 +48,14 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
                     android:textColorHint="@color/gray"
-                    android:hint="@string/username"
+                    android:hint="@string/email"
                     android:textSize="10pt"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:inputType="textEmailAddress"/>
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
@@ -103,7 +104,7 @@
                 android:id="@+id/btn_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Đăng xuất"
+                android:text="Đăng ký"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/white"

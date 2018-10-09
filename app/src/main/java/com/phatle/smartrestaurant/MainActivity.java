@@ -3,6 +3,7 @@ package com.phatle.smartrestaurant;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -40,7 +41,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -49,6 +53,8 @@ import org.w3c.dom.Text;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends Activity {
@@ -56,9 +62,11 @@ public class MainActivity extends Activity {
     TextView facebookUsername;
     CallbackManager callbackManager;
     GoogleSignInClient mGoogleSignInClient;
+    private FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
         callbackManager = CallbackManager.Factory.create();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -104,6 +112,9 @@ public class MainActivity extends Activity {
                                 Toast bread = Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_SHORT);
                                 bread.show();
                                 RequestData();
+                                Intent profile = new Intent(MainActivity.this,ProfileActivity.class);
+                                startActivity(profile);
+                                finish();
                             }
 
                             @Override
@@ -123,36 +134,58 @@ public class MainActivity extends Activity {
                 .into(profile);
         Button btnLogin = findViewById(R.id.btn_login);
         Button btnRegister = findViewById(R.id.btn_register);
-        etUser.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (etPass.getText().toString().length() == 0) {
+                String email = etUser.getText().toString();
+                String pass = etPass.getText().toString();
+                    boolean valid = true;
+                if (pass.length() == 0) {
                     textInputLayoutPassword.setError("Vui lòng nhập mật khẩu");
+                    valid = false;
                 }
                 else
                     textInputLayoutPassword.setError(null);
-                if (etUser.getText().toString().length() == 0) {
-                    textInputLayoutUsername.setError("Vui lòng nhập tên tài khoản");
+                if (email.length() == 0) {
+                    textInputLayoutUsername.setError("Vui lòng nhập email");
+                    valid = false;
                 }
                 else
                     textInputLayoutUsername.setError(null);
+                if (pass.length()<6 && pass.length()>0)
+                {
+                    textInputLayoutPassword.setError("Mật khẩu phải có ít nhất 6 ký tự");
+                    valid = false;
+                }else
+                textInputLayoutUsername.setError(null);
+                if(!isValidEmail(email))
+                {
+                    textInputLayoutUsername.setError("Email không hợp lệ");
+                    valid = false;
+                }else
+                    textInputLayoutUsername.setError(null);
+                if(valid)
+                {
+                    auth.signInWithEmailAndPassword(email,pass)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful())
+                                    {
+                                        // Start activity
+                                        Intent profile = new Intent(MainActivity.this,ProfileActivity.class);
+                                        startActivity(profile);
+                                        finish();
+                                        Toast bread = Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_SHORT);
+                                        bread.show();
+                                    }
+                                    else {
+                                        // Sai mk
+                                        textInputLayoutPassword.setError("Mật khẩu hoặc email sai");
+                                    }
+                                }
+                            });
+                }
 
             }
         });
@@ -166,8 +199,8 @@ public class MainActivity extends Activity {
                         .load(R.drawable.user)
                         .into(profile);
                 facebookUsername.setText("Tên tài khoản");
-                Toast bread = Toast.makeText(getApplicationContext(),"Đăng xuất thành công",Toast.LENGTH_SHORT);
-                bread.show();
+//                Toast bread = Toast.makeText(getApplicationContext(),"Đăng xuất thành công",Toast.LENGTH_SHORT);
+//                bread.show();
                 Intent register = new Intent(MainActivity.this,RegisterActivity.class);
                 startActivity(register);
 
@@ -203,8 +236,27 @@ public class MainActivity extends Activity {
             facebookUsername.setText(personName);
             Toast bread = Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_SHORT);
             bread.show();
+            Intent profile = new Intent(MainActivity.this,ProfileActivity.class);
+            profile.putExtra("Username",personName);
+            profile.putExtra("PhotoURL",personPhotoUrl);
+            startActivity(profile);
+            finish();
 
         }
+    }
+    public static boolean isValidEmail(String str) {
+        boolean isValid = false;
+        if (Build.VERSION.SDK_INT >= 8) {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(str).matches();
+        }
+        String expression = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        CharSequence inputStr = str;
+        Pattern pattern = Pattern.compile(expression);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
     }
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();

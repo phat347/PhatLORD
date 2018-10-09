@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border"
                 android:textColorHint="@color/gray"
-                android:hint="@string/username"
+                android:hint="@string/textViewUsername"
                 android:textSize="10pt"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"

@@ -3,6 +3,8 @@ package com.phatle.smartrestaurant;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +16,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_register);
+        progressDialog = new ProgressDialog(this);
         textInputLayoutPassword= findViewById(R.id.etPasswordLayout);
         textInputLayoutUsername= findViewById(R.id.etUsernameLayout);
         textInputLayoutConfirm= findViewById(R.id.etPasswordLayoutConfirm);
@@ -71,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
         return isValid;
     }
     private void registerUser() {
-        String username = etUser.getText().toString();
+        final String username = etUser.getText().toString();
         String password = etPass.getText().toString();
         String passwordConfirm = etPassConfirm.getText().toString();
         String email = etEmail.getText().toString();
@@ -129,8 +137,33 @@ public class RegisterActivity extends AppCompatActivity {
             textInputLayoutEmail.setError(null);
         }
         if(valid){
-            Toast bread = Toast.makeText(getApplicationContext(),"Đăng ký thành công",Toast.LENGTH_SHORT);
-            bread.show();
+//            Toast bread = Toast.makeText(getApplicationContext(),"Đăng ký thành công",Toast.LENGTH_SHORT);
+//            bread.show();
+            progressDialog.setMessage("Đang đăng ký tài khoản...");
+            progressDialog.show();
+
+            auth.createUserWithEmailAndPassword(email,password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful())
+                            {
+                                FirebaseUser user = auth.getCurrentUser();
+
+                                UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(username).build();
+                                user.updateProfile(profileUpdate);
+                                Toast bread = Toast.makeText(getApplicationContext(),"Đăng ký thành công",Toast.LENGTH_SHORT);
+                                bread.show();
+                                finish();
+                            }
+                            else {
+                                Toast bread = Toast.makeText(getApplicationContext(),"Email đã được sử dụng",Toast.LENGTH_SHORT);
+                                bread.show();
+                                progressDialog.dismiss();
+                            }
+                        }
+                    });
         }
 
     }
