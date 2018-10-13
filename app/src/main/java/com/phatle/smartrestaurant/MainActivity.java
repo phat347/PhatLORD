@@ -84,6 +84,7 @@ public class MainActivity extends Activity {
         final TextInputLayout textInputLayoutUsername= findViewById(R.id.etUsernameLayout);
         final TextInputEditText etUser= findViewById(R.id.et_user);
         final TextInputEditText etPass= findViewById(R.id.et_pass);
+        textInputLayoutPassword.setError(null);
         TextView facebookLogin = findViewById(R.id.facebook_login);
 
         profile = findViewById(R.id.picture);
@@ -144,23 +145,22 @@ public class MainActivity extends Activity {
                 }
                 else
                     textInputLayoutPassword.setError(null);
-                if (email.length() == 0) {
-                    textInputLayoutUsername.setError("Vui lòng nhập email");
-                    valid = false;
-                }
-                else
-                    textInputLayoutUsername.setError(null);
                 if (pass.length()<6 && pass.length()>0)
                 {
                     textInputLayoutPassword.setError("Mật khẩu phải có ít nhất 6 ký tự");
                     valid = false;
                 }else
                 textInputLayoutUsername.setError(null);
-                if(!isValidEmail(email))
+                if(!isValidEmail(email) && !TextUtils.isEmpty(email))
                 {
                     textInputLayoutUsername.setError("Email không hợp lệ");
                     valid = false;
-                }else
+                }else if (TextUtils.isEmpty(email))
+                {
+                    textInputLayoutUsername.setError("Vui lòng nhập email");
+                    valid = false;
+                }
+                else
                     textInputLayoutUsername.setError(null);
                 if(valid)
                 {
@@ -171,6 +171,7 @@ public class MainActivity extends Activity {
                                     if (task.isSuccessful())
                                     {
                                         // Start activity
+                                        textInputLayoutPassword.setError(null);
                                         Intent profile = new Intent(MainActivity.this,ProfileActivity.class);
                                         startActivity(profile);
                                         finish();
@@ -229,7 +230,8 @@ public class MainActivity extends Activity {
              String resultPass = data.getStringExtra("IntentPassword");
              UpdateUI(resultEmail,resultPass);
         } else {
-            // DetailActivity không thành công, không có data trả về.
+                TextInputLayout textInputLayoutPassword= findViewById(R.id.etPasswordLayout);
+                textInputLayoutPassword.setError(null);
         }
         }
     }

@@ -127,16 +127,14 @@ public class RegisterActivity extends AppCompatActivity {
             textInputLayoutConfirm.setError(null);
 
         }
-        if (TextUtils.isEmpty(email))
-        {
-            textInputLayoutEmail.setError("Vui lòng nhập Email");
-            valid = false;
-        }else {
-            textInputLayoutEmail.setError(null);
-        }
-        if(!isValidEmail(email))
+        if(!isValidEmail(email) && !TextUtils.isEmpty(email))
         {
             textInputLayoutEmail.setError("Email không hợp lệ");
+            valid = false;
+        }
+        else if (TextUtils.isEmpty(email))
+        {
+            textInputLayoutEmail.setError("Vui lòng nhập Email");
             valid = false;
         }
         else {
