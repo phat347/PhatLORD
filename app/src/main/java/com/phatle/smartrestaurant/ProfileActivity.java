@@ -36,23 +36,20 @@ public class ProfileActivity extends AppCompatActivity {
     Button btnLogout;
     String IntentUsername;
     String IntentPhotoURL;
+    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        mDrawerLayout = findViewById(R.id.drawer_layout);
+
+
         callbackManager = CallbackManager.Factory.create();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         auth = FirebaseAuth.getInstance();
-        profile = findViewById(R.id.picture);
-        username = findViewById(R.id.facebook_username);
-        Picasso.with(ProfileActivity.this)
-                .load(R.drawable.user)
-                .into(profile);
-        username.setText("Tên tài khoản");
+        setUpUImenu();
         FirebaseUser user = auth.getCurrentUser();
         if(user != null)
         {
@@ -61,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
         if(AccessToken.getCurrentAccessToken() != null){
             RequestData();
         }
+
         Intent intent = ProfileActivity.this.getIntent();
         IntentPhotoURL = intent.getStringExtra("PhotoURL");
         IntentUsername = intent.getStringExtra("Username");
@@ -89,7 +87,12 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-        NavigationView navigationView = findViewById(R.id.nav_view);
+
+
+
+    }
+    public void setUpUImenu(){
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -98,14 +101,28 @@ public class ProfileActivity extends AppCompatActivity {
                         menuItem.setChecked(true);
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
+                        if (menuItem.getItemId() == R.id.nav_logout) {
+                            signOut();
+                            LoginManager.getInstance().logOut();
+                            auth.signOut();
+                            Intent backtoLogin = new Intent(ProfileActivity.this,MainActivity.class);
+                            startActivity(backtoLogin);
+                            finish();
 
+                        }
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
 
                         return true;
                     }
                 });
-
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        View headerMenuLayout = navigationView.getHeaderView(0);
+        username = headerMenuLayout.findViewById(R.id.tv_username);
+        profile = headerMenuLayout.findViewById(R.id.picture);
+        Picasso.with(ProfileActivity.this)
+                .load(R.drawable.user)
+                .into(profile);
     }
     private void signOut() {
         mGoogleSignInClient.signOut();
