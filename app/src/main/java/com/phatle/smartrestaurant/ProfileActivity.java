@@ -1,6 +1,7 @@
 package com.phatle.smartrestaurant;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,6 @@ public class ProfileActivity extends AppCompatActivity {
     CallbackManager callbackManager;
     ImageView profile;
     TextView username;
-    Button btnLogout;
     String IntentUsername;
     String IntentPhotoURL;
     NavigationView navigationView;
@@ -74,22 +74,6 @@ public class ProfileActivity extends AppCompatActivity {
                     .resize(100, 100)
                     .into(profile);
         }
-        btnLogout = findViewById(R.id.btn_logout);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signOut();
-                LoginManager.getInstance().logOut();
-                auth.signOut();
-                Intent backtoLogin = new Intent(ProfileActivity.this,MainActivity.class);
-                startActivity(backtoLogin);
-                finish();
-
-            }
-        });
-
-
-
     }
     public void setUpUImenu(){
         navigationView = findViewById(R.id.nav_view);
@@ -119,6 +103,9 @@ public class ProfileActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         View headerMenuLayout = navigationView.getHeaderView(0);
         username = headerMenuLayout.findViewById(R.id.tv_username);
+        Typeface face = Typeface.createFromAsset(getAssets(),
+                "fonts/open_sans_regular.ttf");
+        username.setTypeface(face);
         profile = headerMenuLayout.findViewById(R.id.picture);
         Picasso.with(ProfileActivity.this)
                 .load(R.drawable.user)

@@ -3,6 +3,7 @@ package com.phatle.smartrestaurant;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -58,8 +59,7 @@ import java.util.regex.Pattern;
 
 
 public class MainActivity extends Activity {
-    ImageView profile;
-    TextView facebookUsername;
+    TextView appName;
     CallbackManager callbackManager;
     GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth auth;
@@ -87,8 +87,11 @@ public class MainActivity extends Activity {
         textInputLayoutPassword.setError(null);
         TextView facebookLogin = findViewById(R.id.facebook_login);
 
-        profile = findViewById(R.id.picture);
-        facebookUsername = findViewById(R.id.facebook_username);
+//        profile = findViewById(R.id.picture);
+        appName = findViewById(R.id.facebook_username);
+        Typeface face = Typeface.createFromAsset(getAssets(),
+                "fonts/open_sans_regular.ttf");
+        appName.setTypeface(face);
         TextView googleLogin = findViewById(R.id.google_login);
         googleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,9 +99,9 @@ public class MainActivity extends Activity {
                 signIn();
             }
         });
-        if(AccessToken.getCurrentAccessToken() != null){
-            RequestData();
-        }
+//        if(AccessToken.getCurrentAccessToken() != null){
+//            RequestData();
+//        }
         facebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,7 +113,7 @@ public class MainActivity extends Activity {
                                 // App code
                                 Toast bread = Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_SHORT);
                                 bread.show();
-                                RequestData();
+//                                RequestData();
                                 Intent profile = new Intent(MainActivity.this,ProfileActivity.class);
                                 startActivity(profile);
                                 finish();
@@ -128,9 +131,7 @@ public class MainActivity extends Activity {
                         });
             }
         });
-        Picasso.with(MainActivity.this)
-                .load(R.drawable.user)
-                .into(profile);
+
         Button btnLogin = findViewById(R.id.btn_login);
         Button btnRegister = findViewById(R.id.btn_register);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -194,10 +195,6 @@ public class MainActivity extends Activity {
                 LoginManager.getInstance().logOut();
                 signOut();
 //                profile.setProfileId(null);
-                Picasso.with(MainActivity.this)
-                        .load(R.drawable.user)
-                        .into(profile);
-                facebookUsername.setText("Tên tài khoản");
 //                Toast bread = Toast.makeText(getApplicationContext(),"Đăng xuất thành công",Toast.LENGTH_SHORT);
 //                bread.show();
                 Intent register = new Intent(MainActivity.this,RegisterActivity.class);
@@ -244,13 +241,6 @@ public class MainActivity extends Activity {
             String personName = acct.getDisplayName();
             String personPhotoUrl = acct.getPhotoUrl().toString();
             String email = acct.getEmail();
-            Picasso.with(MainActivity.this)
-                    .load(personPhotoUrl) //extract as User instance method
-                    .transform(new CropCircleTransformation())
-                    .resize(100, 100)
-                    .into(profile);
-//                        profile.setProfileId(json.getString("id"));
-            facebookUsername.setText(personName);
             Toast bread = Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_SHORT);
             bread.show();
             Intent profile = new Intent(MainActivity.this,ProfileActivity.class);
@@ -282,33 +272,33 @@ public class MainActivity extends Activity {
     private void signOut() {
         mGoogleSignInClient.signOut();
     }
-    public void RequestData(){
-        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-            @Override
-            public void onCompleted(JSONObject object, GraphResponse response) {
-
-                JSONObject json = response.getJSONObject();
-                try {
-                    if(json != null){
-
-
-                        Picasso.with(MainActivity.this)
-                                .load("https://graph.facebook.com/v2.2/" + json.getString("id") + "/picture?height=120&type=normal") //extract as User instance method
-                                .transform(new CropCircleTransformation())
-                                .resize(100, 100)
-                                .into(profile);
-//                        profile.setProfileId(json.getString("id"));
-                        facebookUsername.setText(json.getString("name"));
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,link,email,picture");
-        request.setParameters(parameters);
-        request.executeAsync();
-    }
+//    public void RequestData(){
+//        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+//            @Override
+//            public void onCompleted(JSONObject object, GraphResponse response) {
+//
+//                JSONObject json = response.getJSONObject();
+//                try {
+//                    if(json != null){
+//
+//
+//                        Picasso.with(MainActivity.this)
+//                                .load("https://graph.facebook.com/v2.2/" + json.getString("id") + "/picture?height=120&type=normal") //extract as User instance method
+//                                .transform(new CropCircleTransformation())
+//                                .resize(100, 100)
+//                                .into(profile);
+////                        profile.setProfileId(json.getString("id"));
+//                        facebookUsername.setText(json.getString("name"));
+//                    }
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        Bundle parameters = new Bundle();
+//        parameters.putString("fields", "id,name,link,email,picture");
+//        request.setParameters(parameters);
+//        request.executeAsync();
+//    }
 }
