@@ -3,7 +3,6 @@
     android:layout_height="192dp"
     android:background="@color/tomato"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
     android:gravity="bottom">
     <ImageView
@@ -18,12 +17,14 @@
         android:layout_height="wrap_content"
         android:text="@string/textViewUsername"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:textSize="10pt"/>
     <TextView
         android:id="@+id/tv_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/email"
+        android:textColor="@color/white"
         android:textSize="8pt"/>
 
 </LinearLayout>
