@@ -3,6 +3,7 @@ package com.phatle.smartrestaurant;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -104,6 +105,13 @@ public class ProfileActivity extends AppCompatActivity {
                 mList.remove(position);
                 mAdapter.notifyItemRemoved(position);
                 mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
+            }
+
+            @Override
+            public void onLeftClicked(int position) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + mList.get(position).getPhoneNumber()));
+                startActivity(intent);
             }
         });
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
