@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -48,7 +47,9 @@ public class ProfileActivity extends AppCompatActivity {
     String IntentPhotoURL;
     NavigationView navigationView;
     private List<UserContact> mList = new ArrayList<>();
+    private List<DrawerItem> mListMenu = new ArrayList<>();
     private UserContactAdapter mAdapter;
+    private DrawerItemAdapter mAdapterMenu;
     SwipeController swipeController = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,36 +159,75 @@ public class ProfileActivity extends AppCompatActivity {
     }
     public void setUpUImenu(){
         navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-                        // close drawer when item is tapped
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+//        navigationView.setNavigationItemSelectedListener(
+//                new NavigationView.OnNavigationItemSelectedListener() {
+//                    @Override
+//                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+//                        // set item as selected to persist highlight
+//                        menuItem.setChecked(true);
+//                        // close drawer when item is tapped
+//                        mDrawerLayout.closeDrawers();
+//                        if (menuItem.getItemId() == R.id.nav_logout) {
+//                            signOut();
+//                            LoginManager.getInstance().logOut();
+//                            auth.signOut();
+//                            Intent backtoLogin = new Intent(ProfileActivity.this,MainActivity.class);
+//                            startActivity(backtoLogin);
+//                            finish();
+//
+//                        }
+//                        // Add code here to update the UI based on the item selected
+//                        // For example, swap UI fragments here
+//
+//                        return true;
+//                    }
+//                });
+        mListMenu.add(new DrawerItem("Item1",R.drawable.power_signal));
+        mListMenu.add(new DrawerItem("Item2",R.drawable.power_signal));
+        mListMenu.add(new DrawerItem("Item3",R.drawable.power_signal));
+        mListMenu.add(new DrawerItem("Đăng xuất",R.drawable.power_signal));
+
+        mAdapterMenu = new DrawerItemAdapter(mListMenu);
+
+        RecyclerView recyclerView = mDrawerLayout.findViewById(R.id.list_menu_nav);
+        recyclerView.setAdapter(mAdapterMenu);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        Button btnLogout = mDrawerLayout.findViewById(R.id.btn_logout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 //close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
-                        if (menuItem.getItemId() == R.id.nav_logout) {
                             signOut();
                             LoginManager.getInstance().logOut();
                             auth.signOut();
                             Intent backtoLogin = new Intent(ProfileActivity.this,MainActivity.class);
                             startActivity(backtoLogin);
                             finish();
-
-                        }
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
-
-                        return true;
-                    }
-                });
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        View headerMenuLayout = navigationView.getHeaderView(0);
-        username = headerMenuLayout.findViewById(R.id.tv_username);
+            }
+        });
+        mAdapterMenu.setListener(new DrawerItemAdapter.InterfaceItemClick() {
+            @Override
+            public void onItemClick(DrawerItem drawerItem) {
+                if(drawerItem.getItemName().equals("Đăng xuất"))
+                {
+                    mDrawerLayout.closeDrawers();
+                    signOut();
+                    LoginManager.getInstance().logOut();
+                    auth.signOut();
+                    Intent backtoLogin = new Intent(ProfileActivity.this,MainActivity.class);
+                    startActivity(backtoLogin);
+                    finish();
+                }
+            }
+        });
+//        View headerMenuLayout = navigationView.getHeaderView(0);
+        username = mDrawerLayout.findViewById(R.id.tv_username);
         Typeface face = Typeface.createFromAsset(getAssets(),
                 "fonts/open_sans_regular.ttf");
         username.setTypeface(face);
-        profile = headerMenuLayout.findViewById(R.id.picture);
+        profile = mDrawerLayout.findViewById(R.id.picture);
         Picasso.with(ProfileActivity.this)
                 .load(R.drawable.user)
                 .into(profile);
