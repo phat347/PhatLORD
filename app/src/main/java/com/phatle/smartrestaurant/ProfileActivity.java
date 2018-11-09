@@ -1,9 +1,11 @@
 package com.phatle.smartrestaurant;
 
+
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +13,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -271,4 +275,32 @@ public class ProfileActivity extends AppCompatActivity {
             return a.name.compareTo(b.name);
         }
     }
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(Gravity.START)) {
+            mDrawerLayout.closeDrawer(Gravity.START);
+            return;
+        }
+        if(1==1) {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Nhấn back để thoát", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+            return;
+        }
+
+        super.onBackPressed();
+    }
+
 }

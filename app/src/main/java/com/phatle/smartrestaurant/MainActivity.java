@@ -1,9 +1,12 @@
 package com.phatle.smartrestaurant;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -93,6 +96,9 @@ public class MainActivity extends Activity {
                 "fonts/open_sans_regular.ttf");
         appName.setTypeface(face);
         TextView googleLogin = findViewById(R.id.google_login);
+
+        checkNetWork();
+
         googleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,6 +277,29 @@ public class MainActivity extends Activity {
     }
     private void signOut() {
         mGoogleSignInClient.signOut();
+    }
+    public void checkNetWork()
+    {
+
+        if (!isOnline(this))
+        {
+            showNetworkAlert(this, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    checkNetWork();
+                }
+            });
+        }
+    }
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+    public static void showNetworkAlert(Context context, View.OnClickListener tryAgainClickListener) {
+        ErrorDialog dialog = new ErrorDialog(context, "Bạn đang ngoại tuyến!", "Vui lòng kiểm tra kết nối Internet của bạn và thử lại");
+        dialog.setupOkButton("Thử lại", tryAgainClickListener);
+        dialog.show();
     }
 //    public void RequestData(){
 //        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
