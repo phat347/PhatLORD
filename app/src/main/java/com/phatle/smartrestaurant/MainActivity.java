@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
@@ -300,6 +301,7 @@ public class MainActivity extends Activity {
         ErrorDialog dialog = new ErrorDialog(context, "Bạn đang ngoại tuyến!", "Vui lòng kiểm tra kết nối Internet của bạn và thử lại");
         dialog.setupOkButton("Thử lại", tryAgainClickListener);
         dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
     }
 //    public void RequestData(){
 //        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -330,4 +332,28 @@ public class MainActivity extends Activity {
 //        request.setParameters(parameters);
 //        request.executeAsync();
 //    }
+boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+
+        if(1==1) {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Nhấn back để thoát", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+            return;
+        }
+
+        super.onBackPressed();
+    }
 }

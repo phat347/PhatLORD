@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class ErrorDialog extends Dialog implements View.OnClickListener{
@@ -18,7 +19,7 @@ public class ErrorDialog extends Dialog implements View.OnClickListener{
         setupDialogSize();
         ((TextView) findViewById(R.id.tv_title)).setText(title);
         ((TextView) findViewById(R.id.tv_message)).setText(message);
-        mBtnClose = (TextView) findViewById(R.id.btn_close);
+        mBtnClose = findViewById(R.id.btn_close);
         mBtnClose.setOnClickListener(this);
     }
 
@@ -31,7 +32,7 @@ public class ErrorDialog extends Dialog implements View.OnClickListener{
     }
 
     public void setupOkButton(String label, final View.OnClickListener listener) {
-        TextView tv = (TextView) findViewById(R.id.btn_ok);
+        Button tv = findViewById(R.id.btn_ok);
         tv.setText(label);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
