@@ -22,6 +22,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -67,6 +68,7 @@ public class MainActivity extends Activity {
     CallbackManager callbackManager;
     GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth auth;
+    LinearLayout container;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +92,13 @@ public class MainActivity extends Activity {
         final TextInputEditText etPass= findViewById(R.id.et_pass);
         textInputLayoutPassword.setError(null);
         TextView facebookLogin = findViewById(R.id.facebook_login);
-
+        container = findViewById(R.id.container);
+        container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard(getApplicationContext(),view);
+            }
+        });
 //        profile = findViewById(R.id.picture);
         appName = findViewById(R.id.facebook_username);
         Typeface face = Typeface.createFromAsset(getAssets(),
@@ -246,7 +254,13 @@ public class MainActivity extends Activity {
 
 
             String personName = acct.getDisplayName();
-            String personPhotoUrl = acct.getPhotoUrl().toString();
+            String personPhotoUrl;
+            if(acct.getPhotoUrl()!= null)
+            {
+                personPhotoUrl = acct.getPhotoUrl().toString();
+            }
+            else personPhotoUrl = "";
+
             String email = acct.getEmail();
             Toast bread = Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_SHORT);
             bread.show();
@@ -355,5 +369,9 @@ boolean doubleBackToExitPressedOnce = false;
         }
 
         super.onBackPressed();
+    }
+    public static void hideKeyboard(Context context, View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

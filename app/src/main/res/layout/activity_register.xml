@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:id="@+id/container">
 
     <TextView
         android:textAllCaps="true"

@@ -2,7 +2,10 @@ package com.phatle.smartrestaurant;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -13,7 +16,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
@@ -39,11 +44,13 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputLayout textInputLayoutEmail;
     private ProgressDialog progressDialog;
     private FirebaseAuth auth;
+    LinearLayout container;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_register);
+        checkNetWork();
         progressDialog = new ProgressDialog(this);
         textInputLayoutPassword= findViewById(R.id.etPasswordLayout);
         textInputLayoutUsername= findViewById(R.id.etUsernameLayout);
@@ -62,6 +69,13 @@ public class RegisterActivity extends AppCompatActivity {
 //                finish();
                 registerUser();
 
+            }
+        });
+        container = findViewById(R.id.container);
+        container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard(getApplicationContext(),view);
             }
         });
     }
@@ -174,5 +188,33 @@ public class RegisterActivity extends AppCompatActivity {
                     });
         }
 
+    }
+    public void checkNetWork()
+    {
+
+        if (!isOnline(this))
+        {
+            showNetworkAlert(this, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    checkNetWork();
+                }
+            });
+        }
+    }
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+    public static void showNetworkAlert(Context context, View.OnClickListener tryAgainClickListener) {
+        ErrorDialog dialog = new ErrorDialog(context, "Bạn đang ngoại tuyến!", "Vui lòng kiểm tra kết nối Internet của bạn và thử lại");
+        dialog.setupOkButton("Thử lại", tryAgainClickListener);
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+    }
+    public static void hideKeyboard(Context context, View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
