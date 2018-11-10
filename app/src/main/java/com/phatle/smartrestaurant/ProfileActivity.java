@@ -68,9 +68,9 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         toolbar = findViewById(R.id.toolbar);
-        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
+        final TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
 
-        mTitle.setText("Bottom Navigation");
+        mTitle.setText("UserContact");
 
         setupViewPager();
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
@@ -87,7 +87,20 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
 //                fragment.updateColor(ContextCompat.getColor(MainActivity.this, colors[position]));
+                switch (position){
+                    case 0:
+                        mTitle.setText("UserContact");
+                        break;
+                    case 1:
+                        mTitle.setText("Test");
+                        break;
+                    case 2:
+                        mTitle.setText("Test2");
+                        break;
+                    default:
+                        break;
 
+                }
                 if (!wasSelected)
                     viewPager.setCurrentItem(position);
 

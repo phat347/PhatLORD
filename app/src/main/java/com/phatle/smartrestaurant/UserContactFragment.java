@@ -32,8 +32,8 @@ public class UserContactFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_contact, container, false);
-
-
+//        TextView mTitle = ((ProfileActivity) getActivity()).findViewById(R.id.toolbar_title);
+//        mTitle.setText("UserContact");
 
         mList.add(new UserContact("An","1111111111111"));
         mList.add(new UserContact("Anh","22222222222"));
