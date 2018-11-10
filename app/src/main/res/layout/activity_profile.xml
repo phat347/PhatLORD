@@ -14,16 +14,62 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_gravity="center">
+        >
 
-<android.support.v7.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/recycler_view">
+        <android.support.design.widget.CoordinatorLayout
 
-</android.support.v7.widget.RecyclerView>
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/tomato"
+                    app:layout_scrollFlags="scroll|enterAlways">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Toolbar Title"
+                        android:layout_gravity="center"
+                        android:id="@+id/toolbar_title"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="8pt"/>
+
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <!--<FrameLayout-->
+            <!--android:id="@+id/frame"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+            <!--tools:background="#EFEFEF"/>-->
+
+            <com.phatle.smartrestaurant.NoSwipePager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:background="#EFEFEF"/>
+
+            <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"/>
+
+        </android.support.design.widget.CoordinatorLayout>
+
     </LinearLayout>
 </FrameLayout>
     <android.support.design.widget.NavigationView

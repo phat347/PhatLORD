@@ -2,9 +2,10 @@ package com.phatle.smartrestaurant;
 
 
 import android.content.Intent;
-import android.graphics.Canvas;
+
+import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
+
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -12,7 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import android.support.v7.widget.Toolbar;
+
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
@@ -36,8 +40,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -50,85 +53,47 @@ public class ProfileActivity extends AppCompatActivity {
     String IntentUsername;
     String IntentPhotoURL;
     NavigationView navigationView;
-    private List<UserContact> mList = new ArrayList<>();
     private List<DrawerItem> mListMenu = new ArrayList<>();
-    private UserContactAdapter mAdapter;
+
     private DrawerItemAdapter mAdapterMenu;
-    SwipeController swipeController = null;
+
+
+    private Toolbar toolbar;
+    private NoSwipePager viewPager;
+    private AHBottomNavigation bottomNavigation;
+    private BottomBarAdapter pagerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-//        mList.add(new UserContact("A"));
-        mList.add(new UserContact("An","1111111111111"));
-        mList.add(new UserContact("Anh","22222222222"));
-//        mList.add(new UserContact("B"));
-        mList.add(new UserContact("Bao","33333333333333"));
-        mList.add(new UserContact("Binh","44444444444"));
-//        mList.add(new UserContact("H"));
-        mList.add(new UserContact("Hong","55555555555555"));
-//        mList.add(new UserContact("M"));
-        mList.add(new UserContact("Minh","888888888888"));
-        mList.add(new UserContact("minh ","888888888888"));
-        mList.add(new UserContact("mẫn","888888888888"));
-        mList.add(new UserContact("mạnh","888888888888"));
-        mList.add(new UserContact("Aaa","888888888888"));
-        mList.add(new UserContact("hòa","888888888888"));
-        mList.add(new UserContact("YYY","888888888888"));
-        mList.add(new UserContact("ZZZZ","888888888888"));
-        mList.add(new UserContact("BBBBBBB","888888888888"));
 
-        //Convert first letter to uppercase
-        for (int i = 0; i < mList.size() ; i++) {
-            String cap = mList.get(i).getName().substring(0,1).toUpperCase() + mList.get(i).getName().substring(1);
-            mList.get(i).setName(cap);
-        }
-        //Sort list theo alphabet
-        Collections.sort(mList,new UserContactComparator());
+        toolbar = findViewById(R.id.toolbar);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
 
-        //Add vô alphabet list
-        String temp = "tmp";
-        for (int i = 0; i < mList.size(); i++) {
-            String mTemp = mList.get(i).getName().substring(0,1);
-            if(!mTemp.equals(temp))
-            {
-                mList.add(i,new UserContact(mTemp));
-                temp = mTemp;
-            }
-        }
+        mTitle.setText("Bottom Navigation");
+
+        setupViewPager();
+        bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
+        setupBottomNavBehaviors();
+        setupBottomNavStyle();
 
 
-        mAdapter = new UserContactAdapter(mList);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        addBottomNavigationItems();
+        bottomNavigation.setCurrentItem(0);
 
-        swipeController = new SwipeController(new SwipeControllerActions() {
+
+        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
-            public void onRightClicked(int position) {
-                mList.remove(position);
-                mAdapter.notifyItemRemoved(position);
-                mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
-            }
+            public boolean onTabSelected(int position, boolean wasSelected) {
+//                fragment.updateColor(ContextCompat.getColor(MainActivity.this, colors[position]));
 
-            @Override
-            public void onLeftClicked(int position) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + mList.get(position).getPhoneNumber()));
-                startActivity(intent);
+                if (!wasSelected)
+                    viewPager.setCurrentItem(position);
+
+                return true;
             }
         });
-        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
-        itemTouchhelper.attachToRecyclerView(recyclerView);
-
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-                swipeController.onDraw(c);
-            }
-        });
-
         callbackManager = CallbackManager.Factory.create();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -268,13 +233,69 @@ public class ProfileActivity extends AppCompatActivity {
         request.setParameters(parameters);
         request.executeAsync();
     }
-    private class UserContactComparator implements Comparator<UserContact>{
+    public void setupBottomNavBehaviors() {
+//        bottomNavigation.setBehaviorTranslationEnabled(false);
 
-        public int compare(UserContact a, UserContact b)
-        {
-            return a.name.compareTo(b.name);
-        }
+        /*
+        Before enabling this. Change MainActivity theme to MyTheme.TranslucentNavigation in
+        AndroidManifest.
+        Warning: Toolbar Clipping might occur. Solve this by wrapping it in a LinearLayout with a top
+        View of 24dp (status bar size) height.
+         */
+        bottomNavigation.setTranslucentNavigationEnabled(false);
     }
+
+    /**
+     * Adds styling properties to {@link AHBottomNavigation}
+     */
+    private void setupBottomNavStyle() {
+        /*
+        Set Bottom Navigation colors. Accent color for active item,
+        Inactive color when its view is disabled.
+        Will not be visible if setColored(true) and default current item is set.
+         */
+        bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.tomato));
+        bottomNavigation.setAccentColor(Color.WHITE);
+        bottomNavigation.setInactiveColor(getResources().getColor(R.color.red));
+
+
+        // Colors for selected (active) and non-selected items.
+//        bottomNavigation.setColoredModeColors(getResources().getColor(R.color.tomato),Color.WHITE);
+
+
+        //  Enables Reveal effect
+        bottomNavigation.setColored(false);
+
+        //  Displays item Title always (for selected and non-selected items)
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+    }
+
+
+    /**
+     * Adds (items) {@link AHBottomNavigationItem} to {@link AHBottomNavigation}
+     * Also assigns a distinct color to each Bottom Navigation item, used for the color ripple.
+     */
+    private void addBottomNavigationItems() {
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("tab1", R.drawable.ic_home_white_24dp);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("tab2", R.drawable.ic_home_white_24dp);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("tab3", R.drawable.ic_home_white_24dp);
+
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+        bottomNavigation.addItem(item3);
+    }
+    private void setupViewPager() {
+        viewPager = (NoSwipePager) findViewById(R.id.viewpager);
+        viewPager.setPagingEnabled(false);
+        pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
+        pagerAdapter.addFragments(new UserContactFragment());
+        pagerAdapter.addFragments(new FragmentTest());
+        pagerAdapter.addFragments(new FragmentTest());
+
+
+        viewPager.setAdapter(pagerAdapter);
+    }
+
     boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
