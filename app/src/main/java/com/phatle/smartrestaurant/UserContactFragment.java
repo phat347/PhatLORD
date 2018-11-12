@@ -13,9 +13,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -36,7 +33,7 @@ public class UserContactFragment extends Fragment{
 //        TextView mTitle = ((ProfileActivity) getActivity()).findViewById(R.id.toolbar_title);
 //        mTitle.setText("UserContact");
 
-        if(savedInstanceState == null) {
+            mList.clear();
             mList.add(new UserContact("An", "1111111111111"));
             mList.add(new UserContact("Anh", "22222222222"));
             mList.add(new UserContact("Bao", "33333333333333"));
@@ -69,8 +66,6 @@ public class UserContactFragment extends Fragment{
                     temp = mTemp;
                 }
             }
-        }
-
         mAdapter = new UserContactAdapter(mList);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
@@ -113,18 +108,4 @@ public class UserContactFragment extends Fragment{
         }
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-            // Restore last state for checked position.
-            savedInstanceState.getSerializable("mList");
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("mList", (Serializable) mList);
-    }
 }
