@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,40 +36,40 @@ public class UserContactFragment extends Fragment{
 //        TextView mTitle = ((ProfileActivity) getActivity()).findViewById(R.id.toolbar_title);
 //        mTitle.setText("UserContact");
 
-        mList.add(new UserContact("An","1111111111111"));
-        mList.add(new UserContact("Anh","22222222222"));
-        mList.add(new UserContact("Bao","33333333333333"));
-        mList.add(new UserContact("Binh","44444444444"));
-        mList.add(new UserContact("Hong","55555555555555"));
-        mList.add(new UserContact("Minh","888888888888"));
-        mList.add(new UserContact("minh ","888888888888"));
-        mList.add(new UserContact("mẫn","888888888888"));
-        mList.add(new UserContact("mạnh","888888888888"));
-        mList.add(new UserContact("Aaa","888888888888"));
-        mList.add(new UserContact("hòa","888888888888"));
-        mList.add(new UserContact("YYY","888888888888"));
-        mList.add(new UserContact("ZZZZ","888888888888"));
-        mList.add(new UserContact("BBBBBBB","888888888888"));
+        if(savedInstanceState == null) {
+            mList.add(new UserContact("An", "1111111111111"));
+            mList.add(new UserContact("Anh", "22222222222"));
+            mList.add(new UserContact("Bao", "33333333333333"));
+            mList.add(new UserContact("Binh", "44444444444"));
+            mList.add(new UserContact("Hong", "55555555555555"));
+            mList.add(new UserContact("Minh", "888888888888"));
+            mList.add(new UserContact("minh ", "888888888888"));
+            mList.add(new UserContact("mẫn", "888888888888"));
+            mList.add(new UserContact("mạnh", "888888888888"));
+            mList.add(new UserContact("Aaa", "888888888888"));
+            mList.add(new UserContact("hòa", "888888888888"));
+            mList.add(new UserContact("YYY", "888888888888"));
+            mList.add(new UserContact("ZZZZ", "888888888888"));
+            mList.add(new UserContact("BBBBBBB", "888888888888"));
 
-        //Convert first letter to uppercase
-        for (int i = 0; i < mList.size() ; i++) {
-            String cap = mList.get(i).getName().substring(0,1).toUpperCase() + mList.get(i).getName().substring(1);
-            mList.get(i).setName(cap);
-        }
-        //Sort list theo alphabet
-        Collections.sort(mList,new UserContactComparator());
+            //Convert first letter to uppercase
+            for (int i = 0; i < mList.size(); i++) {
+                String cap = mList.get(i).getName().substring(0, 1).toUpperCase() + mList.get(i).getName().substring(1);
+                mList.get(i).setName(cap);
+            }
+            //Sort list theo alphabet
+            Collections.sort(mList, new UserContactComparator());
 
-        //Add vô alphabet list
-        String temp = "tmp";
-        for (int i = 0; i < mList.size(); i++) {
-            String mTemp = mList.get(i).getName().substring(0,1);
-            if(!mTemp.equals(temp))
-            {
-                mList.add(i,new UserContact(mTemp));
-                temp = mTemp;
+            //Add vô alphabet list
+            String temp = "tmp";
+            for (int i = 0; i < mList.size(); i++) {
+                String mTemp = mList.get(i).getName().substring(0, 1);
+                if (!mTemp.equals(temp)) {
+                    mList.add(i, new UserContact(mTemp));
+                    temp = mTemp;
+                }
             }
         }
-
 
         mAdapter = new UserContactAdapter(mList);
 
@@ -110,5 +111,20 @@ public class UserContactFragment extends Fragment{
         {
             return a.name.compareTo(b.name);
         }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            // Restore last state for checked position.
+            savedInstanceState.getSerializable("mList");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("mList", (Serializable) mList);
     }
 }
