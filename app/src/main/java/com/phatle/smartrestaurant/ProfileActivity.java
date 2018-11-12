@@ -285,9 +285,9 @@ public class ProfileActivity extends AppCompatActivity {
         Inactive color when its view is disabled.
         Will not be visible if setColored(true) and default current item is set.
          */
-        bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.tomato));
-        bottomNavigation.setAccentColor(Color.WHITE);
-        bottomNavigation.setInactiveColor(getResources().getColor(R.color.red));
+        bottomNavigation.setDefaultBackgroundColor(Color.WHITE);
+        bottomNavigation.setAccentColor(getResources().getColor(R.color.tomato));
+        bottomNavigation.setInactiveColor(getResources().getColor(R.color.gray));
 
 
         // Colors for selected (active) and non-selected items.

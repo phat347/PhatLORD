@@ -32,7 +32,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="@color/tomato"
+                    android:background="@color/white"
                     app:layout_scrollFlags="scroll|enterAlways">
                     <TextView
                         android:layout_width="wrap_content"
@@ -41,12 +41,12 @@
                         android:layout_gravity="center"
                         android:id="@+id/toolbar_title"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="8pt"/>
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_menu"
+                        android:src="@drawable/ic_menu_button_of_three_horizontal_lines"
                         android:id="@+id/btn_menu"
                         />
                 </android.support.v7.widget.Toolbar>
