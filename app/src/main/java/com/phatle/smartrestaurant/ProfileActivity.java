@@ -66,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
     private AHBottomNavigation bottomNavigation;
     private BottomBarAdapter pagerAdapter;
     ImageView btnMenu;
+    ImageView btnMenuClose;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -224,6 +225,13 @@ public class ProfileActivity extends AppCompatActivity {
         });
 //        View headerMenuLayout = navigationView.getHeaderView(0);
         username = mDrawerLayout.findViewById(R.id.tv_username);
+        btnMenuClose = mDrawerLayout.findViewById(R.id.close_img);
+        btnMenuClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDrawerLayout.closeDrawers();
+            }
+        });
         Typeface face = Typeface.createFromAsset(getAssets(),
                 "fonts/open_sans_regular.ttf");
         username.setTypeface(face);
