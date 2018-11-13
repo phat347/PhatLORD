@@ -328,7 +328,7 @@ public class ProfileActivity extends AppCompatActivity {
         viewPager.setPagingEnabled(false);
         pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new UserContactFragment());
-        pagerAdapter.addFragments(new FragmentTest());
+        pagerAdapter.addFragments(new RestaurantHomeFragment());
         pagerAdapter.addFragments(new FragmentTest());
 
 
