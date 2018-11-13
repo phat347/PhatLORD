@@ -6,11 +6,11 @@ public class RestaurantDrawerItem {
     String name;
     String type;
     boolean status;
-    String distance;
+    int distance;
     String location;
     int priceRating;
 
-    public RestaurantDrawerItem(int imgRes, float overallRating, String name, String type, boolean status, String distance, String location, int priceRating) {
+    public RestaurantDrawerItem(int imgRes, float overallRating, String name, String type, boolean status, int distance, String location, int priceRating) {
         this.imgRes = imgRes;
         this.overallRating = overallRating;
         this.name = name;
@@ -61,11 +61,11 @@ public class RestaurantDrawerItem {
         this.status = status;
     }
 
-    public String getDistance() {
+    public int getDistance() {
         return distance;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(int distance) {
         this.distance = distance;
     }
 

@@ -41,6 +41,7 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
         if(item.isStatus())
         {
             holder.status1.setText("Open now");
+            holder.status1.setTextColor(Color.rgb(0,128,0));
             holder.status2.setText("    •    " + item.getDistance() + "m from you    •    " + item.getLocation() + ", Vietnam");
         }
         else
@@ -54,6 +55,47 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
         }
         else holder.overallRating.setText(score+"");
 
+        switch (item.getPriceRating()){
+            case 0:
+                holder.dollar1.setImageResource(R.drawable.ic_dollarsign_inactive);
+                holder.dollar2.setImageResource(R.drawable.ic_dollarsign_inactive);
+                holder.dollar3.setImageResource(R.drawable.ic_dollarsign_inactive);
+                holder.dollar4.setImageResource(R.drawable.ic_dollarsign_inactive);
+                break;
+            case 1:
+                holder.dollar1.setImageResource(R.drawable.ic_dollarsign_inactive);
+                holder.dollar2.setImageResource(R.drawable.ic_dollarsign_inactive);
+                holder.dollar3.setImageResource(R.drawable.ic_dollarsign_inactive);
+                holder.dollar4.setImageResource(R.drawable.ic_dollarsign);
+                break;
+            case 2:
+                holder.dollar1.setImageResource(R.drawable.ic_dollarsign_inactive);
+                holder.dollar2.setImageResource(R.drawable.ic_dollarsign_inactive);
+                holder.dollar3.setImageResource(R.drawable.ic_dollarsign);
+                holder.dollar4.setImageResource(R.drawable.ic_dollarsign);
+                break;
+            case 3:
+                holder.dollar1.setImageResource(R.drawable.ic_dollarsign_inactive);
+                holder.dollar2.setImageResource(R.drawable.ic_dollarsign);
+                holder.dollar3.setImageResource(R.drawable.ic_dollarsign);
+                holder.dollar4.setImageResource(R.drawable.ic_dollarsign);
+                break;
+            case 4:
+                holder.dollar1.setImageResource(R.drawable.ic_dollarsign);
+                holder.dollar2.setImageResource(R.drawable.ic_dollarsign);
+                holder.dollar3.setImageResource(R.drawable.ic_dollarsign);
+                holder.dollar4.setImageResource(R.drawable.ic_dollarsign);
+                break;
+            default:
+                holder.dollar1.setImageResource(R.drawable.ic_dollarsign);
+                holder.dollar2.setImageResource(R.drawable.ic_dollarsign);
+                holder.dollar3.setImageResource(R.drawable.ic_dollarsign);
+                holder.dollar4.setImageResource(R.drawable.ic_dollarsign);
+                break;
+
+
+        }
+
     }
 
     @Override
@@ -63,8 +105,9 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
 
     public class RestaurantItemViewHolder extends RecyclerView.ViewHolder {
 
-        public  ImageView restaurantImage;
+        public    ImageView restaurantImage;
         public  TextView name, type, status1, status2, overallRating;
+        public ImageView dollar1, dollar2, dollar3, dollar4;
         public RestaurantItemViewHolder(View view) {
             super(view);
             restaurantImage = view.findViewById(R.id.restaurant_img);
@@ -73,7 +116,10 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
             status1 = view.findViewById(R.id.restaurant_status1);
             status2 = view.findViewById(R.id.restaurant_status2);
             overallRating = view.findViewById(R.id.restaurant_score);
-
+            dollar1 = view.findViewById(R.id.dollar1);
+            dollar2 = view.findViewById(R.id.dollar2);
+            dollar3 = view.findViewById(R.id.dollar3);
+            dollar4 = view.findViewById(R.id.dollar4);
         }
     }
 }

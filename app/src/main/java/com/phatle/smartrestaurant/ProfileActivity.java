@@ -100,13 +100,13 @@ public class ProfileActivity extends AppCompatActivity {
 //                fragment.updateColor(ContextCompat.getColor(MainActivity.this, colors[position]));
                 switch (position){
                     case 0:
-                        mTitle.setText("UserContact");
+                        mTitle.setText("Home");
                         break;
                     case 1:
-                        mTitle.setText("Test");
+                        mTitle.setText("Home");
                         break;
                     case 2:
-                        mTitle.setText("Test2");
+                        mTitle.setText("UserContact");
                         break;
                     default:
                         break;
@@ -315,9 +315,9 @@ public class ProfileActivity extends AppCompatActivity {
      * Also assigns a distinct color to each Bottom Navigation item, used for the color ripple.
      */
     private void addBottomNavigationItems() {
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("tab1", R.drawable.ic_home_white_24dp);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("tab2", R.drawable.ic_home_white_24dp);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("tab3", R.drawable.ic_home_white_24dp);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Home", R.drawable.home);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Home", R.drawable.ic_home_white_24dp);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("UserContact", R.drawable.ic_home_white_24dp);
 
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
@@ -327,10 +327,9 @@ public class ProfileActivity extends AppCompatActivity {
         viewPager = (NoSwipePager) findViewById(R.id.viewpager);
         viewPager.setPagingEnabled(false);
         pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragments(new UserContactFragment());
         pagerAdapter.addFragments(new RestaurantHomeFragment());
         pagerAdapter.addFragments(new FragmentTest());
-
+        pagerAdapter.addFragments(new UserContactFragment());
 
         viewPager.setAdapter(pagerAdapter);
     }
