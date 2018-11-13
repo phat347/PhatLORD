@@ -9,8 +9,8 @@
     </style>
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimary">@color/tomato</item>
     <item name="colorPrimaryDark">@color/tomato</item>
-    <item name="colorAccent">@color/colorPrimary</item>
+    <item name="colorAccent">@color/tomato</item>
     </style>
 </resources>

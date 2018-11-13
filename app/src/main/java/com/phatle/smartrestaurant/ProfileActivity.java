@@ -103,7 +103,7 @@ public class ProfileActivity extends AppCompatActivity {
                         mTitle.setText("Home");
                         break;
                     case 1:
-                        mTitle.setText("Home");
+                        mTitle.setText("Search");
                         break;
                     case 2:
                         mTitle.setText("UserContact");
@@ -316,7 +316,7 @@ public class ProfileActivity extends AppCompatActivity {
      */
     private void addBottomNavigationItems() {
         AHBottomNavigationItem item1 = new AHBottomNavigationItem("Home", R.drawable.home);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Home", R.drawable.ic_home_white_24dp);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Search", R.drawable.search);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem("UserContact", R.drawable.ic_home_white_24dp);
 
         bottomNavigation.addItem(item1);
@@ -328,7 +328,7 @@ public class ProfileActivity extends AppCompatActivity {
         viewPager.setPagingEnabled(false);
         pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new RestaurantHomeFragment());
-        pagerAdapter.addFragments(new FragmentTest());
+        pagerAdapter.addFragments(new SearchFragment());
         pagerAdapter.addFragments(new UserContactFragment());
 
         viewPager.setAdapter(pagerAdapter);
