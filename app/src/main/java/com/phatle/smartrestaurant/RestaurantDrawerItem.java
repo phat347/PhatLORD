@@ -1,6 +1,8 @@
 package com.phatle.smartrestaurant;
 
-public class RestaurantDrawerItem {
+import java.io.Serializable;
+
+public class RestaurantDrawerItem implements Serializable{
     int imgRes;
     float overallRating;
     String name;

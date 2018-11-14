@@ -76,7 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
         final TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         btnMenu = toolbar.findViewById(R.id.btn_menu);
 
-        mTitle.setText("UserContact");
+        mTitle.setText("Home");
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

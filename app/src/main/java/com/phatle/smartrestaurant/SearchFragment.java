@@ -2,6 +2,7 @@ package com.phatle.smartrestaurant;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,6 +128,9 @@ public class SearchFragment extends Fragment{
                 @Override
                 public void onItemClick(RestaurantDrawerItem item) {
                     hideKeyboard(getActivity());
+                    Intent intentResDetail = new Intent(getActivity(),RestaurantDetail.class);
+                    intentResDetail.putExtra("RestaurantDetail", (Serializable) item);
+                    startActivity(intentResDetail);
                 }
             });
 
