@@ -1,131 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="350dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/corner_background"
     android:layout_margin="20dp"
-    android:id="@+id/itemLayout">
-    <LinearLayout
+    android:id="@+id/itemLayout"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="11dp"
+    >
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:cardCornerRadius="11dp"
-
-            >
-
-            <ImageView
-                android:id="@+id/restaurant_img"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/img_res1"
-                android:scaleType="fitXY"
-                >
-
-            </ImageView>
-        </android.support.v7.widget.CardView>
-
+        android:layout_height="match_parent"
+        >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:orientation="vertical"
-            android:layout_margin="10dp">
-            <TextView
-                android:id="@+id/restaurant_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="RestaurantName"
-                android:textSize="10pt"
-                android:textStyle="bold"/>
-            <RelativeLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="200dp"
+                app:cardCornerRadius="11dp"
+
                 >
-                <TextView
-                    android:id="@+id/restaurant_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RestaurantType"
-                    android:textSize="8pt"
-                    android:textAllCaps="true"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_alignParentRight="true">
-                    <ImageView
-                        android:id="@+id/dollar1"
-                        android:layout_width="8pt"
-                        android:layout_height="8pt"
-                        android:src="@drawable/ic_dollarsign"/>
-                    <ImageView
-                        android:id="@+id/dollar2"
-                        android:layout_width="8pt"
-                        android:layout_height="8pt"
-                        android:src="@drawable/ic_dollarsign"/>
-                    <ImageView
-                        android:id="@+id/dollar3"
-                        android:layout_width="8pt"
-                        android:layout_height="8pt"
-                        android:src="@drawable/ic_dollarsign"/>
-                    <ImageView
-                        android:id="@+id/dollar4"
-                        android:layout_width="8pt"
-                        android:layout_height="8pt"
-                        android:src="@drawable/ic_dollarsign"/>
-                </LinearLayout>
-            </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/restaurant_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/img_res1"
+                    android:scaleType="fitXY"
+                    >
+
+                </ImageView>
+            </android.support.v7.widget.CardView>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
                 <TextView
-                    android:id="@+id/restaurant_status1"
+                    android:id="@+id/restaurant_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="6pt"
-                    android:text="Open now"
-                    android:textColor="@color/green"/>
-                <TextView
-                    android:id="@+id/restaurant_status2"
-                    android:layout_width="wrap_content"
+                    android:text="RestaurantName"
+                    android:textSize="10pt"
+                    android:textStyle="bold"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="6pt"
-                    android:text=" - 400m from you - TPHCM, Vietnam"/>
-            </LinearLayout>
+                    android:layout_marginTop="20dp"
+                    >
+                    <TextView
+                        android:id="@+id/restaurant_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RestaurantType"
+                        android:textSize="8pt"
+                        android:textAllCaps="true"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentRight="true">
+                        <ImageView
+                            android:id="@+id/dollar1"
+                            android:layout_width="8pt"
+                            android:layout_height="8pt"
+                            android:src="@drawable/ic_dollarsign"/>
+                        <ImageView
+                            android:id="@+id/dollar2"
+                            android:layout_width="8pt"
+                            android:layout_height="8pt"
+                            android:src="@drawable/ic_dollarsign"/>
+                        <ImageView
+                            android:id="@+id/dollar3"
+                            android:layout_width="8pt"
+                            android:layout_height="8pt"
+                            android:src="@drawable/ic_dollarsign"/>
+                        <ImageView
+                            android:id="@+id/dollar4"
+                            android:layout_width="8pt"
+                            android:layout_height="8pt"
+                            android:src="@drawable/ic_dollarsign"/>
+                    </LinearLayout>
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/restaurant_status1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="6pt"
+                        android:text="Open now"
+                        android:textColor="@color/green"/>
+                    <TextView
+                        android:id="@+id/restaurant_status2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="6pt"
+                        android:text=" - 400m from you - TPHCM, Vietnam"/>
+                </LinearLayout>
 
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-    <FrameLayout
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="170dp"
-        android:layout_gravity="right"
-        android:layout_marginRight="20dp">
-        <ImageView
+        <FrameLayout
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/ic_circle"
-            />
-        <TextView
-            android:id="@+id/restaurant_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10"
-            android:textColor="@color/white"
-            android:textSize="26dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            />
+            android:layout_marginTop="170dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_circle"
+                />
+            <TextView
+                android:id="@+id/restaurant_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textColor="@color/white"
+                android:textSize="26dp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                />
+
+        </FrameLayout>
+
+
+
 
     </FrameLayout>
-
-
-
-
-</FrameLayout>
+</android.support.v7.widget.CardView>

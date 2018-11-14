@@ -2,6 +2,7 @@ package com.phatle.smartrestaurant;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -125,7 +126,7 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
         public    ImageView restaurantImage;
         public  TextView name, type, status1, status2, overallRating;
         public ImageView dollar1, dollar2, dollar3, dollar4;
-        public FrameLayout itemLayout;
+        public CardView itemLayout;
         public RestaurantItemViewHolder(View view) {
             super(view);
             restaurantImage = view.findViewById(R.id.restaurant_img);

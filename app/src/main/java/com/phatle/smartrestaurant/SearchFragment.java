@@ -66,24 +66,24 @@ public class SearchFragment extends Fragment{
         }
 
         mRestaurantMenu.clear();
-        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
-        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
-        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
-        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
-        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
-        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
-        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_menu1,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_menu3,"Thịt nướng",(float) 9.4,"Thịt nướng muối ớt"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_menu2,"Heo quay",(float) 2.6,"Heo quay sốt ớt"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_menu3,"Vịt nướng",(float) 8.9,"Vịt nướng than"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_menu4,"Gà xối mỡ",(float) 9.9,"Gà ta xối mỡ ăn kèm xôi"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_menu1,"Thịt luộc",(float) 12.9,"Thịt luộc, mắm tôm"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_menu4,"Ba rọi chiên",(float) 100.5,"Ba rọi chiên nước mắm"));
 
         mList.clear();
         //Add item theo thứ tự hình ảnh, điểm OVR, tên, type, status, khoảng cách, địa điểm, rating giá
         mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)9.3, "Nhà hàng 5 sao", "Restaurant", true,300,"TPHCM",2,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res3,(float)7.3, "Nhà hàng 3 sao", "Bar", false,350,"Hà Nội",4,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)10, "Nhà hàng 4 sao", "Coffe", true,370,"Sao Hỏa",3,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)7, "Nhà hàng 2 sao", "Restaurant", false,300,"Sao Kim",1,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)8, "Nhà hàng 5 sao", "Bar", true,400,"Sao Hố",6,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res3,(float)9.1, "Nhà hàng 1 sao", "Restaurant", true,580,"Sao Tào Lao",0,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)9.2, "Nhà hàng 5 sao", "Coffe", false,100,"TP Vũng Tàu",2,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)9.3, "Nhà hàng 5 sao", "Restaurant", true,200,"Hà Lội",3,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res3,(float)7.3, "Nhà hàng của DeGea", "Bar", false,350,"Hà Nội",4,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)10, "Nhà hàng của Lukaku", "Coffe", true,370,"TPHCM",3,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)7, "Nhà hàng của Mata", "Restaurant", false,300,"TP Vũng Tàu",1,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)8, "Nhà hàng của Sanchez", "Bar", true,400,"Hà Giang",6,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res3,(float)9.1, "Nhà hàng của Martial", "Restaurant", true,580,"TPHCM",0,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)9.2, "Nhà hàng của Pogba", "Coffe", false,100,"TP Vũng Tàu",2,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)9.3, "Nhà hàng của Mourinho", "Restaurant", true,200,"TPHCM",3,mRestaurantMenu));
 
 
 
