@@ -1,5 +1,6 @@
 package com.phatle.smartrestaurant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,15 @@ public class RestaurantHomeFragment extends Fragment{
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+
+        mAdapter.setListener(new RestaurantItemAdapter.InterfaceItemClick() {
+            @Override
+            public void onItemClick(RestaurantDrawerItem item) {
+                Intent intentResDetail = new Intent(getActivity(),RestaurantDetail.class);
+                intentResDetail.putExtra("RestaurantDetail", (Serializable) item);
+                startActivity(intentResDetail);
+            }
+        });
 
 
         return view;
