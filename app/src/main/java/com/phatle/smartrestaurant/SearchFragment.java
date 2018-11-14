@@ -38,7 +38,12 @@ public class SearchFragment extends Fragment{
         searchBtn = view.findViewById(R.id.search_img);
         layoutEmpty = view.findViewById(R.id.layout_empty);
         recyclerView = view.findViewById(R.id.recycler_view);
-
+        layoutEmpty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard(getActivity());
+            }
+        });
         if(itemSearch.size() != 0)
         {
             layoutEmpty.setVisibility(View.GONE);
@@ -89,12 +94,12 @@ public class SearchFragment extends Fragment{
             searchBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String location = searchTextView.getText().toString();
+                    String location = searchTextView.getText().toString().toLowerCase();
 
                     itemSearch.clear();
 
                     for (int i = 0; i < mList.size() ; i++) {
-                        if (mList.get(i).getLocation().equals(location))
+                        if (mList.get(i).getLocation().toLowerCase().contains(location) && !location.equals(""))
                         {
                             itemSearch.add(mList.get(i));
                         }
@@ -116,6 +121,13 @@ public class SearchFragment extends Fragment{
 
             recyclerView.setAdapter(mAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+
+            mAdapter.setListener(new RestaurantItemAdapter.InterfaceItemClick() {
+                @Override
+                public void onItemClick(RestaurantDrawerItem item) {
+                    hideKeyboard(getActivity());
+                }
+            });
 
 
         }

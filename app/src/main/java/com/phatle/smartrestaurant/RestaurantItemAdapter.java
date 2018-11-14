@@ -6,7 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -14,7 +16,13 @@ import java.util.List;
 public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAdapter.RestaurantItemViewHolder>{
 
     private List<RestaurantDrawerItem> list;
-
+    private InterfaceItemClick mListener;
+    public interface InterfaceItemClick{
+        void onItemClick(RestaurantDrawerItem item);
+    }
+    public void setListener(InterfaceItemClick listener){
+        this.mListener = listener;
+    }
     public RestaurantItemAdapter(List<RestaurantDrawerItem> list) {
         this.list = list;
     }
@@ -28,10 +36,19 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantItemViewHolder holder, int position) {
-        RestaurantDrawerItem item = list.get(position);
+        final RestaurantDrawerItem item = list.get(position);
         holder.restaurantImage.setImageResource(item.getImgRes());
         holder.name.setText(item.getName());
         holder.type.setText(item.getType());
+        holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mListener != null)
+                {
+                    mListener.onItemClick(item);
+                }
+            }
+        });
 
         int score = (int)(item.getOverallRating()*10)/10;
         int point = (int)(item.getOverallRating()*10)%10;
@@ -108,6 +125,7 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
         public    ImageView restaurantImage;
         public  TextView name, type, status1, status2, overallRating;
         public ImageView dollar1, dollar2, dollar3, dollar4;
+        public FrameLayout itemLayout;
         public RestaurantItemViewHolder(View view) {
             super(view);
             restaurantImage = view.findViewById(R.id.restaurant_img);
@@ -120,6 +138,7 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
             dollar2 = view.findViewById(R.id.dollar2);
             dollar3 = view.findViewById(R.id.dollar3);
             dollar4 = view.findViewById(R.id.dollar4);
+            itemLayout = view.findViewById(R.id.itemLayout);
         }
     }
 }
