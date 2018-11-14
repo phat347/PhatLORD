@@ -1,6 +1,7 @@
 package com.phatle.smartrestaurant;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class RestaurantDrawerItem implements Serializable{
     int imgRes;
@@ -11,8 +12,9 @@ public class RestaurantDrawerItem implements Serializable{
     int distance;
     String location;
     int priceRating;
+    List<MenuItem> menu;
 
-    public RestaurantDrawerItem(int imgRes, float overallRating, String name, String type, boolean status, int distance, String location, int priceRating) {
+    public RestaurantDrawerItem(int imgRes, float overallRating, String name, String type, boolean status, int distance, String location, int priceRating, List<MenuItem> menu) {
         this.imgRes = imgRes;
         this.overallRating = overallRating;
         this.name = name;
@@ -21,6 +23,7 @@ public class RestaurantDrawerItem implements Serializable{
         this.distance = distance;
         this.location = location;
         this.priceRating = priceRating;
+        this.menu = menu;
     }
 
     public int getImgRes() {
@@ -85,5 +88,13 @@ public class RestaurantDrawerItem implements Serializable{
 
     public void setPriceRating(int priceRating) {
         this.priceRating = priceRating;
+    }
+
+    public List<MenuItem> getMenu() {
+        return menu;
+    }
+
+    public void setMenu(List<MenuItem> menu) {
+        this.menu = menu;
     }
 }

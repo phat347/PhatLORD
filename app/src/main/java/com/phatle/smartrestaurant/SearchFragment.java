@@ -26,6 +26,7 @@ import java.util.List;
 public class SearchFragment extends Fragment{
     private List<RestaurantDrawerItem> mList = new ArrayList<>();
     List<RestaurantDrawerItem> itemSearch = new ArrayList<>();
+    private List<MenuItem> mRestaurantMenu = new ArrayList<>();
     private RestaurantItemAdapter mAdapter;
     AutoCompleteTextView searchTextView;
     ImageView searchBtn;
@@ -63,16 +64,26 @@ public class SearchFragment extends Fragment{
             layoutEmpty.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         }
+
+        mRestaurantMenu.clear();
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
+        mRestaurantMenu.add(new MenuItem(R.drawable.img_res3,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
+
         mList.clear();
         //Add item theo thứ tự hình ảnh, điểm OVR, tên, type, status, khoảng cách, địa điểm, rating giá
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)9.3, "Nhà hàng 5 sao", "Restaurant", true,300,"TPHCM",2));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res3,(float)7.3, "Nhà hàng 3 sao", "Bar", false,350,"Hà Nội",4));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)10, "Nhà hàng 4 sao", "Coffe", true,370,"Sao Hỏa",3));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)7, "Nhà hàng 2 sao", "Restaurant", false,300,"Sao Kim",1));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)8, "Nhà hàng 5 sao", "Bar", true,400,"Sao Hố",6));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res3,(float)9.1, "Nhà hàng 1 sao", "Restaurant", true,580,"Sao Tào Lao",0));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)9.2, "Nhà hàng 5 sao", "Coffe", false,100,"TP Vũng Tàu",2));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)9.3, "Nhà hàng 5 sao", "Restaurant", true,200,"Hà Lội",3));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)9.3, "Nhà hàng 5 sao", "Restaurant", true,300,"TPHCM",2,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res3,(float)7.3, "Nhà hàng 3 sao", "Bar", false,350,"Hà Nội",4,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)10, "Nhà hàng 4 sao", "Coffe", true,370,"Sao Hỏa",3,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)7, "Nhà hàng 2 sao", "Restaurant", false,300,"Sao Kim",1,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)8, "Nhà hàng 5 sao", "Bar", true,400,"Sao Hố",6,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res3,(float)9.1, "Nhà hàng 1 sao", "Restaurant", true,580,"Sao Tào Lao",0,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)9.2, "Nhà hàng 5 sao", "Coffe", false,100,"TP Vũng Tàu",2,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)9.3, "Nhà hàng 5 sao", "Restaurant", true,200,"Hà Lội",3,mRestaurantMenu));
 
 
 

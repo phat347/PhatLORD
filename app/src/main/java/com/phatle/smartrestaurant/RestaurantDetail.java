@@ -41,7 +41,7 @@ public class RestaurantDetail extends AppCompatActivity {
         });
         pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new OverviewFragment());
-        pagerAdapter.addFragments(new FragmentTest());
+        pagerAdapter.addFragments(new MenuFragment());
         pagerAdapter.addFragments(new UserContactFragment());
 
         viewPager.setAdapter(pagerAdapter);
