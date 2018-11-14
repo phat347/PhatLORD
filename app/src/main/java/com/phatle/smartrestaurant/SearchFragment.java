@@ -31,6 +31,14 @@ public class SearchFragment extends Fragment{
     ImageView searchBtn;
     LinearLayout layoutEmpty;
     RecyclerView recyclerView;
+    RestoreBottomTab mListener;
+    public interface RestoreBottomTab{
+        void onRestore();
+    }
+    public void setListener(RestoreBottomTab listener)
+    {
+        this.mListener = listener;
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -117,6 +125,11 @@ public class SearchFragment extends Fragment{
                         recyclerView.setVisibility(View.GONE);
                     }
                     hideKeyboard(getActivity());
+                    if (mListener != null)
+                    {
+                        mListener.onRestore();
+                    }
+
                 }
             });
             mAdapter = new RestaurantItemAdapter(itemSearch);

@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -97,6 +98,16 @@ public class ProfileActivity extends AppCompatActivity {
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
+                Fragment fm = getSupportFragmentManager().findFragmentById(R.id.viewpager);
+                if(fm instanceof SearchFragment)
+                {
+                    ((SearchFragment) fm).setListener(new SearchFragment.RestoreBottomTab() {
+                        @Override
+                        public void onRestore() {
+                            bottomNavigation.restoreBottomNavigation(true);
+                        }
+                    });
+                }
 //                fragment.updateColor(ContextCompat.getColor(MainActivity.this, colors[position]));
                 switch (position){
                     case 0:
@@ -330,6 +341,7 @@ public class ProfileActivity extends AppCompatActivity {
         pagerAdapter.addFragments(new RestaurantHomeFragment());
         pagerAdapter.addFragments(new SearchFragment());
         pagerAdapter.addFragments(new UserContactFragment());
+
 
         viewPager.setAdapter(pagerAdapter);
     }
