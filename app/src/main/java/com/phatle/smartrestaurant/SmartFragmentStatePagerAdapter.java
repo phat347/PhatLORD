@@ -1,5 +1,6 @@
 package com.phatle.smartrestaurant;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -42,5 +43,19 @@ public class SmartFragmentStatePagerAdapter extends FragmentStatePagerAdapter{
     // Returns the fragment for the position (if instantiated)
     public Fragment getRegisteredFragment(int position) {
         return registeredFragments.get(position);
+    }
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position)
+        {
+            case 0:
+                return "Overview";
+            case 1:
+                return "Menu";
+            case 2:
+                return "Review";
+        }
+        return "Overview";
     }
 }
