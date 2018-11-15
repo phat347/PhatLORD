@@ -13,8 +13,9 @@ public class RestaurantDrawerItem implements Serializable{
     String location;
     int priceRating;
     List<MenuItem> menu;
+    List<CommentItem> comment;
 
-    public RestaurantDrawerItem(int imgRes, float overallRating, String name, String type, boolean status, int distance, String location, int priceRating, List<MenuItem> menu) {
+    public RestaurantDrawerItem(int imgRes, float overallRating, String name, String type, boolean status, int distance, String location, int priceRating, List<MenuItem> menu, List<CommentItem> comment) {
         this.imgRes = imgRes;
         this.overallRating = overallRating;
         this.name = name;
@@ -24,6 +25,7 @@ public class RestaurantDrawerItem implements Serializable{
         this.location = location;
         this.priceRating = priceRating;
         this.menu = menu;
+        this.comment = comment;
     }
 
     public int getImgRes() {
@@ -96,5 +98,13 @@ public class RestaurantDrawerItem implements Serializable{
 
     public void setMenu(List<MenuItem> menu) {
         this.menu = menu;
+    }
+
+    public List<CommentItem> getComment() {
+        return comment;
+    }
+
+    public void setComment(List<CommentItem> comment) {
+        this.comment = comment;
     }
 }

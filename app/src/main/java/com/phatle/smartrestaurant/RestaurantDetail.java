@@ -42,7 +42,7 @@ public class RestaurantDetail extends AppCompatActivity {
         pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new OverviewFragment());
         pagerAdapter.addFragments(new MenuFragment());
-        pagerAdapter.addFragments(new UserContactFragment());
+        pagerAdapter.addFragments(new CommentFragment());
 
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

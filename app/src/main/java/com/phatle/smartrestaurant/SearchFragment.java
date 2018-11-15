@@ -27,6 +27,7 @@ public class SearchFragment extends Fragment{
     private List<RestaurantDrawerItem> mList = new ArrayList<>();
     List<RestaurantDrawerItem> itemSearch = new ArrayList<>();
     private List<MenuItem> mRestaurantMenu = new ArrayList<>();
+    private List<CommentItem> mRestaurantComment = new ArrayList<>();
     private RestaurantItemAdapter mAdapter;
     AutoCompleteTextView searchTextView;
     ImageView searchBtn;
@@ -65,6 +66,7 @@ public class SearchFragment extends Fragment{
             recyclerView.setVisibility(View.GONE);
         }
 
+        //Add Menu vô nhà hàng
         mRestaurantMenu.clear();
         mRestaurantMenu.add(new MenuItem(R.drawable.img_menu1,"Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
         mRestaurantMenu.add(new MenuItem(R.drawable.img_menu3,"Thịt nướng",(float) 9.4,"Thịt nướng muối ớt"));
@@ -74,16 +76,29 @@ public class SearchFragment extends Fragment{
         mRestaurantMenu.add(new MenuItem(R.drawable.img_menu1,"Thịt luộc",(float) 12.9,"Thịt luộc, mắm tôm"));
         mRestaurantMenu.add(new MenuItem(R.drawable.img_menu4,"Ba rọi chiên",(float) 100.5,"Ba rọi chiên nước mắm"));
 
+
+        //Add comment vô nhà hàng
+        mRestaurantComment.clear();
+        mRestaurantComment.add(new CommentItem(R.drawable.mu_mourinho,24,"Jose Mourinho",(float) 10,"Thằng Pogba này khá đấy, mở nhà hàng ngon vl"));
+        mRestaurantComment.add(new CommentItem(R.drawable.mu_pogba,23,"Paul Pogba",(float) 10,"Đại ca quá khen :))"));
+        mRestaurantComment.add(new CommentItem(R.drawable.mu_martial,23,"Anthony Martial",(float) 9.9,"Ngon đấy anh hai"));
+        mRestaurantComment.add(new CommentItem(R.drawable.mu_sanchez,22,"Alexis Sanchez",(float) 8.2,"Đại ca nhớ trận sau cho em đá chính nha"));
+        mRestaurantComment.add(new CommentItem(R.drawable.mu_mata,22,"Juan Mata",(float) 9.6,"Cho em đá đi đại ca, để thằng Sanchez dự bị"));
+        mRestaurantComment.add(new CommentItem(R.drawable.mu_mourinho,10,"Jose Mourinho",(float) 10,"2 thằng bây dự bị hết, tao cho LORD Fellaini đá chính"));
+        mRestaurantComment.add(new CommentItem(R.drawable.mu_pogba,10,"Paul Pogba",(float) 10,"Sao cũng được nhưng cho em đá pen nha đại ca"));
+        mRestaurantComment.add(new CommentItem(R.drawable.mu_mourinho,9,"Jose Mourinho",(float) 10,"Tao cho De Gea sút pen"));
+        mRestaurantComment.add(new CommentItem(R.drawable.mu_degea,1,"De Gea",(float) 8.4,"Ôi ngon vl, cám ơn đại ca nhiều :D"));
+
         mList.clear();
         //Add item theo thứ tự hình ảnh, điểm OVR, tên, type, status, khoảng cách, địa điểm, rating giá
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)9.3, "Nhà hàng 5 sao", "Restaurant", true,300,"TPHCM",2,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res3,(float)7.3, "Nhà hàng của DeGea", "Bar", false,350,"Hà Nội",4,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)10, "Nhà hàng của Lukaku", "Coffe", true,370,"TPHCM",3,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)7, "Nhà hàng của Mata", "Restaurant", false,300,"TP Vũng Tàu",1,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)8, "Nhà hàng của Sanchez", "Bar", true,400,"Hà Giang",6,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res3,(float)9.1, "Nhà hàng của Martial", "Restaurant", true,580,"TPHCM",0,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)9.2, "Nhà hàng của Pogba", "Coffe", false,100,"TP Vũng Tàu",2,mRestaurantMenu));
-        mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)9.3, "Nhà hàng của Mourinho", "Restaurant", true,200,"TPHCM",3,mRestaurantMenu));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)9.3, "Nhà hàng 5 sao", "Restaurant", true,300,"TPHCM",2,mRestaurantMenu,mRestaurantComment));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res3,(float)7.3, "Nhà hàng của DeGea", "Bar", false,350,"Hà Nội",4,mRestaurantMenu,mRestaurantComment));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)10, "Nhà hàng của Lukaku", "Coffe", true,370,"TPHCM",3,mRestaurantMenu,mRestaurantComment));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)7, "Nhà hàng của Mata", "Restaurant", false,300,"TP Vũng Tàu",1,mRestaurantMenu,mRestaurantComment));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)8, "Nhà hàng của Sanchez", "Bar", true,400,"Hà Giang",6,mRestaurantMenu,mRestaurantComment));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res3,(float)9.1, "Nhà hàng của Martial", "Restaurant", true,580,"TPHCM",0,mRestaurantMenu,mRestaurantComment));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)9.2, "Nhà hàng của Pogba", "Coffe", false,100,"TP Vũng Tàu",2,mRestaurantMenu,mRestaurantComment));
+        mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)9.3, "Nhà hàng của Mourinho", "Restaurant", true,200,"TPHCM",3,mRestaurantMenu,mRestaurantComment));
 
 
 
