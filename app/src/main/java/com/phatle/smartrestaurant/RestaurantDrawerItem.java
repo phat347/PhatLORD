@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class RestaurantDrawerItem implements Serializable{
-    int imgRes;
+    String imgRes;
     float overallRating;
     String name;
     String type;
@@ -15,7 +15,7 @@ public class RestaurantDrawerItem implements Serializable{
     List<MenuItem> menu;
     List<CommentItem> comment;
 
-    public RestaurantDrawerItem(int imgRes, float overallRating, String name, String type, boolean status, int distance, String location, int priceRating, List<MenuItem> menu, List<CommentItem> comment) {
+    public RestaurantDrawerItem(String imgRes, float overallRating, String name, String type, boolean status, int distance, String location, int priceRating, List<MenuItem> menu, List<CommentItem> comment) {
         this.imgRes = imgRes;
         this.overallRating = overallRating;
         this.name = name;
@@ -28,11 +28,11 @@ public class RestaurantDrawerItem implements Serializable{
         this.comment = comment;
     }
 
-    public int getImgRes() {
+    public String getImgRes() {
         return imgRes;
     }
 
-    public void setImgRes(int imgRes) {
+    public void setImgRes(String imgRes) {
         this.imgRes = imgRes;
     }
 

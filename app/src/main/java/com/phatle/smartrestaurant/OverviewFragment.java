@@ -13,6 +13,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 public class OverviewFragment extends Fragment{
 
     RestaurantDrawerItem IntentItem;
@@ -38,7 +40,9 @@ public class OverviewFragment extends Fragment{
         dollar3 = view.findViewById(R.id.dollar3);
         dollar4 = view.findViewById(R.id.dollar4);
         itemLayout = view.findViewById(R.id.itemLayout);
-        restaurantImage.setImageResource(IntentItem.getImgRes());
+        Picasso.with(getContext())
+                .load(IntentItem.getImgRes())
+                .into(restaurantImage);
         name.setText(IntentItem.getName());
         type.setText(IntentItem.getType());
 

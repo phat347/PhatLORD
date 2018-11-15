@@ -3,13 +3,13 @@ package com.phatle.smartrestaurant;
 import java.io.Serializable;
 
 public class CommentItem implements Serializable{
-    int imgRes;
+    String imgRes;
     int time;
     String name;
     float score;
     String comment;
 
-    public CommentItem(int imgRes, int time, String name, float score, String comment) {
+    public CommentItem(String imgRes, int time, String name, float score, String comment) {
         this.imgRes = imgRes;
         this.time = time;
         this.name = name;
@@ -17,11 +17,11 @@ public class CommentItem implements Serializable{
         this.comment = comment;
     }
 
-    public int getImgRes() {
+    public String getImgRes() {
         return imgRes;
     }
 
-    public void setImgRes(int imgRes) {
+    public void setImgRes(String imgRes) {
         this.imgRes = imgRes;
     }
 

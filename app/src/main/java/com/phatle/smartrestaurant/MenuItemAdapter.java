@@ -38,7 +38,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         Picasso.with(context)
                 .load(item.getImgRes())
                 .into(holder.menuImage);
-        
+
         holder.name.setText(item.getName());
 
         int score = (int)(item.getPrice()*10)/10;

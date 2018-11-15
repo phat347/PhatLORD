@@ -3,23 +3,23 @@ package com.phatle.smartrestaurant;
 import java.io.Serializable;
 
 public class MenuItem implements Serializable{
-    int imgRes;
+    String imgRes;
     String name;
     float price;
     String description;
 
-    public MenuItem(int imgRes, String name, float price, String description) {
+    public MenuItem(String imgRes, String name, float price, String description) {
         this.imgRes = imgRes;
         this.name = name;
         this.price = price;
         this.description = description;
     }
 
-    public int getImgRes() {
+    public String getImgRes() {
         return imgRes;
     }
 
-    public void setImgRes(int imgRes) {
+    public void setImgRes(String imgRes) {
         this.imgRes = imgRes;
     }
 
