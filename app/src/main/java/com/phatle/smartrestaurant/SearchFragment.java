@@ -176,7 +176,7 @@ public class SearchFragment extends Fragment{
 
                 }
             });
-            mAdapter = new RestaurantItemAdapter(itemSearch);
+            mAdapter = new RestaurantItemAdapter(itemSearch,getContext());
 
             recyclerView.setAdapter(mAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));

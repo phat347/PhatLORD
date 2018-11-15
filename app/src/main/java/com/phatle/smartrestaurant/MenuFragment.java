@@ -28,7 +28,7 @@ public class MenuFragment extends Fragment {
 
         mRestaurantMenu = IntentItem.getMenu();
 
-        mAdapter = new MenuItemAdapter(mRestaurantMenu);
+        mAdapter = new MenuItemAdapter(mRestaurantMenu,getContext());
 
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);

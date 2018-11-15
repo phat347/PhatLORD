@@ -60,7 +60,7 @@ public class RestaurantHomeFragment extends Fragment{
         mList.add(new RestaurantDrawerItem(R.drawable.img_res1,(float)9.2, "Nhà hàng của Pogba", "Coffe", false,100,"TP Vũng Tàu",2,mRestaurantMenu,mRestaurantComment));
         mList.add(new RestaurantDrawerItem(R.drawable.img_res2,(float)9.3, "Nhà hàng của Mourinho", "Restaurant", true,200,"TPHCM",3,mRestaurantMenu,mRestaurantComment));
 
-        mAdapter = new RestaurantItemAdapter(mList);
+        mAdapter = new RestaurantItemAdapter(mList,getContext());
 
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);

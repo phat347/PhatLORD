@@ -1,5 +1,6 @@
 package com.phatle.smartrestaurant;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -12,20 +13,25 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAdapter.RestaurantItemViewHolder>{
 
     private List<RestaurantDrawerItem> list;
     private InterfaceItemClick mListener;
+    Context context;
     public interface InterfaceItemClick{
         void onItemClick(RestaurantDrawerItem item);
     }
     public void setListener(InterfaceItemClick listener){
         this.mListener = listener;
     }
-    public RestaurantItemAdapter(List<RestaurantDrawerItem> list) {
+
+    public RestaurantItemAdapter(List<RestaurantDrawerItem> list,Context context) {
         this.list = list;
+        this.context = context;
     }
 
     @NonNull
@@ -38,7 +44,9 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
     @Override
     public void onBindViewHolder(@NonNull RestaurantItemViewHolder holder, int position) {
         final RestaurantDrawerItem item = list.get(position);
-        holder.restaurantImage.setImageResource(item.getImgRes());
+        Picasso.with(context)
+                .load(item.getImgRes())
+                .into(holder.restaurantImage);
         holder.name.setText(item.getName());
         holder.type.setText(item.getType());
         holder.itemLayout.setOnClickListener(new View.OnClickListener() {
