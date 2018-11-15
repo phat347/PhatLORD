@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SearchFragment extends Fragment{
@@ -105,11 +107,27 @@ public class SearchFragment extends Fragment{
         List<String> locationList = new ArrayList<>();
         locationList.clear();
 
+        //Convert first letter to uppercase
+        for (int i = 0; i < mList.size(); i++) {
+            String cap = mList.get(i).getLocation().substring(0, 1).toUpperCase() + mList.get(i).getLocation().substring(1);
+            mList.get(i).setLocation(cap);
+        }
+
+
+        //Sort list theo alphabet
+        Collections.sort(mList, new RestaurantItemComparator());
+
+
         if (mList.size() != 0)
         {
+            String temp = "tmp";
             for (RestaurantDrawerItem item : mList)
             {
-                locationList.add(item.getLocation());
+                if(!item.getLocation().equals(temp)) {
+
+                    locationList.add(item.getLocation());
+                    temp = item.getLocation();
+                }
             }
 
             String[] locationListArray = new String[ locationList.size() ];
@@ -184,6 +202,13 @@ public class SearchFragment extends Fragment{
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+    private class RestaurantItemComparator implements Comparator<RestaurantDrawerItem> {
+
+        public int compare(RestaurantDrawerItem a, RestaurantDrawerItem b)
+        {
+            return a.location.compareTo(b.location);
         }
     }
 }
