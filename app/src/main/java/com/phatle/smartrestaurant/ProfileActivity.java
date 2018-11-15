@@ -152,7 +152,13 @@ public class ProfileActivity extends AppCompatActivity {
         {
             username.setText(IntentUsername);
         }
-        if (IntentPhotoURL.equals(""))
+        if (IntentPhotoURL == null)
+        {
+            Picasso.with(ProfileActivity.this)
+                    .load(R.drawable.user)
+                    .into(profile);
+        }
+        else if (IntentPhotoURL.equals(""))
         {
             Picasso.with(ProfileActivity.this)
                     .load(R.drawable.user)
