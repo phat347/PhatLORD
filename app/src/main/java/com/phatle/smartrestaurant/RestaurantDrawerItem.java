@@ -1,18 +1,50 @@
 package com.phatle.smartrestaurant;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class RestaurantDrawerItem implements Serializable{
+    @SerializedName("resImg")
+    @Expose
     String imgRes;
+
+    @SerializedName("resPoint")
+    @Expose
     float overallRating;
+
+    @SerializedName("resName")
+    @Expose
     String name;
+
+    @SerializedName("resType")
+    @Expose
     String type;
+
+    @SerializedName("resStatus")
+    @Expose
     boolean status;
+
+    @SerializedName("resDistance")
+    @Expose
     int distance;
+
+    @SerializedName("resLocation")
+    @Expose
     String location;
+
+    @SerializedName("resPriceRating")
+    @Expose
     int priceRating;
+
+    @SerializedName("resMenu")
+    @Expose
     List<MenuItem> menu;
+
+    @SerializedName("resComment")
+    @Expose
     List<CommentItem> comment;
 
     public RestaurantDrawerItem(String imgRes, float overallRating, String name, String type, boolean status, int distance, String location, int priceRating, List<MenuItem> menu, List<CommentItem> comment) {

@@ -1,12 +1,30 @@
 package com.phatle.smartrestaurant;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class CommentItem implements Serializable{
+
+    @SerializedName("commentImg")
+    @Expose
     String imgRes;
+
+    @SerializedName("commentTime")
+    @Expose
     int time;
+
+    @SerializedName("commentName")
+    @Expose
     String name;
+
+    @SerializedName("commentScore")
+    @Expose
     float score;
+
+    @SerializedName("commentContent")
+    @Expose
     String comment;
 
     public CommentItem(String imgRes, int time, String name, float score, String comment) {

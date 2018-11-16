@@ -1,11 +1,26 @@
 package com.phatle.smartrestaurant;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class MenuItem implements Serializable{
+
+    @SerializedName("menuImg")
+    @Expose
     String imgRes;
+
+    @SerializedName("menuName")
+    @Expose
     String name;
+
+    @SerializedName("menuPrice")
+    @Expose
     float price;
+
+    @SerializedName("menuDescription")
+    @Expose
     String description;
 
     public MenuItem(String imgRes, String name, float price, String description) {

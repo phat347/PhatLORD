@@ -124,6 +124,10 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
 
     }
 
+    public void updateAnswers(List<RestaurantDrawerItem> items) {
+        list = items;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return list.size();
