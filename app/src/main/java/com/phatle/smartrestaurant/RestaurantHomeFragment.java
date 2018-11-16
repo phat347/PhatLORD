@@ -1,6 +1,7 @@
 package com.phatle.smartrestaurant;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -92,21 +95,41 @@ public class RestaurantHomeFragment extends Fragment{
         return view;
     }
     public void loadAnswers() {
+
+        final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Loading");
+        pDialog.setCancelable(false);
+        pDialog.show();
         mService.getAnswers().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<RestaurantDrawerItem>>() {
                     @Override
                     public void onCompleted() {
                         Log.d("Phat","onComplete");
+                        pDialog.dismiss();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.d("Phat","onError");
+                        new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Không thể lấy dữ liệu!")
+                                .setContentText("Kiểm tra kết nối mạng hoặc vui lòng thử lại sau")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                    }
+                                })
+                                .show();
+
                     }
 
                     @Override
                     public void onNext(List<RestaurantDrawerItem> restaurantResponses) {
                         mAdapter.updateAnswers(restaurantResponses);
+                        pDialog.dismiss();
                     }
                 });
     }
