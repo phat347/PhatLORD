@@ -30,7 +30,7 @@ public class SearchFragment extends Fragment{
     List<RestaurantDrawerItem> itemSearch = new ArrayList<>();
     private List<MenuItem> mRestaurantMenu = new ArrayList<>();
     private List<CommentItem> mRestaurantComment = new ArrayList<>();
-    private RestaurantItemAdapter mAdapter;
+    private RestaurantItemAdapter2 mAdapter;
     AutoCompleteTextView searchTextView;
     ImageView searchBtn;
     LinearLayout layoutEmpty;
@@ -202,12 +202,12 @@ public class SearchFragment extends Fragment{
 
                         }
                     });
-                    mAdapter = new RestaurantItemAdapter(itemSearch,getContext());
+                    mAdapter = new RestaurantItemAdapter2(itemSearch,getContext());
 
                     recyclerView.setAdapter(mAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
 
-                    mAdapter.setListener(new RestaurantItemAdapter.InterfaceItemClick() {
+                    mAdapter.setListener(new RestaurantItemAdapter2.InterfaceItemClick() {
                         @Override
                         public void onItemClick(RestaurantDrawerItem item) {
                             hideKeyboard(getActivity());
