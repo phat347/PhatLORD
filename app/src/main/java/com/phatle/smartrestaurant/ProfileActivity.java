@@ -368,7 +368,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void addBottomNavigationItems() {
         AHBottomNavigationItem item1 = new AHBottomNavigationItem("Home", R.drawable.home);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem("Search", R.drawable.search);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Map", R.drawable.pointer);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Map", R.drawable.ic_placeholder);
         AHBottomNavigationItem item4 = new AHBottomNavigationItem("Notification", R.drawable.notification);
         AHBottomNavigationItem item5 = new AHBottomNavigationItem("Bookmark", R.drawable.pin);
 

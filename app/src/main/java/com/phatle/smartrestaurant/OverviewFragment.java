@@ -18,8 +18,8 @@ import com.squareup.picasso.Picasso;
 public class OverviewFragment extends Fragment{
 
     RestaurantDrawerItem IntentItem;
-    ImageView restaurantImage;
-    TextView name, type, status1, status2, overallRating;
+    ImageView restaurantImage, clockTime;
+    TextView name, type, status1, status2, overallRating, clockTimeStatus;
     ImageView dollar1, dollar2, dollar3, dollar4;
     FrameLayout itemLayout;
     @Nullable
@@ -40,13 +40,27 @@ public class OverviewFragment extends Fragment{
         dollar3 = view.findViewById(R.id.dollar3);
         dollar4 = view.findViewById(R.id.dollar4);
         itemLayout = view.findViewById(R.id.itemLayout);
+        clockTime = view.findViewById(R.id.res_time_img);
+        clockTimeStatus = view.findViewById(R.id.res_time_text);
         Picasso.with(getContext())
                 .load(IntentItem.getImgRes())
                 .into(restaurantImage);
         name.setText(IntentItem.getName());
         type.setText(IntentItem.getType());
 
-
+        if(IntentItem.isStatus())
+        {
+            Picasso.with(getContext())
+                    .load(R.drawable.clock_time)
+                    .into(clockTime);
+            clockTimeStatus.setTextColor(getResources().getColor(R.color.green));
+        }
+        else {
+            Picasso.with(getContext())
+                    .load(R.drawable.clock_time_inactive)
+                    .into(clockTime);
+            clockTimeStatus.setTextColor(getResources().getColor(R.color.gray));
+        }
 
 
 
