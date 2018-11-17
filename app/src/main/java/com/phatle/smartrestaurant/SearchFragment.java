@@ -69,130 +69,41 @@ public class SearchFragment extends Fragment{
         }
 
         //Add Menu vô nhà hàng
-        mRestaurantMenu.clear();
-        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu1","Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
-        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu3","Thịt nướng",(float) 9.3,"Thịt nướng muối ớt"));
-        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu2","Heo quay",(float) 10.4,"Heo quay sốt ớt"));
-        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu3","Vịt nướng",(float) 7.5,"Vịt nướng than"));
-        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu4","Gà xối mỡ",(float) 9,"Gà ta xối mỡ ăn kèm xôi"));
-        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu1","Thịt luộc",(float) 15,"Thịt luộc, mắm tôm"));
-        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu4","Ba rọi chiên",(float) 22.2,"Ba rọi chiên nước mắm"));
+//        mRestaurantMenu.clear();
+//        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu1","Trứng luộc",(float) 12,"Trứng luộc ngon hảo hạng"));
+//        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu3","Thịt nướng",(float) 9.3,"Thịt nướng muối ớt"));
+//        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu2","Heo quay",(float) 10.4,"Heo quay sốt ớt"));
+//        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu3","Vịt nướng",(float) 7.5,"Vịt nướng than"));
+//        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu4","Gà xối mỡ",(float) 9,"Gà ta xối mỡ ăn kèm xôi"));
+//        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu1","Thịt luộc",(float) 15,"Thịt luộc, mắm tôm"));
+//        mRestaurantMenu.add(new MenuItem("android.resource://com.phatle.smartrestaurant/drawable/img_menu4","Ba rọi chiên",(float) 22.2,"Ba rọi chiên nước mắm"));
 
 
         //Add comment vô nhà hàng
         mRestaurantComment.clear();
-        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_mourinho",24,"Jose Mourinho",(float) 10,"Thằng Pogba này khá đấy, mở nhà hàng ngon vl"));
-        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_pogba",23,"Paul Pogba",(float) 10,"Đại ca quá khen :))"));
-        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_martial",23,"Anthony Martial",(float) 9.9,"Ngon đấy anh hai"));
-        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_sanchez",22,"Alexis Sanchez",(float) 8.2,"Đại ca nhớ trận sau cho em đá chính nha"));
-        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_mata",22,"Juan Mata",(float) 9.6,"Cho em đá đi đại ca, để thằng Sanchez dự bị"));
-        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_mourinho",10,"Jose Mourinho",(float) 10,"2 thằng bây dự bị hết, tao cho LORD Fellaini đá chính"));
-        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_pogba",10,"Paul Pogba",(float) 10,"Sao cũng được nhưng cho em đá pen nha đại ca"));
-        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_mourinho",9,"Jose Mourinho",(float) 10,"Tao cho De Gea sút pen"));
-        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_degea",1,"De Gea",(float) 8.4,"Ôi ngon vl, cám ơn đại ca nhiều :D"));
+//        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_mourinho",24,"Jose Mourinho",(float) 10,"Thằng Pogba này khá đấy, mở nhà hàng ngon vl"));
+//        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_pogba",23,"Paul Pogba",(float) 10,"Đại ca quá khen :))"));
+//        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_martial",23,"Anthony Martial",(float) 9.9,"Ngon đấy anh hai"));
+//        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_sanchez",22,"Alexis Sanchez",(float) 8.2,"Đại ca nhớ trận sau cho em đá chính nha"));
+//        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_mata",22,"Juan Mata",(float) 9.6,"Cho em đá đi đại ca, để thằng Sanchez dự bị"));
+//        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_mourinho",10,"Jose Mourinho",(float) 10,"2 thằng bây dự bị hết, tao cho LORD Fellaini đá chính"));
+//        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_pogba",10,"Paul Pogba",(float) 10,"Sao cũng được nhưng cho em đá pen nha đại ca"));
+//        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_mourinho",9,"Jose Mourinho",(float) 10,"Tao cho De Gea sút pen"));
+//        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_degea",1,"De Gea",(float) 8.4,"Ôi ngon vl, cám ơn đại ca nhiều :D"));
 
         mList.clear();
         //Add item theo thứ tự hình ảnh, điểm OVR, tên, type, status, khoảng cách, địa điểm, rating giá
-        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res1",(float)9.3, "Nhà hàng 5 sao", "Restaurant", true,300,"TPHCM",2,mRestaurantMenu,mRestaurantComment));
-        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res3",(float)7.3, "Nhà hàng của DeGea", "Bar", false,350,"Hà Nội",4,mRestaurantMenu,mRestaurantComment));
-        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res1",(float)10, "Nhà hàng của Lukaku", "Coffe", true,370,"TPHCM",3,mRestaurantMenu,mRestaurantComment));
-        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res2",(float)7, "Nhà hàng của Mata", "Restaurant", false,300,"TP Vũng Tàu",1,mRestaurantMenu,mRestaurantComment));
-        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res1",(float)8, "Nhà hàng của Sanchez", "Bar", true,400,"Hà Giang",6,mRestaurantMenu,mRestaurantComment));
-        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res3",(float)9.1, "Nhà hàng của Martial", "Restaurant", true,580,"TPHCM",0,mRestaurantMenu,mRestaurantComment));
-        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res1",(float)9.2, "Nhà hàng của Pogba", "Coffe", false,100,"TP Vũng Tàu",2,mRestaurantMenu,mRestaurantComment));
-        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res2",(float)9.3, "Nhà hàng của Mourinho", "Restaurant", true,200,"TPHCM",3,mRestaurantMenu,mRestaurantComment));
+//        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res1",(float)9.3, "Nhà hàng 5 sao", "Restaurant", true,300,"TPHCM",2,mRestaurantMenu,mRestaurantComment));
+//        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res3",(float)7.3, "Nhà hàng của DeGea", "Bar", false,350,"Hà Nội",4,mRestaurantMenu,mRestaurantComment));
+//        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res1",(float)10, "Nhà hàng của Lukaku", "Coffe", true,370,"TPHCM",3,mRestaurantMenu,mRestaurantComment));
+//        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res2",(float)7, "Nhà hàng của Mata", "Restaurant", false,300,"TP Vũng Tàu",1,mRestaurantMenu,mRestaurantComment));
+//        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res1",(float)8, "Nhà hàng của Sanchez", "Bar", true,400,"Hà Giang",6,mRestaurantMenu,mRestaurantComment));
+//        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res3",(float)9.1, "Nhà hàng của Martial", "Restaurant", true,580,"TPHCM",0,mRestaurantMenu,mRestaurantComment));
+//        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res1",(float)9.2, "Nhà hàng của Pogba", "Coffe", false,100,"TP Vũng Tàu",2,mRestaurantMenu,mRestaurantComment));
+//        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res2",(float)9.3, "Nhà hàng của Mourinho", "Restaurant", true,200,"TPHCM",3,mRestaurantMenu,mRestaurantComment));
 
+        getSearchData();
 
-
-        List<String> locationList = new ArrayList<>();
-        locationList.clear();
-
-        //Convert first letter to uppercase
-        for (int i = 0; i < mList.size(); i++) {
-            String cap = mList.get(i).getLocation().substring(0, 1).toUpperCase() + mList.get(i).getLocation().substring(1);
-            mList.get(i).setLocation(cap);
-        }
-
-
-        //Sort list theo alphabet
-        Collections.sort(mList, new RestaurantItemComparator());
-
-
-        if (mList.size() != 0)
-        {
-            String temp = "tmp";
-            for (RestaurantDrawerItem item : mList)
-            {
-                if(!item.getLocation().equals(temp)) {
-
-                    locationList.add(item.getLocation());
-                    temp = item.getLocation();
-                }
-            }
-
-            String[] locationListArray = new String[ locationList.size() ];
-            locationList.toArray( locationListArray );
-            ArrayAdapter adapterLocation = new ArrayAdapter(getContext(),android.R.layout.simple_list_item_1,locationListArray);
-
-            searchTextView.setAdapter(adapterLocation);
-
-
-            // Sét đặt số ký tự nhỏ nhất, để cửa sổ gợi ý hiển thị
-            searchTextView.setThreshold(1);
-            searchTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    hideKeyboard(getActivity());
-                }
-            });
-            searchBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String location = searchTextView.getText().toString().toLowerCase();
-
-                    itemSearch.clear();
-
-                    for (int i = 0; i < mList.size() ; i++) {
-                        if (mList.get(i).getLocation().toLowerCase().contains(location) && !location.equals(""))
-                        {
-                            itemSearch.add(mList.get(i));
-                        }
-                    }
-                    mAdapter.notifyDataSetChanged();
-                    if(itemSearch.size() != 0)
-                    {
-                        layoutEmpty.setVisibility(View.GONE);
-                        recyclerView.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        layoutEmpty.setVisibility(View.VISIBLE);
-                        recyclerView.setVisibility(View.GONE);
-                    }
-                    hideKeyboard(getActivity());
-                    if (mListener != null)
-                    {
-                        mListener.onRestore();
-                    }
-
-                }
-            });
-            mAdapter = new RestaurantItemAdapter(itemSearch,getContext());
-
-            recyclerView.setAdapter(mAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-
-            mAdapter.setListener(new RestaurantItemAdapter.InterfaceItemClick() {
-                @Override
-                public void onItemClick(RestaurantDrawerItem item) {
-                    hideKeyboard(getActivity());
-                    Intent intentResDetail = new Intent(getActivity(),RestaurantDetail.class);
-                    intentResDetail.putExtra("RestaurantDetail", (Serializable) item);
-                    startActivity(intentResDetail);
-                }
-            });
-
-
-        }
 
 
         return view;
@@ -210,5 +121,105 @@ public class SearchFragment extends Fragment{
         {
             return a.location.compareTo(b.location);
         }
+    }
+
+    public void getSearchData()
+    {
+        ((ProfileActivity) getActivity()).setListener(new ProfileActivity.InterfacePassDataRestaurant() {
+            @Override
+            public void onPass(List<RestaurantDrawerItem> list) {
+                mList = list;
+                List<String> locationList = new ArrayList<>();
+                locationList.clear();
+
+                //Convert first letter to uppercase
+                for (int i = 0; i < mList.size(); i++) {
+                    String cap = mList.get(i).getLocation().substring(0, 1).toUpperCase() + mList.get(i).getLocation().substring(1);
+                    mList.get(i).setLocation(cap);
+                }
+
+
+
+
+
+                if (mList.size() != 0)
+                {
+                    //Sort list theo alphabet
+                    Collections.sort(mList, new RestaurantItemComparator());
+                    String temp = "tmp";
+                    for (RestaurantDrawerItem item : mList)
+                    {
+                        if(!item.getLocation().equals(temp)) {
+
+                            locationList.add(item.getLocation());
+                            temp = item.getLocation();
+                        }
+                    }
+
+                    String[] locationListArray = new String[ locationList.size() ];
+                    locationList.toArray( locationListArray );
+                    ArrayAdapter adapterLocation = new ArrayAdapter(getContext(),android.R.layout.simple_list_item_1,locationListArray);
+
+                    searchTextView.setAdapter(adapterLocation);
+
+
+                    // Sét đặt số ký tự nhỏ nhất, để cửa sổ gợi ý hiển thị
+                    searchTextView.setThreshold(1);
+                    searchTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            hideKeyboard(getActivity());
+                        }
+                    });
+                    searchBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String location = searchTextView.getText().toString().toLowerCase();
+
+                            itemSearch.clear();
+
+                            for (int i = 0; i < mList.size() ; i++) {
+                                if (mList.get(i).getLocation().toLowerCase().contains(location) && !location.equals(""))
+                                {
+                                    itemSearch.add(mList.get(i));
+                                }
+                            }
+                            mAdapter.notifyDataSetChanged();
+                            if(itemSearch.size() != 0)
+                            {
+                                layoutEmpty.setVisibility(View.GONE);
+                                recyclerView.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                layoutEmpty.setVisibility(View.VISIBLE);
+                                recyclerView.setVisibility(View.GONE);
+                            }
+                            hideKeyboard(getActivity());
+                            if (mListener != null)
+                            {
+                                mListener.onRestore();
+                            }
+
+                        }
+                    });
+                    mAdapter = new RestaurantItemAdapter(itemSearch,getContext());
+
+                    recyclerView.setAdapter(mAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+
+                    mAdapter.setListener(new RestaurantItemAdapter.InterfaceItemClick() {
+                        @Override
+                        public void onItemClick(RestaurantDrawerItem item) {
+                            hideKeyboard(getActivity());
+                            Intent intentResDetail = new Intent(getActivity(),RestaurantDetail.class);
+                            intentResDetail.putExtra("RestaurantDetail", (Serializable) item);
+                            startActivity(intentResDetail);
+                        }
+                    });
+
+
+                }
+            }
+        });
     }
 }

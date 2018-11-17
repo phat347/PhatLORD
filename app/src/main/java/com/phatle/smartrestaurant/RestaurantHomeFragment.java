@@ -39,7 +39,7 @@ public class RestaurantHomeFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_contact, container, false);
-        mService = ApiUtils.getSOService();
+//        mService = ApiUtils.getSOService();
 
         //Add menu vô nhà hàng
         mRestaurantMenu.clear();
@@ -74,7 +74,9 @@ public class RestaurantHomeFragment extends Fragment{
 //        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res1",(float)9.2, "Nhà hàng của Pogba", "Coffe", false,100,"TP Vũng Tàu",2,mRestaurantMenu,mRestaurantComment));
 //        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res2",(float)9.3, "Nhà hàng của Mourinho", "Restaurant", true,200,"TPHCM",3,mRestaurantMenu,mRestaurantComment));
 
+        mList = ((ProfileActivity) getActivity()).mList;
         mAdapter = new RestaurantItemAdapter(mList,getContext());
+
 
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
@@ -91,48 +93,56 @@ public class RestaurantHomeFragment extends Fragment{
         });
 
 
-        loadAnswers();
+//        loadAnswers();
+
+        ((ProfileActivity) getActivity()).setListenerFragmentHome(new ProfileActivity.InterfacePassDataRestaurantHome() {
+            @Override
+            public void onPass(List<RestaurantDrawerItem> list) {
+                mAdapter.updateAnswers(list);
+            }
+        });
         return view;
     }
-    public void loadAnswers() {
-
-        final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText("Loading");
-        pDialog.setCancelable(false);
-        pDialog.show();
-        mService.getAnswers().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<RestaurantDrawerItem>>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.d("Phat","onComplete");
-                        pDialog.dismiss();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("Phat","onError");
-                        new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
-                                .setTitleText("Không thể lấy dữ liệu!")
-                                .setContentText("Kiểm tra kết nối mạng hoặc vui lòng thử lại sau")
-                                .setConfirmText("OK")
-                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-                                        sDialog.dismissWithAnimation();
-                                    }
-                                })
-                                .show();
-
-                    }
-
-                    @Override
-                    public void onNext(List<RestaurantDrawerItem> restaurantResponses) {
-                        mAdapter.updateAnswers(restaurantResponses);
-                        pDialog.dismiss();
-                    }
-                });
-    }
+//    public void loadAnswers() {
+//
+//        final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+//        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+//        pDialog.setTitleText("Loading");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
+//        mService.getAnswers().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Subscriber<List<RestaurantDrawerItem>>() {
+//                    @Override
+//                    public void onCompleted() {
+//                        Log.d("Phat","onComplete");
+//                        pDialog.dismiss();
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Log.d("Phat","onError");
+//                        pDialog.dismiss();
+//                        new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+//                                .setTitleText("Không thể lấy dữ liệu!")
+//                                .setContentText("Kiểm tra kết nối mạng hoặc vui lòng thử lại sau")
+//                                .setConfirmText("OK")
+//                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                                    @Override
+//                                    public void onClick(SweetAlertDialog sDialog) {
+//                                        sDialog.dismissWithAnimation();
+//                                    }
+//                                })
+//                                .show();
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(List<RestaurantDrawerItem> restaurantResponses) {
+//                        mAdapter.updateAnswers(restaurantResponses);
+//                        pDialog.dismiss();
+//                    }
+//                });
+//    }
 
 
 }

@@ -19,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +39,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -46,6 +48,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class ProfileActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
@@ -58,7 +64,8 @@ public class ProfileActivity extends AppCompatActivity {
     String IntentPhotoURL;
     NavigationView navigationView;
     private List<DrawerItem> mListMenu = new ArrayList<>();
-
+    List<RestaurantDrawerItem> mList = new ArrayList<>();
+    private SOService mService;
     private DrawerItemAdapter mAdapterMenu;
 
 
@@ -68,11 +75,30 @@ public class ProfileActivity extends AppCompatActivity {
     private BottomBarAdapter pagerAdapter;
     ImageView btnMenu;
     ImageView btnMenuClose;
+
+    public InterfacePassDataRestaurant mListener;
+    public InterfacePassDataRestaurantHome mListenerFragmentHome;
+    public interface InterfacePassDataRestaurant{
+        //gửi Data từ API khi load xong vô Fragment RestaurantSearch
+        void onPass(List<RestaurantDrawerItem> list);
+    }
+    public void setListener(InterfacePassDataRestaurant listener){
+        mListener = listener;
+    }
+
+    public interface InterfacePassDataRestaurantHome{
+        //gửi Data từ API khi load xong vô Fragment RestaurantHome
+        void onPass(List<RestaurantDrawerItem> list);
+    }
+    public void setListenerFragmentHome(InterfacePassDataRestaurantHome listener){
+        mListenerFragmentHome = listener;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         checkNetWork();
+        mService = ApiUtils.getSOService();
         toolbar = findViewById(R.id.toolbar);
         final TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         btnMenu = toolbar.findViewById(R.id.btn_menu);
@@ -173,6 +199,8 @@ public class ProfileActivity extends AppCompatActivity {
                     .into(profile);
         }
 
+
+        loadAnswers();
 
     }
     public void setUpUImenu(){
@@ -402,5 +430,54 @@ public class ProfileActivity extends AppCompatActivity {
         dialog.setupOkButton("Thử lại", tryAgainClickListener);
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
+    }
+
+    public void loadAnswers() {
+
+        final SweetAlertDialog pDialog = new SweetAlertDialog(ProfileActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Loading");
+        pDialog.setCancelable(false);
+        pDialog.show();
+        mService.getAnswers().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<RestaurantDrawerItem>>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d("Phat","onComplete");
+                        pDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("Phat","onError");
+                        pDialog.dismiss();
+                        new SweetAlertDialog(ProfileActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Không thể lấy dữ liệu!")
+                                .setContentText("Kiểm tra kết nối mạng hoặc vui lòng thử lại sau")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                    }
+                                })
+                                .show();
+
+                    }
+
+                    @Override
+                    public void onNext(List<RestaurantDrawerItem> restaurantResponses) {
+                        mList = restaurantResponses;
+                        pDialog.dismiss();
+                        if(mListener != null)
+                        {
+                            mListener.onPass(restaurantResponses);
+                        }
+                        if(mListenerFragmentHome != null)
+                        {
+                            mListenerFragmentHome.onPass(restaurantResponses);
+                        }
+                    }
+                });
     }
 }
