@@ -143,7 +143,13 @@ public class ProfileActivity extends AppCompatActivity {
                         mTitle.setText("Search");
                         break;
                     case 2:
-                        mTitle.setText("UserContact");
+                        mTitle.setText("Map");
+                        break;
+                    case 3:
+                        mTitle.setText("Notification");
+                        break;
+                    case 4:
+                        mTitle.setText("Bookmark");
                         break;
                     default:
                         break;
@@ -362,11 +368,17 @@ public class ProfileActivity extends AppCompatActivity {
     private void addBottomNavigationItems() {
         AHBottomNavigationItem item1 = new AHBottomNavigationItem("Home", R.drawable.home);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem("Search", R.drawable.search);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("UserContact", R.drawable.ic_home_white_24dp);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Map", R.drawable.pointer);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem("Notification", R.drawable.notification);
+        AHBottomNavigationItem item5 = new AHBottomNavigationItem("Bookmark", R.drawable.pin);
+
 
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
+        bottomNavigation.addItem(item4);
+        bottomNavigation.addItem(item5);
+
     }
     private void setupViewPager() {
         viewPager = (NoSwipePager) findViewById(R.id.viewpager);
@@ -374,7 +386,9 @@ public class ProfileActivity extends AppCompatActivity {
         pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new RestaurantHomeFragment());
         pagerAdapter.addFragments(new SearchFragment());
-        pagerAdapter.addFragments(new UserContactFragment());
+        pagerAdapter.addFragments(new FragmentTest());
+        pagerAdapter.addFragments(new FragmentTest());
+        pagerAdapter.addFragments(new FragmentTest());
 
 
         viewPager.setAdapter(pagerAdapter);

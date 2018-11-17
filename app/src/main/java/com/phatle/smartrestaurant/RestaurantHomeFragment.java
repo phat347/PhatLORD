@@ -63,7 +63,7 @@ public class RestaurantHomeFragment extends Fragment{
 //        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_mourinho",9,"Jose Mourinho",(float) 10,"Tao cho De Gea sút pen"));
 //        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_degea",1,"De Gea",(float) 8.4,"Ôi ngon vl, cám ơn đại ca nhiều :D"));
 
-        mList.clear();
+//        mList.clear();
         //Add item theo thứ tự hình ảnh, điểm OVR, tên, type, status, khoảng cách, địa điểm, rating giá
 //        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res1",(float)9.3, "Nhà hàng 5 sao", "Restaurant", true,300,"TPHCM",2,mRestaurantMenu,mRestaurantComment));
 //        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res3",(float)7.3, "Nhà hàng của DeGea", "Bar", false,350,"Hà Nội",4,mRestaurantMenu,mRestaurantComment));

@@ -91,7 +91,7 @@ public class SearchFragment extends Fragment{
 //        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_mourinho",9,"Jose Mourinho",(float) 10,"Tao cho De Gea sút pen"));
 //        mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_degea",1,"De Gea",(float) 8.4,"Ôi ngon vl, cám ơn đại ca nhiều :D"));
 
-        mList.clear();
+//        mList.clear();
         //Add item theo thứ tự hình ảnh, điểm OVR, tên, type, status, khoảng cách, địa điểm, rating giá
 //        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res1",(float)9.3, "Nhà hàng 5 sao", "Restaurant", true,300,"TPHCM",2,mRestaurantMenu,mRestaurantComment));
 //        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res3",(float)7.3, "Nhà hàng của DeGea", "Bar", false,350,"Hà Nội",4,mRestaurantMenu,mRestaurantComment));
@@ -101,6 +101,98 @@ public class SearchFragment extends Fragment{
 //        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res3",(float)9.1, "Nhà hàng của Martial", "Restaurant", true,580,"TPHCM",0,mRestaurantMenu,mRestaurantComment));
 //        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res1",(float)9.2, "Nhà hàng của Pogba", "Coffe", false,100,"TP Vũng Tàu",2,mRestaurantMenu,mRestaurantComment));
 //        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res2",(float)9.3, "Nhà hàng của Mourinho", "Restaurant", true,200,"TPHCM",3,mRestaurantMenu,mRestaurantComment));
+
+        mList = ((ProfileActivity) getActivity()).mList;
+        List<String> locationList = new ArrayList<>();
+        locationList.clear();
+
+        //Convert first letter to uppercase
+        for (int i = 0; i < mList.size(); i++) {
+            String cap = mList.get(i).getLocation().substring(0, 1).toUpperCase() + mList.get(i).getLocation().substring(1);
+            mList.get(i).setLocation(cap);
+        }
+
+
+
+
+
+        if (mList.size() != 0)
+        {
+            //Sort list theo alphabet
+            Collections.sort(mList, new RestaurantItemComparator());
+            String temp = "tmp";
+            for (RestaurantDrawerItem item : mList)
+            {
+                if(!item.getLocation().equals(temp)) {
+
+                    locationList.add(item.getLocation());
+                    temp = item.getLocation();
+                }
+            }
+
+            String[] locationListArray = new String[ locationList.size() ];
+            locationList.toArray( locationListArray );
+            ArrayAdapter adapterLocation = new ArrayAdapter(getContext(),android.R.layout.simple_list_item_1,locationListArray);
+
+            searchTextView.setAdapter(adapterLocation);
+
+
+            // Sét đặt số ký tự nhỏ nhất, để cửa sổ gợi ý hiển thị
+            searchTextView.setThreshold(1);
+            searchTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    hideKeyboard(getActivity());
+                }
+            });
+            searchBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String location = searchTextView.getText().toString().toLowerCase();
+
+                    itemSearch.clear();
+
+                    for (int i = 0; i < mList.size() ; i++) {
+                        if (mList.get(i).getLocation().toLowerCase().contains(location) && !location.equals(""))
+                        {
+                            itemSearch.add(mList.get(i));
+                        }
+                    }
+                    mAdapter.notifyDataSetChanged();
+                    if(itemSearch.size() != 0)
+                    {
+                        layoutEmpty.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        layoutEmpty.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
+                    }
+                    hideKeyboard(getActivity());
+                    if (mListener != null)
+                    {
+                        mListener.onRestore();
+                    }
+
+                }
+            });
+            mAdapter = new RestaurantItemAdapter2(itemSearch,getContext());
+
+            recyclerView.setAdapter(mAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+
+            mAdapter.setListener(new RestaurantItemAdapter2.InterfaceItemClick() {
+                @Override
+                public void onItemClick(RestaurantDrawerItem item) {
+                    hideKeyboard(getActivity());
+                    Intent intentResDetail = new Intent(getActivity(),RestaurantDetail.class);
+                    intentResDetail.putExtra("RestaurantDetail", (Serializable) item);
+                    startActivity(intentResDetail);
+                }
+            });
+
+
+        }
 
         getSearchData();
 
