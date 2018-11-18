@@ -386,7 +386,7 @@ public class ProfileActivity extends AppCompatActivity {
         pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new RestaurantHomeFragment());
         pagerAdapter.addFragments(new SearchFragment());
-        pagerAdapter.addFragments(new FragmentTest());
+        pagerAdapter.addFragments(new RestaurantMapFragment());
         pagerAdapter.addFragments(new FragmentTest());
         pagerAdapter.addFragments(new FragmentTest());
 
