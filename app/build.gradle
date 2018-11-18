@@ -58,6 +58,7 @@ dependencies {
 
     //Googlemap
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    implementation "com.google.android.gms:play-services-location:16.0.0"
 
     //RxPermissions
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
