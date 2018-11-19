@@ -37,15 +37,17 @@ import com.squareup.picasso.Target;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RestaurantMapFragment extends Fragment implements OnMapReadyCallback {
 
     public GoogleMap mMap;
     private MapView mapView;
     private FusedLocationProviderClient mFusedLocationClient;
-    List<LatLng> mListLocation = new ArrayList<>();
-
+    Set<Target> protectedFromGarbageCollectorTargets = new HashSet<>();
+    private List<RestaurantDrawerItem> mList = new ArrayList<>();
     Location myLocation;
     @Nullable
     @Override
@@ -80,6 +82,7 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
                     .show();
         }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        mList = ((ProfileActivity) getActivity()).mList;
         return view;
     }
 
@@ -127,7 +130,15 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
             return;
         }
 
+//        mListLocation.clear();
+//        mListLocation.add(new LatLng(10.7696543, 106.65701));
+//        mListLocation.add(new LatLng(10.762503, 106.659343));
 
+//        LatLng BkhoaUniversity = new LatLng(10.7696543, 106.65701);
+//        mMap.addMarker(new MarkerOptions().position(BkhoaUniversity));
+//
+//        LatLng BkhoaUniversity2 = new LatLng(10.762503, 106.659343);
+//        mMap.addMarker(new MarkerOptions().position(BkhoaUniversity2));
         mMap.setMyLocationEnabled(true);
         mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
             @Override
@@ -136,16 +147,16 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
                     // Logic to handle location object
                     myLocation = location;
                     Movecamera(mMap, myLocation.getLatitude(),myLocation.getLongitude());
+                    mMap.clear();
+
+
+                    for (int i = 0; i <mList.size() ; i++) {
+                        AddMarker(mList.get(i).getLat(),mList.get(i).getLng(),mList.get(i).getImgRes(),mList.get(i).getName());
+                    }
                 }
             }
         });
-        mListLocation.clear();
-        mListLocation.add(new LatLng(10.7696543, 106.65701));
-        mListLocation.add(new LatLng(10.762503, 106.659343));
 
-        for (int i = 0; i <mListLocation.size() ; i++) {
-            AddMarker(mListLocation.get(i).latitude,mListLocation.get(i).longitude);
-        }
 
 //        LatLng BkhoaUniversity = new LatLng(10.7696543, 106.65701);
 //        Target mTarget1 = new Target() {
@@ -209,22 +220,28 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 //                .into(mTarget);
     }
 
-    public void AddMarker(double lat, double lng)
+    public void AddMarker(double lat, double lng,String imgRes,String name)
     {
+
         LatLng location = new LatLng(lat,lng);
         Target mTarget = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                //Garbage collector làm cho hàm BitmapLoad không được gọi ở lần đầu -> remove garbage collector
+                protectedFromGarbageCollectorTargets.remove(this);
                 mMap.addMarker(new MarkerOptions()
                         .position(location)
                         .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-                        .title("Restaurant 1")
+                        .title(name)
+
                 );
+
             }
 
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {
                 Log.d("picasso", "onBitmapFailed");
+                protectedFromGarbageCollectorTargets.remove(this);
             }
 
             @Override
@@ -232,11 +249,13 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 
             }
         };
+        protectedFromGarbageCollectorTargets.add(mTarget);
         Picasso.with(getContext())
-                .load(R.drawable.img_res1)
+                .load(imgRes)
                 .resize(200,200)
                 .centerCrop()
                 .transform(new CircleBubbleTransformation())
+
                 .into(mTarget);
     }
 

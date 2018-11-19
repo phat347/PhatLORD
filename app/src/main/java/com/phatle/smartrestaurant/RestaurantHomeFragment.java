@@ -27,7 +27,6 @@ public class RestaurantHomeFragment extends Fragment{
     private RestaurantItemAdapter mAdapter;
     private List<MenuItem> mRestaurantMenu = new ArrayList<>();
     private List<CommentItem> mRestaurantComment = new ArrayList<>();
-    private SOService mService;
 
     @Nullable
     @Override

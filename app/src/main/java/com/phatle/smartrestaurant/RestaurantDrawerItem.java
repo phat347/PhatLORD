@@ -39,6 +39,14 @@ public class RestaurantDrawerItem implements Serializable{
     @Expose
     int priceRating;
 
+    @SerializedName("resLat")
+    @Expose
+    double lat;
+
+    @SerializedName("resLng")
+    @Expose
+    double lng;
+
     @SerializedName("resMenu")
     @Expose
     List<MenuItem> menu;
@@ -138,5 +146,21 @@ public class RestaurantDrawerItem implements Serializable{
 
     public void setComment(List<CommentItem> comment) {
         this.comment = comment;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 }
