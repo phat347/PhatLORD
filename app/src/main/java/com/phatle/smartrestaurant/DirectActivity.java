@@ -55,7 +55,7 @@ public class DirectActivity extends AppCompatActivity implements OnMapReadyCallb
 
     RestaurantDrawerItem IntentItem;
     private SOService2 mService;
-    TextView toolbarTitle;
+    TextView toolbarTitle,mDuration,mDistance;
     ImageView backBtn;
 
     @Override
@@ -65,6 +65,8 @@ public class DirectActivity extends AppCompatActivity implements OnMapReadyCallb
         toolbarTitle = findViewById(R.id.toolbar_title);
         backBtn = findViewById(R.id.btn_menu);
         mapView = findViewById(R.id.google_map);
+        mDistance = findViewById(R.id.distance_map);
+        mDuration = findViewById(R.id.duration_map);
         Intent intent = DirectActivity.this.getIntent();
         IntentItem = (RestaurantDrawerItem) intent.getSerializableExtra("RestaurantDetail");
         toolbarTitle.setText(IntentItem.getName());
@@ -231,6 +233,12 @@ public class DirectActivity extends AppCompatActivity implements OnMapReadyCallb
                                     latlngBuilder.include(Northeast);
                                     latlngBuilder.include(Southwest);
                                     mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latlngBuilder.build(), 100));
+
+                                    String distance = googleMapResponse.getRoutes().get(0).getLegs().get(0).getDistance().getText();
+                                    String duration = googleMapResponse.getRoutes().get(0).getLegs().get(0).getDuration().getText();
+
+                                    mDistance.setText("  ("+distance+")");
+                                    mDuration.setText(duration);
 
                                 }
                             });
