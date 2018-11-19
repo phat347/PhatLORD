@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.support.v4.app.ActivityCompat;
@@ -24,8 +25,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.maps.android.PolyUtil;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.phatle.smartrestaurant.GoogleMapModel.GoogleMapResponse;
 import com.phatle.smartrestaurant.Retrofit2GoogleMap.ApiUtils2;
 import com.phatle.smartrestaurant.Retrofit2GoogleMap.SOService2;
@@ -168,33 +173,64 @@ public class DirectActivity extends AppCompatActivity implements OnMapReadyCallb
                 if (location != null) {
                     // Logic to handle location object
                     myLocation = location;
-                    Movecamera(mMap, myLocation.getLatitude(),myLocation.getLongitude());
+//                    Movecamera(mMap, myLocation.getLatitude(),myLocation.getLongitude());
                     mMap.clear();
                     AddMarker(IntentItem.getLat(),IntentItem.getLng(),IntentItem.getImgRes(),IntentItem.getName());
                     String origin = myLocation.getLatitude()+","+myLocation.getLongitude();
                     String destination = IntentItem.getLat()+","+IntentItem.getLng();
+                    final SweetAlertDialog pDialog = new SweetAlertDialog(DirectActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+                    pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                    pDialog.setTitleText("Loading");
+                    pDialog.setCancelable(false);
+                    pDialog.show();
                     mService.getAnswers(origin,destination,"AIzaSyA8hxps20aOEzJoU4LsrR1ClrbdXuMzj-o","vi")
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Subscriber<GoogleMapResponse>() {
                                 @Override
                                 public void onCompleted() {
-
+                                    pDialog.dismiss();
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
 
                                     Log.d("Phat","onErrorLoadAPI");
+                                    new SweetAlertDialog(DirectActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                            .setTitleText("Không thể lấy dữ liệu!")
+                                            .setContentText("Kiểm tra kết nối mạng hoặc vui lòng thử lại sau")
+                                            .setConfirmText("OK")
+                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    sDialog.dismissWithAnimation();
+                                                }
+                                            })
+                                            .show();
                                 }
 
                                 @Override
                                 public void onNext(GoogleMapResponse googleMapResponse) {
+                                    pDialog.dismiss();
                                     Log.d("Phat","onSuccessLoadAPI");
                                     String status = googleMapResponse.getStatus();
                                     Log.d("Phat","   "+status);
                                     String polyline = googleMapResponse.getRoutes().get(0).getOverviewPolyline().getPoints();
                                     Log.d("Phat","   "+ polyline);
+
+                                    PolylineOptions options = new PolylineOptions();
+                                    options.color(Color.parseColor("#42b72a"));
+                                    options.width(6);
+                                    options.addAll(PolyUtil.decode(polyline));
+                                    mMap.addPolyline(options);
+
+                                    LatLng Southwest = new LatLng(googleMapResponse.getRoutes().get(0).getBounds().getSouthwest().getLat(),googleMapResponse.getRoutes().get(0).getBounds().getSouthwest().getLng());
+                                    LatLng Northeast = new LatLng(googleMapResponse.getRoutes().get(0).getBounds().getNortheast().getLat(),googleMapResponse.getRoutes().get(0).getBounds().getNortheast().getLng());
+
+                                    LatLngBounds.Builder latlngBuilder = new LatLngBounds.Builder();
+                                    latlngBuilder.include(Northeast);
+                                    latlngBuilder.include(Southwest);
+                                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latlngBuilder.build(), 100));
 
                                 }
                             });

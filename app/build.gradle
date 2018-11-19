@@ -62,5 +62,8 @@ dependencies {
 
     //RxPermissions
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+
+    //PolyUtil
+    implementation 'com.google.maps.android:android-maps-utils:0.5+'
 }
 apply plugin: 'com.google.gms.google-services'
