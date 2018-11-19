@@ -28,7 +28,6 @@ import java.util.List;
 public class SearchFragment extends Fragment{
     private List<RestaurantDrawerItem> mList = new ArrayList<>();
     List<RestaurantDrawerItem> itemSearch = new ArrayList<>();
-    private List<MenuItem> mRestaurantMenu = new ArrayList<>();
     private List<CommentItem> mRestaurantComment = new ArrayList<>();
     private RestaurantItemAdapter2 mAdapter;
     AutoCompleteTextView searchTextView;

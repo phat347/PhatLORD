@@ -14,6 +14,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,12 +51,15 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
     Set<Target> protectedFromGarbageCollectorTargets = new HashSet<>();
     private List<RestaurantDrawerItem> mList = new ArrayList<>();
     Location myLocation;
+    private RestaurantItemAdapter2 mAdapter;
+    RecyclerView recyclerView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_googlemap, container, false);
         mapView = view.findViewById(R.id.google_map);
 
+        recyclerView = view.findViewById(R.id.recycler_view);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
 
@@ -83,6 +88,16 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
         }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         mList = ((ProfileActivity) getActivity()).mList;
+        mAdapter = new RestaurantItemAdapter2(mList,getContext());
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+
+        mAdapter.setListener(new RestaurantItemAdapter2.InterfaceItemClick() {
+            @Override
+            public void onItemClick(RestaurantDrawerItem item) {
+                Movecamera(mMap,item.getLat(),item.getLng());
+            }
+        });
         return view;
     }
 
@@ -270,9 +285,6 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         // Need user permisson (above)
 
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(lat, lon))
-        );
     }
     public static boolean isGspTurnOn(Context context) {
         LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
