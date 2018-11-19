@@ -26,12 +26,19 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.phatle.smartrestaurant.GoogleMapModel.GoogleMapResponse;
+import com.phatle.smartrestaurant.Retrofit2GoogleMap.ApiUtils2;
+import com.phatle.smartrestaurant.Retrofit2GoogleMap.SOService2;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class DirectActivity extends AppCompatActivity implements OnMapReadyCallback{
 
@@ -42,7 +49,7 @@ public class DirectActivity extends AppCompatActivity implements OnMapReadyCallb
     Location myLocation;
 
     RestaurantDrawerItem IntentItem;
-
+    private SOService2 mService;
     TextView toolbarTitle;
     ImageView backBtn;
 
@@ -68,6 +75,8 @@ public class DirectActivity extends AppCompatActivity implements OnMapReadyCallb
 
         mapView.getMapAsync(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+
+        mService = ApiUtils2.getSOService();
     }
 
     @Override
@@ -162,9 +171,37 @@ public class DirectActivity extends AppCompatActivity implements OnMapReadyCallb
                     Movecamera(mMap, myLocation.getLatitude(),myLocation.getLongitude());
                     mMap.clear();
                     AddMarker(IntentItem.getLat(),IntentItem.getLng(),IntentItem.getImgRes(),IntentItem.getName());
+                    String origin = myLocation.getLatitude()+","+myLocation.getLongitude();
+                    String destination = IntentItem.getLat()+","+IntentItem.getLng();
+                    mService.getAnswers(origin,destination,"AIzaSyA8hxps20aOEzJoU4LsrR1ClrbdXuMzj-o","vi")
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Subscriber<GoogleMapResponse>() {
+                                @Override
+                                public void onCompleted() {
+
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                    Log.d("Phat","onErrorLoadAPI");
+                                }
+
+                                @Override
+                                public void onNext(GoogleMapResponse googleMapResponse) {
+                                    Log.d("Phat","onSuccessLoadAPI");
+                                    String status = googleMapResponse.getStatus();
+                                    Log.d("Phat","   "+status);
+                                    String polyline = googleMapResponse.getRoutes().get(0).getOverviewPolyline().getPoints();
+                                    Log.d("Phat","   "+ polyline);
+
+                                }
+                            });
                 }
             }
         });
+
 
     }
     public void Movecamera(GoogleMap googleMap, double lat, double lon) {
