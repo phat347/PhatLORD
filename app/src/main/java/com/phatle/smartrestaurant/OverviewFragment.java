@@ -11,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import java.io.Serializable;
 
 public class OverviewFragment extends Fragment{
 
@@ -22,6 +25,7 @@ public class OverviewFragment extends Fragment{
     TextView name, type, status1, status2, overallRating, clockTimeStatus;
     ImageView dollar1, dollar2, dollar3, dollar4;
     FrameLayout itemLayout;
+    LinearLayout btnDirect;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +46,15 @@ public class OverviewFragment extends Fragment{
         itemLayout = view.findViewById(R.id.itemLayout);
         clockTime = view.findViewById(R.id.res_time_img);
         clockTimeStatus = view.findViewById(R.id.res_time_text);
+        btnDirect = view.findViewById(R.id.btn_direct);
+        btnDirect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentResDetail = new Intent(getActivity(),DirectActivity.class);
+                intentResDetail.putExtra("RestaurantDetail", (Serializable) IntentItem);
+                startActivity(intentResDetail);
+            }
+        });
         Picasso.with(getContext())
                 .load(IntentItem.getImgRes())
                 .into(restaurantImage);

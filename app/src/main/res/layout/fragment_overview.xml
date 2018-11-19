@@ -185,6 +185,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/btn_direct"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_width="0dp"
