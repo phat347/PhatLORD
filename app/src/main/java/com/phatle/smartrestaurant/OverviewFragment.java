@@ -23,7 +23,7 @@ public class OverviewFragment extends Fragment{
 
     RestaurantDrawerItem IntentItem;
     ImageView restaurantImage, clockTime;
-    TextView name, type, status1, status2, overallRating, clockTimeStatus;
+    TextView name, type, status1, status2, overallRating, clockTimeStatus,decription;
     ImageView dollar1, dollar2, dollar3, dollar4;
     FrameLayout itemLayout;
     LinearLayout btnDirect,btnPhone;
@@ -47,6 +47,8 @@ public class OverviewFragment extends Fragment{
         itemLayout = view.findViewById(R.id.itemLayout);
         clockTime = view.findViewById(R.id.res_time_img);
         clockTimeStatus = view.findViewById(R.id.res_time_text);
+        decription = view.findViewById(R.id.restaurant_description);
+        decription.setText(IntentItem.getDecription());
         btnPhone = view.findViewById(R.id.btn_phone_call);
         btnPhone.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -59,6 +59,10 @@ public class RestaurantDrawerItem implements Serializable{
     @Expose
     String phoneNumber;
 
+    @SerializedName("resDescription")
+    @Expose
+    String decription;
+
     @SerializedName("resMenu")
     @Expose
     List<MenuItem> menu;
@@ -198,5 +202,13 @@ public class RestaurantDrawerItem implements Serializable{
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getDecription() {
+        return decription;
+    }
+
+    public void setDecription(String decription) {
+        this.decription = decription;
     }
 }
