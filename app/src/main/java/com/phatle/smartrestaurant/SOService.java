@@ -13,4 +13,7 @@ public interface SOService {
 
     @GET("/api/json/get/4kWs-in6H")
     Observable<List<RestaurantDrawerItem>> getBookmarkAnswers();
+
+    @GET("/api/json/get/4JllAnhTB")
+    Observable<List<NotificationResponse>> getNotificationAnswers();
 }

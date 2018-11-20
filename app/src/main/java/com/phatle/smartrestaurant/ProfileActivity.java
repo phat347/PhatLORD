@@ -66,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
     private List<DrawerItem> mListMenu = new ArrayList<>();
     List<RestaurantDrawerItem> mList = new ArrayList<>();
     List<RestaurantDrawerItem> mListBookmark = new ArrayList<>();
+    List<NotificationResponse> mListNotification = new ArrayList<>();
     private SOService mService;
     private DrawerItemAdapter mAdapterMenu;
 
@@ -396,7 +397,7 @@ public class ProfileActivity extends AppCompatActivity {
         pagerAdapter.addFragments(new RestaurantHomeFragment());
         pagerAdapter.addFragments(new SearchFragment());
         pagerAdapter.addFragments(new RestaurantMapFragment());
-        pagerAdapter.addFragments(new FragmentTest());
+        pagerAdapter.addFragments(new NotificationFragment());
         pagerAdapter.addFragments(new BookMarkFragment());
 
 
@@ -524,6 +525,26 @@ public class ProfileActivity extends AppCompatActivity {
                         {
                             mListenerFragmentBookmark.onPass(restaurantDrawerItems);
                         }
+                    }
+                });
+        mService.getNotificationAnswers().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<NotificationResponse>>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d("Phat","onComplete3");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("Phat","onError");
+                    }
+
+                    @Override
+                    public void onNext(List<NotificationResponse> responseItem) {
+                        mListNotification = responseItem;
+                        Log.d("Phat","onNext3");
+
                     }
                 });
     }
