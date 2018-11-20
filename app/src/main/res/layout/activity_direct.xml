@@ -76,7 +76,7 @@
                     android:id="@+id/duration_map"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1 hour 30 mins"
+                    android:text="Đang tải"
                     android:textColor="@color/black"
                     android:textStyle="bold"/>
 
@@ -84,7 +84,7 @@
                     android:id="@+id/distance_map"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  (12 km)"/>
+                    android:text="  (Đang tải)"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"

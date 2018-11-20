@@ -47,6 +47,18 @@ public class RestaurantDrawerItem implements Serializable{
     @Expose
     double lng;
 
+    @SerializedName("resOpenTime")
+    @Expose
+    String openTime;
+
+    @SerializedName("resClosedTime")
+    @Expose
+    String closeTime;
+
+    @SerializedName("resPhoneNumber")
+    @Expose
+    String phoneNumber;
+
     @SerializedName("resMenu")
     @Expose
     List<MenuItem> menu;
@@ -162,5 +174,29 @@ public class RestaurantDrawerItem implements Serializable{
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public String getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
+    }
+
+    public String getCloseTime() {
+        return closeTime;
+    }
+
+    public void setCloseTime(String closeTime) {
+        this.closeTime = closeTime;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

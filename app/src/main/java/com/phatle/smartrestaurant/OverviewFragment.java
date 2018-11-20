@@ -2,6 +2,7 @@ package com.phatle.smartrestaurant;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,7 +26,7 @@ public class OverviewFragment extends Fragment{
     TextView name, type, status1, status2, overallRating, clockTimeStatus;
     ImageView dollar1, dollar2, dollar3, dollar4;
     FrameLayout itemLayout;
-    LinearLayout btnDirect;
+    LinearLayout btnDirect,btnPhone;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +47,15 @@ public class OverviewFragment extends Fragment{
         itemLayout = view.findViewById(R.id.itemLayout);
         clockTime = view.findViewById(R.id.res_time_img);
         clockTimeStatus = view.findViewById(R.id.res_time_text);
+        btnPhone = view.findViewById(R.id.btn_phone_call);
+        btnPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + IntentItem.getPhoneNumber()));
+                startActivity(intent);
+            }
+        });
         btnDirect = view.findViewById(R.id.btn_direct);
         btnDirect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +85,69 @@ public class OverviewFragment extends Fragment{
             clockTimeStatus.setTextColor(getResources().getColor(R.color.gray));
         }
 
+        String openTime = IntentItem.getOpenTime();
+
+        String[] openTimeformat = openTime.split(":");
+        String openTimeHours = openTimeformat[0];
+        String openTimeMins = openTimeformat[1];
+
+        String AmOrPm;
+        String OpenTimeformated;
+        if(Integer.parseInt(openTimeHours)==0)
+        {
+            AmOrPm = "AM";
+            OpenTimeformated = openTime + AmOrPm;
+        }
+        else if (Integer.parseInt(openTimeHours)==12)
+        {
+            AmOrPm = "PM";
+            OpenTimeformated = openTime + AmOrPm;
+        }
+        else if(Integer.parseInt(openTimeHours) > 12)
+        {
+            AmOrPm = "PM";
+            int x = Integer.parseInt(openTimeHours) -12;
+            OpenTimeformated = x+":"+openTimeMins + AmOrPm;
+        }
+        else {
+            AmOrPm = "AM";
+            OpenTimeformated = openTime + AmOrPm;
+        }
+
+
+        String closeTime = IntentItem.getCloseTime();
+
+        String[] closeTimeformat = closeTime.split(":");
+        String closeTimeHours = closeTimeformat[0];
+        String closeTimeMins = closeTimeformat[1];
+
+        String AmOrPm2;
+        String  CloseTimeformated;
+        if(Integer.parseInt(closeTimeHours)==0)
+        {
+            AmOrPm2 = "AM";
+            CloseTimeformated = closeTime + AmOrPm2;
+        }
+        else if (Integer.parseInt(closeTimeHours)==12)
+        {
+            AmOrPm2 = "PM";
+            CloseTimeformated = closeTime + AmOrPm2;
+        }
+        else if(Integer.parseInt(closeTimeHours) > 12)
+        {
+            AmOrPm2 = "PM";
+            int x = Integer.parseInt(closeTimeHours) -12;
+            CloseTimeformated = x+":"+closeTimeMins + AmOrPm2;
+
+        }
+        else {
+            AmOrPm2 = "AM";
+            CloseTimeformated = closeTime + AmOrPm2;
+        }
+
+
+
+        clockTimeStatus.setText( OpenTimeformated+" - "+CloseTimeformated);
 
 
         int score = (int)(IntentItem.getOverallRating()*10)/10;
