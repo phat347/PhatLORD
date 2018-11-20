@@ -65,6 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
     NavigationView navigationView;
     private List<DrawerItem> mListMenu = new ArrayList<>();
     List<RestaurantDrawerItem> mList = new ArrayList<>();
+    List<RestaurantDrawerItem> mListBookmark = new ArrayList<>();
     private SOService mService;
     private DrawerItemAdapter mAdapterMenu;
 
@@ -78,6 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public InterfacePassDataRestaurant mListener;
     public InterfacePassDataRestaurantHome mListenerFragmentHome;
+    public InterfacePassDataRestaurantBookmark mListenerFragmentBookmark;
     public interface InterfacePassDataRestaurant{
         //gửi Data từ API khi load xong vô Fragment RestaurantSearch
         void onPass(List<RestaurantDrawerItem> list);
@@ -92,6 +94,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
     public void setListenerFragmentHome(InterfacePassDataRestaurantHome listener){
         mListenerFragmentHome = listener;
+    }
+    public interface InterfacePassDataRestaurantBookmark{
+        //gửi Data từ API khi load xong vô Fragment RestaurantBookmark
+        void onPass(List<RestaurantDrawerItem> list);
+    }
+    public void setListenerFragmentBookmark(InterfacePassDataRestaurantBookmark listener){
+        mListenerFragmentBookmark = listener;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -388,7 +397,7 @@ public class ProfileActivity extends AppCompatActivity {
         pagerAdapter.addFragments(new SearchFragment());
         pagerAdapter.addFragments(new RestaurantMapFragment());
         pagerAdapter.addFragments(new FragmentTest());
-        pagerAdapter.addFragments(new FragmentTest());
+        pagerAdapter.addFragments(new BookMarkFragment());
 
 
         viewPager.setAdapter(pagerAdapter);
@@ -490,6 +499,30 @@ public class ProfileActivity extends AppCompatActivity {
                         if(mListenerFragmentHome != null)
                         {
                             mListenerFragmentHome.onPass(restaurantResponses);
+                        }
+                    }
+                });
+
+        mService.getBookmarkAnswers().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<RestaurantDrawerItem>>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d("Phat","onComplete2");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("Phat","onError");
+                    }
+
+                    @Override
+                    public void onNext(List<RestaurantDrawerItem> restaurantDrawerItems) {
+                        mListBookmark = restaurantDrawerItems;
+                        Log.d("Phat","onNext2");
+                        if(mListenerFragmentBookmark != null)
+                        {
+                            mListenerFragmentBookmark.onPass(restaurantDrawerItems);
                         }
                     }
                 });
