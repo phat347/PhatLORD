@@ -2,6 +2,7 @@ package com.phatle.smartrestaurant;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,13 @@ public class CommentItemAdapter extends RecyclerView.Adapter<CommentItemAdapter.
 
     private List<CommentItem> list;
     Context context;
-
+    private InterfaceItemClick mListener;
+    public interface InterfaceItemClick{
+        void onItemClick();
+    }
+    public void setListener(InterfaceItemClick listener){
+        this.mListener = listener;
+    }
     public CommentItemAdapter(List<CommentItem> list , Context context) {
         this.list = list;
         this.context = context;
@@ -51,6 +58,15 @@ public class CommentItemAdapter extends RecyclerView.Adapter<CommentItemAdapter.
 
         holder.comment.setText(item.getComment());
         holder.time.setText(item.getTime()+ " hours ago");
+        holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mListener != null)
+                {
+                    mListener.onItemClick();
+                }
+            }
+        });
 
     }
 
@@ -63,6 +79,7 @@ public class CommentItemAdapter extends RecyclerView.Adapter<CommentItemAdapter.
 
         public ImageView personCommentImage;
         public TextView name, comment, score, time;
+        public CardView itemLayout;
         public CommentItemViewHolder(View view) {
             super(view);
             personCommentImage = view.findViewById(R.id.restaurant_img);
@@ -70,6 +87,7 @@ public class CommentItemAdapter extends RecyclerView.Adapter<CommentItemAdapter.
             comment = view.findViewById(R.id.menu_description);
             score = view.findViewById(R.id.menu_price);
             time = view.findViewById(R.id.comment_time);
+            itemLayout = view.findViewById(R.id.itemLayout);
         }
     }
 }
