@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Nhà hàng thông minh</string>
+    <string name="facebook_app_id">1099750763508336</string>
+    <string name="fb_login_protocol_scheme">fb1099750763508336</string>
+    <string name="textViewUsername">Tên tài khoản</string>
+    <string name="password">Mật khẩu</string>
+    <string name="confirm_password">Nhập lại mật khẩu</string>
+    <string name="register">Đăng ký</string>
+    <string name="email">Email</string>
+    <string name="google_map_api_key">AIzaSyDeiF1YUBDrOWXh_5vZPFjMcMmKw06ecdA</string>
+</resources>
