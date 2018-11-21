@@ -40,6 +40,8 @@ public class CommentFragment extends Fragment{
     RelativeLayout containerLayout;
     TextInputEditText etComment;
     TextInputLayout textInputLayoutComment;
+    String IntentUserName;
+    String IntentUserPhoto;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,7 +56,9 @@ public class CommentFragment extends Fragment{
         });
         Intent intent = getActivity().getIntent();
         IntentItem = (RestaurantDrawerItem) intent.getSerializableExtra("RestaurantDetail");
-        etComment = view.findViewById(R.id.et_user);
+        IntentUserName = intent.getStringExtra("IntentUserName");
+        IntentUserPhoto = intent.getStringExtra("IntentUserPhoto");
+         etComment = view.findViewById(R.id.et_user);
         textInputLayoutComment = view.findViewById(R.id.etUsernameLayout);
         btnSend = view.findViewById(R.id.fab);
         seekbarLayout = view.findViewById(R.id.seekbarLayout);
@@ -80,7 +84,7 @@ public class CommentFragment extends Fragment{
                 boolean valid= true;
                 if (TextUtils.isEmpty(comment) || !ratingFlag)
                 {
-                    textInputLayoutComment.setError("Vui lòng nhập và rating");
+                    textInputLayoutComment.setError("Vui lòng nhập bình luận và rating");
                     valid = false;
                 }
                 else {
@@ -88,7 +92,7 @@ public class CommentFragment extends Fragment{
                 }
                 if(valid)
                 {
-                    mRestaurantComment.add(new CommentItem("android.resource://com.phatle.smartrestaurant/drawable/mu_mourinho",1,"Jose Mourinho",value,comment));
+                    mRestaurantComment.add(new CommentItem(IntentUserPhoto,IntentUserName,value,comment));
                     mAdapter.notifyDataSetChanged();
                     etComment.setText("");
                     etComment.clearFocus();

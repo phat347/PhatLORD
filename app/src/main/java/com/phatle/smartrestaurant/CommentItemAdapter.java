@@ -41,11 +41,21 @@ public class CommentItemAdapter extends RecyclerView.Adapter<CommentItemAdapter.
     @Override
     public void onBindViewHolder(@NonNull CommentItemViewHolder holder, int position) {
         CommentItem item = list.get(position);
-        Picasso.with(context)
-                .load(item.getImgRes()) //extract as User instance method
-                .transform(new CropCircleTransformation())
-                .resize(70, 70)
-                .into(holder.personCommentImage);
+        if(item.getImgRes() == null || item.getImgRes().equals(""))
+        {
+            Picasso.with(context)
+                    .load(R.drawable.user)
+                    .transform(new CropCircleTransformation())
+                    .resize(70, 70)
+                    .into(holder.personCommentImage);
+        }
+        else {
+            Picasso.with(context)
+                    .load(item.getImgRes())
+                    .transform(new CropCircleTransformation())
+                    .resize(70, 70)
+                    .into(holder.personCommentImage);
+        }
         holder.name.setText(item.getName());
 
         int score = (int)(item.getScore()*10)/10;
@@ -57,7 +67,14 @@ public class CommentItemAdapter extends RecyclerView.Adapter<CommentItemAdapter.
         else holder.score.setText(score+"/10");
 
         holder.comment.setText(item.getComment());
-        holder.time.setText(item.getTime()+ " hours ago");
+        if (item.getTime()== -1)
+        {
+            holder.time.setText("a moment ago");
+        }
+        else {
+            holder.time.setText(item.getTime()+ " hours ago");
+        }
+
         holder.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

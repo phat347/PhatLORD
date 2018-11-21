@@ -27,6 +27,8 @@ public class RestaurantHomeFragment extends Fragment{
     private RestaurantItemAdapter mAdapter;
     private List<MenuItem> mRestaurantMenu = new ArrayList<>();
     private List<CommentItem> mRestaurantComment = new ArrayList<>();
+    String IntentUserName;
+    String IntentUserPhoto;
 
     @Nullable
     @Override
@@ -68,6 +70,8 @@ public class RestaurantHomeFragment extends Fragment{
 //        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res2",(float)9.3, "Nhà hàng của Mourinho", "Restaurant", true,200,"TPHCM",3,mRestaurantMenu,mRestaurantComment));
 
         mList = ((ProfileActivity) getActivity()).mList;
+        IntentUserName = ((ProfileActivity) getActivity()).IntentUsername;
+        IntentUserPhoto = ((ProfileActivity) getActivity()).IntentPhotoURL;
         mAdapter = new RestaurantItemAdapter(mList,getContext());
 
 
@@ -80,6 +84,8 @@ public class RestaurantHomeFragment extends Fragment{
             @Override
             public void onItemClick(RestaurantDrawerItem item) {
                 Intent intentResDetail = new Intent(getActivity(),RestaurantDetail.class);
+                intentResDetail.putExtra("IntentUserName",IntentUserName);
+                intentResDetail.putExtra("IntentUserPhoto",IntentUserPhoto);
                 intentResDetail.putExtra("RestaurantDetail", (Serializable) item);
                 startActivity(intentResDetail);
             }
@@ -92,6 +98,16 @@ public class RestaurantHomeFragment extends Fragment{
             @Override
             public void onPass(List<RestaurantDrawerItem> list) {
                 mAdapter.updateAnswers(list);
+            }
+
+            @Override
+            public void onPassUserName(String username) {
+                IntentUserName = username;
+            }
+
+            @Override
+            public void onPassUserPhoto(String photo) {
+                IntentUserPhoto = photo;
             }
         });
         return view;

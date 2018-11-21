@@ -35,6 +35,8 @@ public class SearchFragment extends Fragment{
     LinearLayout layoutEmpty;
     RecyclerView recyclerView;
     RestoreBottomTab mListener;
+    String IntentUserName;
+    String IntentUserPhoto;
     public interface RestoreBottomTab{
         void onRestore();
     }
@@ -102,6 +104,8 @@ public class SearchFragment extends Fragment{
 //        mList.add(new RestaurantDrawerItem("android.resource://com.phatle.smartrestaurant/drawable/img_res2",(float)9.3, "Nhà hàng của Mourinho", "Restaurant", true,200,"TPHCM",3,mRestaurantMenu,mRestaurantComment));
 
         mList = ((ProfileActivity) getActivity()).mList;
+        IntentUserName = ((ProfileActivity) getActivity()).IntentUsername;
+        IntentUserPhoto = ((ProfileActivity) getActivity()).IntentPhotoURL;
         List<String> locationList = new ArrayList<>();
         locationList.clear();
 
@@ -185,6 +189,8 @@ public class SearchFragment extends Fragment{
                 public void onItemClick(RestaurantDrawerItem item) {
                     hideKeyboard(getActivity());
                     Intent intentResDetail = new Intent(getActivity(),RestaurantDetail.class);
+                    intentResDetail.putExtra("IntentUserName",IntentUserName);
+                    intentResDetail.putExtra("IntentUserPhoto",IntentUserPhoto);
                     intentResDetail.putExtra("RestaurantDetail", (Serializable) item);
                     startActivity(intentResDetail);
                 }
@@ -303,6 +309,8 @@ public class SearchFragment extends Fragment{
                         public void onItemClick(RestaurantDrawerItem item) {
                             hideKeyboard(getActivity());
                             Intent intentResDetail = new Intent(getActivity(),RestaurantDetail.class);
+                            intentResDetail.putExtra("IntentUserName",IntentUserName);
+                            intentResDetail.putExtra("IntentUserPhoto",IntentUserPhoto);
                             intentResDetail.putExtra("RestaurantDetail", (Serializable) item);
                             startActivity(intentResDetail);
                         }
@@ -310,6 +318,16 @@ public class SearchFragment extends Fragment{
 
 
                 }
+            }
+
+            @Override
+            public void onPassUserName(String username) {
+                IntentUserName = username;
+            }
+
+            @Override
+            public void onPassUserPhoto(String photo) {
+                IntentUserPhoto = photo;
             }
         });
     }

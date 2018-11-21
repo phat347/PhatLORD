@@ -84,6 +84,8 @@ public class ProfileActivity extends AppCompatActivity {
     public interface InterfacePassDataRestaurant{
         //gửi Data từ API khi load xong vô Fragment RestaurantSearch
         void onPass(List<RestaurantDrawerItem> list);
+        void onPassUserName(String username);
+        void onPassUserPhoto(String photo);
     }
     public void setListener(InterfacePassDataRestaurant listener){
         mListener = listener;
@@ -92,6 +94,8 @@ public class ProfileActivity extends AppCompatActivity {
     public interface InterfacePassDataRestaurantHome{
         //gửi Data từ API khi load xong vô Fragment RestaurantHome
         void onPass(List<RestaurantDrawerItem> list);
+        void onPassUserName(String username);
+        void onPassUserPhoto(String photo);
     }
     public void setListenerFragmentHome(InterfacePassDataRestaurantHome listener){
         mListenerFragmentHome = listener;
@@ -179,10 +183,7 @@ public class ProfileActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         setUpUImenu();
         FirebaseUser user = auth.getCurrentUser();
-        if(user != null)
-        {
-            username.setText(user.getDisplayName());
-        }
+
         if(AccessToken.getCurrentAccessToken() != null){
             RequestData();
         }
@@ -190,6 +191,11 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = ProfileActivity.this.getIntent();
         IntentPhotoURL = intent.getStringExtra("PhotoURL");
         IntentUsername = intent.getStringExtra("Username");
+        if(user != null)
+        {
+            IntentUsername = user.getDisplayName();
+            username.setText(user.getDisplayName());
+        }
         if (IntentUsername != null)
         {
             username.setText(IntentUsername);
@@ -314,6 +320,8 @@ public class ProfileActivity extends AppCompatActivity {
                     if(json != null){
 
 
+                        IntentPhotoURL = "https://graph.facebook.com/v2.2/" + json.getString("id") + "/picture?height=120&type=normal";
+                        IntentUsername = json.getString("name");
                         Picasso.with(ProfileActivity.this)
                                 .load("https://graph.facebook.com/v2.2/" + json.getString("id") + "/picture?height=120&type=normal") //extract as User instance method
                                 .transform(new CropCircleTransformation())
@@ -496,10 +504,14 @@ public class ProfileActivity extends AppCompatActivity {
                         if(mListener != null)
                         {
                             mListener.onPass(restaurantResponses);
+                            mListener.onPassUserName(IntentUsername);
+                            mListener.onPassUserPhoto(IntentPhotoURL);
                         }
                         if(mListenerFragmentHome != null)
                         {
                             mListenerFragmentHome.onPass(restaurantResponses);
+                            mListenerFragmentHome.onPassUserName(IntentUsername);
+                            mListenerFragmentHome.onPassUserPhoto(IntentPhotoURL);
                         }
                     }
                 });

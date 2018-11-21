@@ -34,6 +34,13 @@ public class CommentItem implements Serializable{
         this.score = score;
         this.comment = comment;
     }
+    public CommentItem(String imgRes, String name, float score, String comment) {
+        this.imgRes = imgRes;
+        this.time = -1;
+        this.name = name;
+        this.score = score;
+        this.comment = comment;
+    }
 
     public String getImgRes() {
         return imgRes;

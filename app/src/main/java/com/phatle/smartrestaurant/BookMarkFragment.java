@@ -19,6 +19,8 @@ public class BookMarkFragment extends Fragment{
 
     private List<RestaurantDrawerItem> mList = new ArrayList<>();
     private RestaurantItemAdapter3 mAdapter;
+    String IntentUserName;
+    String IntentUserPhoto;
 
     @Nullable
     @Override
@@ -27,6 +29,8 @@ public class BookMarkFragment extends Fragment{
 
 
         mList = ((ProfileActivity) getActivity()).mListBookmark;
+        IntentUserName = ((ProfileActivity) getActivity()).IntentUsername;
+        IntentUserPhoto = ((ProfileActivity) getActivity()).IntentPhotoURL;
         mAdapter = new RestaurantItemAdapter3(mList,getContext());
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
@@ -37,6 +41,8 @@ public class BookMarkFragment extends Fragment{
             @Override
             public void onItemClick(RestaurantDrawerItem item) {
                 Intent intentResDetail = new Intent(getActivity(),RestaurantDetail.class);
+                intentResDetail.putExtra("IntentUserName",IntentUserName);
+                intentResDetail.putExtra("IntentUserPhoto",IntentUserPhoto);
                 intentResDetail.putExtra("RestaurantDetail", (Serializable) item);
                 startActivity(intentResDetail);
             }
@@ -44,6 +50,8 @@ public class BookMarkFragment extends Fragment{
             @Override
             public void onDirectClick(RestaurantDrawerItem item) {
                 Intent intentResDetail = new Intent(getActivity(),DirectActivity.class);
+                intentResDetail.putExtra("IntentUserName",IntentUserName);
+                intentResDetail.putExtra("IntentUserPhoto",IntentUserPhoto);
                 intentResDetail.putExtra("RestaurantDetail", (Serializable) item);
                 startActivity(intentResDetail);
             }
