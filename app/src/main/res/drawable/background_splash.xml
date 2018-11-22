@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item>
-        <shape>
-            <gradient
-                android:startColor="@color/tomato"
-                android:centerY="0.75"
-                android:endColor="@color/white"
-                android:angle="270"
-                />
-        </shape>
+    <item
+        android:drawable="@color/splash_red">
 
 
     </item>
 
 
     <item>
-        <bitmap android:src="@drawable/icon_app_small2"
+        <bitmap android:src="@drawable/icon_app_small3"
             android:gravity="center"
             />
 

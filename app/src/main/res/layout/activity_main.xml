@@ -9,12 +9,13 @@
     android:id="@+id/container"
     >
     <ImageView
+
+        android:layout_marginTop="20dp"
         android:id="@+id/picture"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/app_back_ground"
+        android:src="@drawable/new_logo_app"
         />
     <TextView
         android:id="@+id/facebook_username"
