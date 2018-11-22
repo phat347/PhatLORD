@@ -102,7 +102,7 @@ public class MainActivity extends Activity {
 //        profile = findViewById(R.id.picture);
         appName = findViewById(R.id.facebook_username);
         Typeface face = Typeface.createFromAsset(getAssets(),
-                "fonts/open_sans_regular.ttf");
+                "fonts/frankfrt.ttf");
         appName.setTypeface(face);
         TextView googleLogin = findViewById(R.id.google_login);
 

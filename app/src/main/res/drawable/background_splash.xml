@@ -4,7 +4,7 @@
     <item android:drawable="@color/white_default" />
 
     <item>
-        <bitmap android:src="@mipmap/icon_logo_app_restaurant"
+        <bitmap android:src="@drawable/icon_app_small"
             android:gravity="center"
             />
 
