@@ -13,4 +13,7 @@
     <item name="colorPrimaryDark">@color/tomato</item>
     <item name="colorAccent">@color/tomato</item>
     </style>
+    <style name="SplashTheme" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
 </resources>
