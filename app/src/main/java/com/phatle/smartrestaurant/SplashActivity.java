@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
     }
     private void startAnimation() {
         ObjectAnimator progressAnimator = ObjectAnimator.ofInt(mProgressBar, "progress", 0, 100);
-        progressAnimator.setDuration(3000)
+        progressAnimator.setDuration(2000)
                 .addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
