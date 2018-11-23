@@ -13,10 +13,27 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class SplashActivity extends AppCompatActivity {
 
     private ProgressBar mProgressBar;
     TextView appName;
+    AccessToken accessToken;
+    boolean isLoggedIn;
+    FirebaseUser user;
+    private FirebaseAuth auth;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        accessToken = AccessToken.getCurrentAccessToken();
+        isLoggedIn = accessToken != null && !accessToken.isExpired();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +80,19 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(getIntent());
                 }
             });
+        }
+        //Đã có token login facebook -> skip màn hình đăng nhập vào thẳng màn hình profile
+        else if(isLoggedIn)
+        {
+            Intent intent = new Intent(SplashActivity.this,ProfileActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else if(user != null)
+        {
+            Intent intent = new Intent(SplashActivity.this,ProfileActivity.class);
+            startActivity(intent);
+            finish();
         }
         else {
             Intent intent = new Intent(SplashActivity.this,MainActivity.class);
