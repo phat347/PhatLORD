@@ -42,6 +42,7 @@ public class CommentFragment extends Fragment{
     TextInputLayout textInputLayoutComment;
     String IntentUserName;
     String IntentUserPhoto;
+    RecyclerView recyclerView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -97,6 +98,8 @@ public class CommentFragment extends Fragment{
                     etComment.setText("");
                     etComment.clearFocus();
                     hideKeyboard(getActivity());
+                    recyclerView.smoothScrollToPosition(mRestaurantComment.size() -1);
+
                 }
             }
         });
@@ -132,7 +135,7 @@ public class CommentFragment extends Fragment{
             }
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
 

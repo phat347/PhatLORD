@@ -31,6 +31,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
@@ -131,6 +132,18 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 
         }
         showAllRestaurant();
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                for (int i = 0; i < mList.size(); i++) {
+                    if(marker.getTitle().equals(mList.get(i).getName()))
+                    {
+                        recyclerView.smoothScrollToPosition(i);
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     public void showAllRestaurant() {
@@ -250,6 +263,7 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
                         .title(name)
 
                 );
+
 
             }
 
