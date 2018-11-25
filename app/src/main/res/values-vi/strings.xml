@@ -8,4 +8,6 @@
     <string name="register">Đăng ký</string>
     <string name="email">Email</string>
     <string name="google_map_api_key">AIzaSyDeiF1YUBDrOWXh_5vZPFjMcMmKw06ecdA</string>
+    <string name="log_out">Đăng xuất</string>
+    <string name="language">Ngôn ngữ</string>
 </resources>

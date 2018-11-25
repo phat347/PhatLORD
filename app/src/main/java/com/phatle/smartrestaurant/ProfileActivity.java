@@ -1,9 +1,13 @@
 package com.phatle.smartrestaurant;
 
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 
@@ -54,6 +58,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class ProfileActivity extends AppCompatActivity {
+    private String mLanguageCode;
     private DrawerLayout mDrawerLayout;
     GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth auth;
@@ -109,6 +114,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mLanguageCode = loadLocale();
+        LocaleHelper.setLocale(ProfileActivity.this, mLanguageCode);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         checkNetWork();
@@ -254,7 +261,7 @@ public class ProfileActivity extends AppCompatActivity {
         mListMenu.add(new DrawerItem("Item1",R.drawable.power_signal));
         mListMenu.add(new DrawerItem("Item2",R.drawable.power_signal));
         mListMenu.add(new DrawerItem("Item3",R.drawable.power_signal));
-        mListMenu.add(new DrawerItem("Đăng xuất",R.drawable.power_signal));
+        mListMenu.add(new DrawerItem(getResources().getString(R.string.language),R.drawable.power_signal));
 
         mAdapterMenu = new DrawerItemAdapter(mListMenu);
 
@@ -278,15 +285,16 @@ public class ProfileActivity extends AppCompatActivity {
         mAdapterMenu.setListener(new DrawerItemAdapter.InterfaceItemClick() {
             @Override
             public void onItemClick(DrawerItem drawerItem) {
-                if(drawerItem.getItemName().equals("Đăng xuất"))
+                if(drawerItem.getItemName().equals(getResources().getString(R.string.language)))
                 {
-                    mDrawerLayout.closeDrawers();
-                    signOut();
-                    LoginManager.getInstance().logOut();
-                    auth.signOut();
-                    Intent backtoLogin = new Intent(ProfileActivity.this,MainActivity.class);
-                    startActivity(backtoLogin);
-                    finish();
+//                    mDrawerLayout.closeDrawers();
+//                    signOut();
+//                    LoginManager.getInstance().logOut();
+//                    auth.signOut();
+//                    Intent backtoLogin = new Intent(ProfileActivity.this,MainActivity.class);
+//                    startActivity(backtoLogin);
+//                    finish();
+                    showChangelaguageDialog();
                 }
             }
         });
@@ -559,5 +567,59 @@ public class ProfileActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+    public void saveLocale(String lang) {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences("CommonPrefs",
+                Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(langPref, lang);
+        editor.commit();
+    }
+    public String loadLocale() {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences("CommonPrefs",
+                Activity.MODE_PRIVATE);
+        String language = prefs.getString(langPref, "");
+        return language;
+    }
+    public void showChangelaguageDialog(){
+        final String[] listLanguage = {"Tiếng Việt","English"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setTitle(getResources().getString(R.string.language));
+        int position;
+        switch (mLanguageCode){
+            case "vi":
+                position = 0;
+                break;
+            case "en":
+                position = 1;
+                break;
+                default:
+                    position = 0;
+                    break;
+        }
+        mBuilder.setSingleChoiceItems(listLanguage, position, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(i == 0){
+                    mLanguageCode = "vi";
+                    saveLocale(mLanguageCode);
+                    LocaleHelper.setLocale(ProfileActivity.this, mLanguageCode);
+                    recreate();
+                }
+                if (i == 1)
+                {
+                    mLanguageCode = "en";
+                    saveLocale(mLanguageCode);
+                    LocaleHelper.setLocale(ProfileActivity.this, mLanguageCode);
+                    recreate();
+                }
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
     }
 }
