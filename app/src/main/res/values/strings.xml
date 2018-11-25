@@ -2,12 +2,20 @@
     <string name="app_name">Smart Restaurant</string>
     <string name="facebook_app_id">1099750763508336</string>
     <string name="fb_login_protocol_scheme">fb1099750763508336</string>
-    <string name="textViewUsername">Tên tài khoản</string>
-    <string name="password">Mật khẩu</string>
-    <string name="confirm_password">Nhập lại mật khẩu</string>
-    <string name="register">Đăng ký</string>
+    <string name="textViewUsername">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Retype Password</string>
+    <string name="register">Register</string>
     <string name="email">Email</string>
     <string name="google_map_api_key">AIzaSyDeiF1YUBDrOWXh_5vZPFjMcMmKw06ecdA</string>
     <string name="log_out">Log out</string>
     <string name="language">Language</string>
+    <string name="profile">Profile</string>
+    <string name="contact">Contact Us</string>
+    <string name="app_info">Information</string>
+    <string name="tab_home">Home</string>
+    <string name="tab_search">Search</string>
+    <string name="tab_map">Map</string>
+    <string name="tab_notification">Notification</string>
+    <string name="tab_bookmark">Bookmark</string>
 </resources>

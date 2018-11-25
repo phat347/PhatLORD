@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -124,7 +125,7 @@ public class ProfileActivity extends AppCompatActivity {
         final TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         btnMenu = toolbar.findViewById(R.id.btn_menu);
 
-        mTitle.setText("Home");
+        mTitle.setText(getResources().getString(R.string.tab_home));
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,19 +159,19 @@ public class ProfileActivity extends AppCompatActivity {
 //                fragment.updateColor(ContextCompat.getColor(MainActivity.this, colors[position]));
                 switch (position){
                     case 0:
-                        mTitle.setText("Home");
+                        mTitle.setText(getResources().getString(R.string.tab_home));
                         break;
                     case 1:
-                        mTitle.setText("Search");
+                        mTitle.setText(getResources().getString(R.string.tab_search));
                         break;
                     case 2:
-                        mTitle.setText("Map");
+                        mTitle.setText(getResources().getString(R.string.tab_map));
                         break;
                     case 3:
-                        mTitle.setText("Notification");
+                        mTitle.setText(getResources().getString(R.string.tab_notification));
                         break;
                     case 4:
-                        mTitle.setText("Bookmark");
+                        mTitle.setText(getResources().getString(R.string.tab_bookmark));
                         break;
                     default:
                         break;
@@ -258,10 +259,10 @@ public class ProfileActivity extends AppCompatActivity {
 //                        return true;
 //                    }
 //                });
-        mListMenu.add(new DrawerItem("Item1",R.drawable.power_signal));
-        mListMenu.add(new DrawerItem("Item2",R.drawable.power_signal));
-        mListMenu.add(new DrawerItem("Item3",R.drawable.power_signal));
-        mListMenu.add(new DrawerItem(getResources().getString(R.string.language),R.drawable.power_signal));
+        mListMenu.add(new DrawerItem(getResources().getString(R.string.profile),R.drawable.ic_leftmenu_profile));
+        mListMenu.add(new DrawerItem(getResources().getString(R.string.contact),R.drawable.ic_leftmenu_phone));
+        mListMenu.add(new DrawerItem(getResources().getString(R.string.app_info),R.drawable.ic_leftmeu_info));
+        mListMenu.add(new DrawerItem(getResources().getString(R.string.language),R.drawable.ic_leftmenu_translate));
 
         mAdapterMenu = new DrawerItemAdapter(mListMenu);
 
@@ -295,6 +296,24 @@ public class ProfileActivity extends AppCompatActivity {
 //                    startActivity(backtoLogin);
 //                    finish();
                     showChangelaguageDialog();
+                }
+                if(drawerItem.getItemName().equals(getResources().getString(R.string.contact)))
+                {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + "012345678"));
+                    startActivity(intent);
+                }
+                if(drawerItem.getItemName().equals(getResources().getString(R.string.app_info)))
+                {
+                    ErrorDialog dialog = new ErrorDialog(ProfileActivity.this, "Version 1.0", "App này viết cho vui :D",R.drawable.ic_leftmeu_info);
+                    dialog.setupOkButton("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                    dialog.setCanceledOnTouchOutside(true);
                 }
             }
         });
@@ -392,11 +411,11 @@ public class ProfileActivity extends AppCompatActivity {
      * Also assigns a distinct color to each Bottom Navigation item, used for the color ripple.
      */
     private void addBottomNavigationItems() {
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Home", R.drawable.home);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Search", R.drawable.search);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Map", R.drawable.ic_placeholder);
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem("Notification", R.drawable.notification);
-        AHBottomNavigationItem item5 = new AHBottomNavigationItem("Bookmark", R.drawable.pin);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(getResources().getString(R.string.tab_home), R.drawable.home);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(getResources().getString(R.string.tab_search), R.drawable.search);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(getResources().getString(R.string.tab_map), R.drawable.ic_placeholder);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(getResources().getString(R.string.tab_notification), R.drawable.notification);
+        AHBottomNavigationItem item5 = new AHBottomNavigationItem(getResources().getString(R.string.tab_bookmark), R.drawable.pin);
 
 
         bottomNavigation.addItem(item1);
@@ -466,7 +485,7 @@ public class ProfileActivity extends AppCompatActivity {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
     public static void showNetworkAlert(Context context, View.OnClickListener tryAgainClickListener) {
-        ErrorDialog dialog = new ErrorDialog(context, "Bạn đang ngoại tuyến!", "Vui lòng kiểm tra kết nối Internet của bạn và thử lại");
+        ErrorDialog dialog = new ErrorDialog(context, "Bạn đang ngoại tuyến!", "Vui lòng kiểm tra kết nối Internet của bạn và thử lại",R.drawable.ic_warning);
         dialog.setupOkButton("Thử lại", tryAgainClickListener);
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);

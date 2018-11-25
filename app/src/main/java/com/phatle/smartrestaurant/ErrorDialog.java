@@ -7,16 +7,19 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ErrorDialog extends Dialog implements View.OnClickListener{
     public TextView mBtnClose;
 
-    public ErrorDialog(@NonNull Context context, String title, String message) {
+    public ErrorDialog(@NonNull Context context, String title, String message,int imgRes) {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_error);
         setupDialogSize();
+        ImageView v = findViewById(R.id.dialog_img);
+        v.setImageResource(imgRes);
         ((TextView) findViewById(R.id.tv_title)).setText(title);
         ((TextView) findViewById(R.id.tv_message)).setText(message);
         mBtnClose = findViewById(R.id.btn_close);

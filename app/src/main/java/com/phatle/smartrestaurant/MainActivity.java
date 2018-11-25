@@ -312,7 +312,7 @@ public class MainActivity extends Activity {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
     public static void showNetworkAlert(Context context, View.OnClickListener tryAgainClickListener) {
-        ErrorDialog dialog = new ErrorDialog(context, "Bạn đang ngoại tuyến!", "Vui lòng kiểm tra kết nối Internet của bạn và thử lại");
+        ErrorDialog dialog = new ErrorDialog(context, "Bạn đang ngoại tuyến!", "Vui lòng kiểm tra kết nối Internet của bạn và thử lại",R.drawable.ic_warning);
         dialog.setupOkButton("Thử lại", tryAgainClickListener);
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
