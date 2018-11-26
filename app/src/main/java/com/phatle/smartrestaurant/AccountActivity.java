@@ -1,16 +1,28 @@
 package com.phatle.smartrestaurant;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
@@ -24,7 +36,11 @@ public class AccountActivity extends AppCompatActivity {
     String IntentPhotoURL,IntentEmail;
     private FirebaseAuth auth;
     private RestaurantItemAdapter3 mAdapter;
+    FirebaseUser user;
     private List<RestaurantDrawerItem> mList = new ArrayList<>();
+
+    private StorageReference mStorage;
+    private FirebaseDatabase mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +60,9 @@ public class AccountActivity extends AppCompatActivity {
         toolbarTitle.setText(R.string.profile);
 
         auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
+        user = auth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance();
+        mStorage = FirebaseStorage.getInstance().getReference();
         Intent intent = AccountActivity.this.getIntent();
         IntentPhotoURL = intent.getStringExtra("PhotoURL");
         IntentUsername = intent.getStringExtra("Username");
@@ -84,6 +102,16 @@ public class AccountActivity extends AppCompatActivity {
                     .resize(100, 100)
                     .into(userImg);
         }
+        userImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intentChoseImg = new Intent();
+                intentChoseImg.setType("image/*");
+                intentChoseImg.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intentChoseImg,"Select Picture"),69);
+            }
+        });
         mAdapter = new RestaurantItemAdapter3(mList,this);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setAdapter(mAdapter);
@@ -108,5 +136,53 @@ public class AccountActivity extends AppCompatActivity {
                 startActivity(intentResDetail);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==69&&resultCode==RESULT_OK){
+            Uri uri=data.getData();
+            Picasso.with(AccountActivity.this)
+                    .load(uri) //extract as User instance method
+                    .transform(new CropCircleTransformation())
+                    .resize(100, 100)
+                    .into(userImg);
+            if(user != null)
+            {
+                String userId = user.getUid();
+                StorageReference filepath = mStorage.child("Images").child(uri.getLastPathSegment());
+                filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Task<Uri> uriTask = taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                IntentPhotoURL = uri.toString();
+//                                Picasso.with(AccountActivity.this)
+//                                        .load(IntentPhotoURL) //extract as User instance method
+//                                        .transform(new CropCircleTransformation())
+//                                        .resize(100, 100)
+//                                        .into(userImg);
+                                Log.i("Phat",uri.toString());
+                                Toast bread = Toast.makeText(getApplicationContext(),"Uploaded",Toast.LENGTH_SHORT);
+                                bread.show();
+                            }
+                        });
+//                        Log.i("uploaded", mDatabase.getReference("Users").child(user.getUid()).child("image").setValue(uri).toString());
+//                        mDatabase.getReference("Users").child(user.getUid()).child("image").setValue(uri).toString();
+
+                    }
+                });
+            }
+//            StorageReference filepath = mStorage.child("Images").child(uri.getLastPathSegment());
+//            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl();
+//                    newStudent.child("image").setValue(downloadUrl);
+//                }
+//            });
+        }
     }
 }
