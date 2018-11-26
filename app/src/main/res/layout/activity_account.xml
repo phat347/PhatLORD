@@ -37,6 +37,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:transitionName="img_transition"
             android:id="@+id/picture"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -44,6 +45,7 @@
             android:layout_marginTop="30dp" />
 
         <TextView
+            android:transitionName="username_transition"
             android:id="@+id/tv_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,6 +57,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:transitionName="email_transition"
             android:id="@+id/tv_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

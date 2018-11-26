@@ -12,6 +12,7 @@
     <item name="colorPrimary">@color/tomato</item>
     <item name="colorPrimaryDark">@color/tomato</item>
     <item name="colorAccent">@color/tomato</item>
+        <item name="android:windowActivityTransitions">true</item>
     </style>
     <style name="SplashTheme" parent="AppTheme.NoActionBar">
         <item name="android:windowBackground">@drawable/background_splash</item>

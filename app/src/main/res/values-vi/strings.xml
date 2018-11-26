@@ -18,6 +18,5 @@
     <string name="tab_map">Bản đồ</string>
     <string name="tab_notification">Thông báo</string>
     <string name="tab_bookmark">Đánh dấu</string>
-    <string name="account_profile">Thông tin tài khoản</string>
     <string name="my_favorite">Yêu thích</string>
 </resources>

@@ -1,7 +1,9 @@
 package com.phatle.smartrestaurant;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,6 +27,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.util.Log;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -292,6 +295,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         mAdapterMenu.setListener(new DrawerItemAdapter.InterfaceItemClick() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onItemClick(DrawerItem drawerItem) {
                 if(drawerItem.getItemName().equals(getResources().getString(R.string.language)))
@@ -325,12 +329,19 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 if(drawerItem.getItemName().equals(getResources().getString(R.string.profile)))
                 {
-                    Intent profile = new Intent(ProfileActivity.this,AccountActivity.class);
-                    profile.putExtra("Username",IntentUsername);
-                    profile.putExtra("PhotoURL",IntentPhotoURL);
-                    profile.putExtra("Email",IntentEmail);
-                    profile.putExtra("ListBookmark", (Serializable) mListBookmark);
-                    startActivityForResult(profile,123);
+                    Intent profileIntent = new Intent(ProfileActivity.this,AccountActivity.class);
+                    profileIntent.putExtra("Username",IntentUsername);
+                    profileIntent.putExtra("PhotoURL",IntentPhotoURL);
+                    profileIntent.putExtra("Email",IntentEmail);
+                    profileIntent.putExtra("ListBookmark", (Serializable) mListBookmark);
+                    Pair[] pair = new Pair[3];
+
+                    pair[0] = new Pair<View,String>(profile,"img_transition");
+                    pair[1] = new Pair<View,String>(username,"username_transition");
+                    pair[2] = new Pair<View,String>(userEmail,"email_transition");
+
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ProfileActivity.this,pair);
+                    startActivityForResult(profileIntent,123,options.toBundle());
 
                 }
             }
@@ -353,14 +364,22 @@ public class ProfileActivity extends AppCompatActivity {
                 .load(R.drawable.user)
                 .into(profile);
         profile.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View view) {
-                Intent profile = new Intent(ProfileActivity.this,AccountActivity.class);
-                profile.putExtra("Username",IntentUsername);
-                profile.putExtra("PhotoURL",IntentPhotoURL);
-                profile.putExtra("Email",IntentEmail);
-                profile.putExtra("ListBookmark", (Serializable) mListBookmark);
-                startActivityForResult(profile,123);
+                Intent profileIntent = new Intent(ProfileActivity.this,AccountActivity.class);
+                profileIntent.putExtra("Username",IntentUsername);
+                profileIntent.putExtra("PhotoURL",IntentPhotoURL);
+                profileIntent.putExtra("Email",IntentEmail);
+                profileIntent.putExtra("ListBookmark", (Serializable) mListBookmark);
+                Pair[] pair = new Pair[3];
+
+                pair[0] = new Pair<View,String>(profile,"img_transition");
+                pair[1] = new Pair<View,String>(username,"username_transition");
+                pair[2] = new Pair<View,String>(userEmail,"email_transition");
+
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ProfileActivity.this,pair);
+                startActivityForResult(profileIntent,123,options.toBundle());
             }
         });
     }
@@ -676,7 +695,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 456) {
+        if (requestCode == 123) {
             if (resultCode == Activity.RESULT_OK) {
                 // Nhận dữ liệu từ Intent trả về
 
