@@ -18,4 +18,6 @@
     <string name="tab_map">Map</string>
     <string name="tab_notification">Notification</string>
     <string name="tab_bookmark">Bookmark</string>
+    <string name="account_profile">Account profile</string>
+    <string name="my_favorite">My Favorite</string>
 </resources>

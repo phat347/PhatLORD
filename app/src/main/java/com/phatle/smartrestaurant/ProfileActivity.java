@@ -50,6 +50,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -65,9 +66,10 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     CallbackManager callbackManager;
     ImageView profile;
-    TextView username;
+    TextView username,userEmail;
     String IntentUsername;
     String IntentPhotoURL;
+    String IntentEmail;
     NavigationView navigationView;
     private List<DrawerItem> mListMenu = new ArrayList<>();
     List<RestaurantDrawerItem> mList = new ArrayList<>();
@@ -199,10 +201,16 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = ProfileActivity.this.getIntent();
         IntentPhotoURL = intent.getStringExtra("PhotoURL");
         IntentUsername = intent.getStringExtra("Username");
+        IntentEmail = intent.getStringExtra("Email");
         if(user != null)
         {
             IntentUsername = user.getDisplayName();
             username.setText(user.getDisplayName());
+            userEmail.setText(user.getEmail());
+        }
+        if(IntentEmail != null)
+        {
+            userEmail.setText(IntentEmail);
         }
         if (IntentUsername != null)
         {
@@ -315,10 +323,21 @@ public class ProfileActivity extends AppCompatActivity {
                     dialog.show();
                     dialog.setCanceledOnTouchOutside(true);
                 }
+                if(drawerItem.getItemName().equals(getResources().getString(R.string.profile)))
+                {
+                    Intent profile = new Intent(ProfileActivity.this,AccountActivity.class);
+                    profile.putExtra("Username",IntentUsername);
+                    profile.putExtra("PhotoURL",IntentPhotoURL);
+                    profile.putExtra("Email",IntentEmail);
+                    profile.putExtra("ListBookmark", (Serializable) mListBookmark);
+                    startActivityForResult(profile,123);
+
+                }
             }
         });
 //        View headerMenuLayout = navigationView.getHeaderView(0);
         username = mDrawerLayout.findViewById(R.id.tv_username);
+        userEmail = mDrawerLayout.findViewById(R.id.tv_email);
         btnMenuClose = mDrawerLayout.findViewById(R.id.close_img);
         btnMenuClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -333,6 +352,17 @@ public class ProfileActivity extends AppCompatActivity {
         Picasso.with(ProfileActivity.this)
                 .load(R.drawable.user)
                 .into(profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent profile = new Intent(ProfileActivity.this,AccountActivity.class);
+                profile.putExtra("Username",IntentUsername);
+                profile.putExtra("PhotoURL",IntentPhotoURL);
+                profile.putExtra("Email",IntentEmail);
+                profile.putExtra("ListBookmark", (Serializable) mListBookmark);
+                startActivityForResult(profile,123);
+            }
+        });
     }
     private void signOut() {
         mGoogleSignInClient.signOut();
@@ -346,7 +376,7 @@ public class ProfileActivity extends AppCompatActivity {
                 try {
                     if(json != null){
 
-
+                        IntentEmail = json.getString("email");
                         IntentPhotoURL = "https://graph.facebook.com/v2.2/" + json.getString("id") + "/picture?height=120&type=normal";
                         IntentUsername = json.getString("name");
                         Picasso.with(ProfileActivity.this)
@@ -356,6 +386,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 .into(profile);
 //                        profile.setProfileId(json.getString("id"));
                         username.setText(json.getString("name"));
+                        userEmail.setText(IntentEmail);
                     }
 
                 } catch (JSONException e) {
@@ -640,5 +671,16 @@ public class ProfileActivity extends AppCompatActivity {
 
         AlertDialog mDialog = mBuilder.create();
         mDialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 456) {
+            if (resultCode == Activity.RESULT_OK) {
+                // Nhận dữ liệu từ Intent trả về
+
+            }
+        }
     }
 }

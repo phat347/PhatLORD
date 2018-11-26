@@ -267,6 +267,7 @@ public class MainActivity extends Activity {
             Intent profile = new Intent(MainActivity.this,ProfileActivity.class);
             profile.putExtra("Username",personName);
             profile.putExtra("PhotoURL",personPhotoUrl);
+            profile.putExtra("Email",email);
             startActivity(profile);
             finish();
 
