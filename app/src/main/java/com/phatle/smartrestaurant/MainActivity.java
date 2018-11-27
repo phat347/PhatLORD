@@ -3,6 +3,7 @@ package com.phatle.smartrestaurant;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
@@ -59,6 +60,7 @@ import org.w3c.dom.Text;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -69,8 +71,17 @@ public class MainActivity extends Activity {
     GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth auth;
     LinearLayout container;
+    private String mLanguageCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mLanguageCode = loadLocale();
+        if(mLanguageCode.equals(""))
+        {
+            Locale current = getResources().getConfiguration().locale;
+            mLanguageCode = current.getLanguage();
+        }
+
+        LocaleHelper.setLocale(MainActivity.this, mLanguageCode);
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
         callbackManager = CallbackManager.Factory.create();
@@ -374,5 +385,12 @@ boolean doubleBackToExitPressedOnce = false;
     public static void hideKeyboard(Context context, View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+    public String loadLocale() {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences("CommonPrefs",
+                Activity.MODE_PRIVATE);
+        String language = prefs.getString(langPref, "");
+        return language;
     }
 }

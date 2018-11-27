@@ -19,4 +19,9 @@
     <string name="tab_notification">Thông báo</string>
     <string name="tab_bookmark">Đánh dấu</string>
     <string name="my_favorite">Yêu thích</string>
+    <string name="sign_up">Đăng ký tài khoản</string>
+    <string name="sign_up_btn">Đăng ký</string>
+    <string name="sign_in_btn">Đăng nhập</string>
+    <string name="sign_in_with_facebook">Đăng nhập với Facebook</string>
+    <string name="sign_in_with_google">Đăng nhập với Google</string>
 </resources>

@@ -113,7 +113,7 @@ public class AccountActivity extends AppCompatActivity {
             Picasso.with(AccountActivity.this)
                     .load(IntentPhotoURL) //extract as User instance method
                     .transform(new CropCircleTransformation())
-                    .resize(100, 100)
+//                    .resize(100, 100)
                     .into(userImg);
         }
         btnEit.setOnClickListener(new View.OnClickListener() {
@@ -217,7 +217,7 @@ public class AccountActivity extends AppCompatActivity {
                         pDialog.setCancelable(false);
                         pDialog.show();
                         String userId = user.getUid();
-                        StorageReference filepath = mStorage.child("Images").child(uri.getLastPathSegment());
+                        StorageReference filepath = mStorage.child("Images");
                         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

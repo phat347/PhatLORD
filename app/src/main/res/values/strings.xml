@@ -19,4 +19,9 @@
     <string name="tab_notification">Notification</string>
     <string name="tab_bookmark">Bookmark</string>
     <string name="my_favorite">My Favorite</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_up_btn">Sign up</string>
+    <string name="sign_in_btn">Sign in</string>
+    <string name="sign_in_with_facebook">Sign in with Facebook</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
 </resources>

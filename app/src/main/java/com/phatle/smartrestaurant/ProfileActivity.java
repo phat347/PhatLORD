@@ -247,7 +247,7 @@ public class ProfileActivity extends AppCompatActivity {
             Picasso.with(ProfileActivity.this)
                     .load(IntentPhotoURL) //extract as User instance method
                     .transform(new CropCircleTransformation())
-                    .resize(100, 100)
+//                    .resize(100, 100)
                     .into(profile);
         }
 
@@ -328,7 +328,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 if(drawerItem.getItemName().equals(getResources().getString(R.string.app_info)))
                 {
-                    ErrorDialog dialog = new ErrorDialog(ProfileActivity.this, "Version 1.0", "App này viết cho vui :D",R.drawable.ic_leftmeu_info);
+                    ErrorDialog dialog = new ErrorDialog(ProfileActivity.this, "Version 1.0", "App này viết cho vui :D\n\nApp được viết bởi PhatLORD",R.drawable.ic_leftmeu_info);
                     dialog.setupOkButton("OK", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

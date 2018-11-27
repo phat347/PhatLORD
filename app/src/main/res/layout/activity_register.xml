@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
-        android:text="Đăng ký tài khoản"
+        android:text="@string/sign_up"
         android:textSize="10pt" />
     <LinearLayout
         android:layout_width="match_parent"

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -29,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,8 +47,17 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private FirebaseAuth auth;
     LinearLayout container;
+    private String mLanguageCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mLanguageCode = loadLocale();
+        if(mLanguageCode.equals(""))
+        {
+            Locale current = getResources().getConfiguration().locale;
+            mLanguageCode = current.getLanguage();
+        }
+
+        LocaleHelper.setLocale(RegisterActivity.this, mLanguageCode);
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_register);
@@ -216,5 +227,12 @@ public class RegisterActivity extends AppCompatActivity {
     public static void hideKeyboard(Context context, View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+    public String loadLocale() {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences("CommonPrefs",
+                Activity.MODE_PRIVATE);
+        String language = prefs.getString(langPref, "");
+        return language;
     }
 }
