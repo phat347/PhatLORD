@@ -35,14 +35,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:transitionName="img_transition"
+                android:id="@+id/picture"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
+                android:layout_centerInParent="true"
+                />
+            <ImageView
+                android:layout_margin="10dp"
+                android:id="@+id/btn_edit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_folder"
+                android:layout_alignParentRight="true"
+                />
+            <ImageView
+                android:layout_margin="10dp"
+                android:id="@+id/btn_save"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_save"
+                android:layout_below="@+id/btn_edit"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
 
-        <ImageView
-            android:transitionName="img_transition"
-            android:id="@+id/picture"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp" />
+
 
         <TextView
             android:transitionName="username_transition"

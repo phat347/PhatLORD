@@ -57,6 +57,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Locale;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -121,6 +122,12 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mLanguageCode = loadLocale();
+        if(mLanguageCode.equals(""))
+        {
+            Locale current = getResources().getConfiguration().locale;
+            mLanguageCode = current.getLanguage();
+        }
+
         LocaleHelper.setLocale(ProfileActivity.this, mLanguageCode);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
@@ -207,6 +214,10 @@ public class ProfileActivity extends AppCompatActivity {
         IntentEmail = intent.getStringExtra("Email");
         if(user != null)
         {
+            if(user.getPhotoUrl()!= null)
+            {
+                IntentPhotoURL = user.getPhotoUrl().toString();
+            }
             IntentUsername = user.getDisplayName();
             username.setText(user.getDisplayName());
             userEmail.setText(user.getEmail());
@@ -665,7 +676,7 @@ public class ProfileActivity extends AppCompatActivity {
                 position = 1;
                 break;
                 default:
-                    position = 0;
+                    position = 1;
                     break;
         }
         mBuilder.setSingleChoiceItems(listLanguage, position, new DialogInterface.OnClickListener() {
@@ -698,6 +709,12 @@ public class ProfileActivity extends AppCompatActivity {
         if (requestCode == 123) {
             if (resultCode == Activity.RESULT_OK) {
                 // Nhận dữ liệu từ Intent trả về
+                String resultURL = data.getStringExtra("IntentPhotoURL");
+                Picasso.with(ProfileActivity.this)
+                        .load(resultURL) //extract as User instance method
+                        .transform(new CropCircleTransformation())
+//                        .resize(100, 100)
+                        .into(profile);
 
             }
         }
