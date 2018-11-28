@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.RequestOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -50,10 +51,14 @@ public class CommentItemAdapter extends RecyclerView.Adapter<CommentItemAdapter.
                     .into(holder.personCommentImage);
         }
         else {
-            Picasso.with(context)
+//            Picasso.with(context)
+//                    .load(item.getImgRes())
+//                    .transform(new CropCircleTransformation())
+//                    .resize(70, 70)
+//                    .into(holder.personCommentImage);
+            GlideApp.with(context)
                     .load(item.getImgRes())
-                    .transform(new CropCircleTransformation())
-                    .resize(70, 70)
+                    .apply(RequestOptions.circleCropTransform())
                     .into(holder.personCommentImage);
         }
         holder.name.setText(item.getName());

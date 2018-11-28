@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.bumptech.glide.request.RequestOptions;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
@@ -244,10 +245,14 @@ public class ProfileActivity extends AppCompatActivity {
         }
         else if (IntentPhotoURL != null)
         {
-            Picasso.with(ProfileActivity.this)
-                    .load(IntentPhotoURL) //extract as User instance method
-                    .transform(new CropCircleTransformation())
-//                    .resize(100, 100)
+//            Picasso.with(ProfileActivity.this)
+//                    .load(IntentPhotoURL) //extract as User instance method
+//                    .transform(new CropCircleTransformation())
+////                    .resize(100, 100)
+//                    .into(profile);
+            GlideApp.with(ProfileActivity.this)
+                    .load(IntentPhotoURL)
+                    .apply(RequestOptions.circleCropTransform())
                     .into(profile);
         }
 
@@ -710,11 +715,16 @@ public class ProfileActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 // Nhận dữ liệu từ Intent trả về
                 String resultURL = data.getStringExtra("IntentPhotoURL");
-                Picasso.with(ProfileActivity.this)
-                        .load(resultURL) //extract as User instance method
-                        .transform(new CropCircleTransformation())
-//                        .resize(100, 100)
+//                Picasso.with(ProfileActivity.this)
+//                        .load(resultURL) //extract as User instance method
+//                        .transform(new CropCircleTransformation())
+////                        .resize(100, 100)
+//                        .into(profile);
+                GlideApp.with(ProfileActivity.this)
+                        .load(resultURL)
+                        .apply(RequestOptions.circleCropTransform())
                         .into(profile);
+
 
             }
         }

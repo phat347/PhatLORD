@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -110,11 +112,17 @@ public class AccountActivity extends AppCompatActivity {
         }
         else if (IntentPhotoURL != null)
         {
-            Picasso.with(AccountActivity.this)
-                    .load(IntentPhotoURL) //extract as User instance method
-                    .transform(new CropCircleTransformation())
-//                    .resize(100, 100)
+//            Picasso.with(AccountActivity.this)
+//                    .load(IntentPhotoURL) //extract as User instance method
+//                    .transform(new CropCircleTransformation())
+////                    .resize(100, 100)
+//                    .into(userImg);
+            GlideApp.with(AccountActivity.this)
+                    .load(IntentPhotoURL)
+                    .apply(RequestOptions.circleCropTransform())
                     .into(userImg);
+
+
         }
         btnEit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,10 +210,15 @@ public class AccountActivity extends AppCompatActivity {
             Uri uri=data.getData();
             String x = uri.toString();
             int y = getCameraPhotoOrientation(this,uri);
-            Picasso.with(AccountActivity.this)
-                    .load(uri) //extract as User instance method
-                    .transform(new CropCircleTransformation())
+//            Picasso.with(AccountActivity.this)
+//                    .load(uri) //extract as User instance method
+//                    .transform(new CropCircleTransformation())
+//                    .into(userImg);
+            GlideApp.with(AccountActivity.this)
+                    .load(uri)
+                    .apply(RequestOptions.circleCropTransform())
                     .into(userImg);
+
             if(user != null)
             {
                 btnSave.setOnClickListener(new View.OnClickListener() {
