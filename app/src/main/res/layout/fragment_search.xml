@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10pt"
-            android:text="Không tìm thấy!"
+            android:text="@string/no_result"
 
             />
     </LinearLayout>

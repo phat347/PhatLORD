@@ -24,4 +24,5 @@
     <string name="sign_in_btn">Đăng nhập</string>
     <string name="sign_in_with_facebook">Đăng nhập với Facebook</string>
     <string name="sign_in_with_google">Đăng nhập với Google</string>
+    <string name="no_result">Không tìm thấy!</string>
 </resources>
