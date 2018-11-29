@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
 import com.bumptech.glide.request.RequestOptions;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -90,6 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
     private BottomBarAdapter pagerAdapter;
     ImageView btnMenu;
     ImageView btnMenuClose;
+    private boolean notificationVisible = false;
 
     public InterfacePassDataRestaurant mListener;
     public InterfacePassDataRestaurantHome mListenerFragmentHome;
@@ -182,6 +184,9 @@ public class ProfileActivity extends AppCompatActivity {
                         break;
                     case 3:
                         mTitle.setText(getResources().getString(R.string.tab_notification));
+                        int lastItemPos = bottomNavigation.getItemsCount() - 2;
+                        if (notificationVisible && position == lastItemPos)
+                            bottomNavigation.setNotification(new AHNotification(), lastItemPos);
                         break;
                     case 4:
                         mTitle.setText(getResources().getString(R.string.tab_bookmark));
@@ -258,6 +263,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         loadAnswers();
+        createFakeNotification();
 
     }
     public void setUpUImenu(){
@@ -728,5 +734,22 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         }
+    }
+    private void createFakeNotification() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AHNotification notification = new AHNotification.Builder()
+                        .setText("6")
+                        .setBackgroundColor(Color.RED)
+                        .setTextColor(Color.WHITE)
+                        .build();
+                // Adding notification to last item.
+
+                bottomNavigation.setNotification(notification, bottomNavigation.getItemsCount() - 2);
+
+                notificationVisible = true;
+            }
+        }, 1000);
     }
 }
