@@ -16,4 +16,7 @@ public interface SOService {
 
     @GET("/api/json/get/4JllAnhTB")
     Observable<List<NotificationResponse>> getNotificationAnswers();
+
+    @GET("/api/json/get/N16jf5uCr")
+    Observable<VersionResponse> getVersion();
 }

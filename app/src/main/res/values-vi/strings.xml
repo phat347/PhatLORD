@@ -25,4 +25,10 @@
     <string name="sign_in_with_facebook">Đăng nhập với Facebook</string>
     <string name="sign_in_with_google">Đăng nhập với Google</string>
     <string name="no_result">Không tìm thấy!</string>
+    <string name="app_version">1.0.0</string>
+    <string name="update_available">Đã có bản cập nhật mới!</string>
+    <string name="update_btn">Cập nhật</string>
+    <string name="close_btn">Đóng</string>
+    <string name="update_phase1">Vui lòng cập nhật phiên bản </string>
+    <string name="update_phase2"> để có trải nghiệm tốt hơn</string>
 </resources>

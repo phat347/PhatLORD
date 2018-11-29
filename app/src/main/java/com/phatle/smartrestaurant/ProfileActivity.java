@@ -65,6 +65,8 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static java.lang.Integer.parseInt;
+
 public class ProfileActivity extends AppCompatActivity {
     private String mLanguageCode;
     private DrawerLayout mDrawerLayout;
@@ -347,7 +349,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 if(drawerItem.getItemName().equals(getResources().getString(R.string.app_info)))
                 {
-                    ErrorDialog dialog = new ErrorDialog(ProfileActivity.this, "Version 1.0", "App này viết cho vui :D\n\nApp được viết bởi PhatLORD",R.drawable.ic_leftmeu_info);
+                    ErrorDialog dialog = new ErrorDialog(ProfileActivity.this, "Version " + getString(R.string.app_version), "App này viết cho vui :D\n\nApp được viết bởi PhatLORD",R.drawable.ic_leftmeu_info);
                     dialog.setupOkButton("OK", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -666,6 +668,96 @@ public class ProfileActivity extends AppCompatActivity {
                         if(mListenerNotification != null)
                         {
                             mListenerNotification.onPass(responseItem);
+                        }
+                    }
+                });
+        mService.getVersion().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<VersionResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("Phat","onErrorVersion");
+                    }
+
+                    @Override
+                    public void onNext(VersionResponse versionResponse) {
+                        Log.d("Phat","onNextVersion");
+
+                        String currentVersion = getString(R.string.app_version);
+                        String[]CurrentVersion = currentVersion.split("\\.");
+                        String[]NewVersion = versionResponse.getNewVersion().split("\\.");
+                        int CurrentMajor = parseInt(CurrentVersion[0]);
+                        int CurrentMinor = parseInt(CurrentVersion[1]);
+                        int CurrentPatch = parseInt(CurrentVersion[2]);
+                        int CHMajor = parseInt(NewVersion[0]);
+                        int CHMinor = parseInt(NewVersion[1]);
+                        int CHPatch = parseInt(NewVersion[2]);
+                        if (CHMajor > CurrentMajor)
+                        {
+                            new SweetAlertDialog(ProfileActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                    .setTitleText(getString(R.string.update_available))
+                                    .setContentText(getString(R.string.update_phase1) +" "+ versionResponse.getNewVersion() +" "+ getString(R.string.update_phase2))
+                                    .setConfirmText(getString(R.string.update_btn))
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            sDialog.dismissWithAnimation();
+                                        }
+                                    })
+                                    .setCancelText(getString(R.string.close_btn))
+                                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            sweetAlertDialog.dismissWithAnimation();
+                                        }
+                                    })
+                                    .show();
+                        }else if (CHMinor > CurrentMinor && CHMajor >= CurrentMajor)
+                        {
+                            new SweetAlertDialog(ProfileActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                    .setTitleText(getString(R.string.update_available))
+                                    .setContentText(getString(R.string.update_phase1) +" "+ versionResponse.getNewVersion() +" "+ getString(R.string.update_phase2))
+                                    .setConfirmText(getString(R.string.update_btn))
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            sDialog.dismissWithAnimation();
+                                        }
+                                    })
+                                    .setCancelText(getString(R.string.close_btn))
+                                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            sweetAlertDialog.dismissWithAnimation();
+                                        }
+                                    })
+                                    .show();
+                        }
+                        else if (CHPatch > CurrentPatch && CHMinor >= CurrentMinor && CHMajor >= CurrentMajor)
+                        {
+                            new SweetAlertDialog(ProfileActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                    .setTitleText(getString(R.string.update_available))
+                                    .setContentText(getString(R.string.update_phase1) +" "+ versionResponse.getNewVersion() +" "+ getString(R.string.update_phase2))
+                                    .setConfirmText(getString(R.string.update_btn))
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            sDialog.dismissWithAnimation();
+                                        }
+                                    })
+                                    .setCancelText(getString(R.string.close_btn))
+                                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            sweetAlertDialog.dismissWithAnimation();
+                                        }
+                                    })
+                                    .show();
                         }
                     }
                 });
