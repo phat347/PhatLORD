@@ -31,7 +31,12 @@ public class NotificationFragment extends Fragment{
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
 
-
+        ((ProfileActivity) getActivity()).setListenerFragmentNotification(new ProfileActivity.InterfacePassDataRestaurantNotification() {
+            @Override
+            public void onPass(List<NotificationResponse> list) {
+                mAdapter.updateAnswers(list);
+            }
+        });
 
 
         return view;

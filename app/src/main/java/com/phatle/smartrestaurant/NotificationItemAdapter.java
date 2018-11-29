@@ -43,6 +43,10 @@ public class NotificationItemAdapter extends RecyclerView.Adapter<NotificationIt
 
     }
 
+    public void updateAnswers(List<NotificationResponse> items) {
+        list = items;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return list.size();

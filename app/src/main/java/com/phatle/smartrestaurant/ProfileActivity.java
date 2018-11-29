@@ -96,6 +96,7 @@ public class ProfileActivity extends AppCompatActivity {
     public InterfacePassDataRestaurant mListener;
     public InterfacePassDataRestaurantHome mListenerFragmentHome;
     public InterfacePassDataRestaurantBookmark mListenerFragmentBookmark;
+    public InterfacePassDataRestaurantNotification mListenerNotification;
     public interface InterfacePassDataRestaurant{
         //gửi Data từ API khi load xong vô Fragment RestaurantSearch
         void onPass(List<RestaurantDrawerItem> list);
@@ -121,6 +122,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
     public void setListenerFragmentBookmark(InterfacePassDataRestaurantBookmark listener){
         mListenerFragmentBookmark = listener;
+    }
+    public interface InterfacePassDataRestaurantNotification{
+        //gửi Data từ API khi load xong vô Fragment RestaurantNotification
+        void onPass(List<NotificationResponse> list);
+    }
+    public void setListenerFragmentNotification(InterfacePassDataRestaurantNotification listener){
+        mListenerNotification = listener;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -655,7 +663,10 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onNext(List<NotificationResponse> responseItem) {
                         mListNotification = responseItem;
                         Log.d("Phat","onNext3");
-
+                        if(mListenerNotification != null)
+                        {
+                            mListenerNotification.onPass(responseItem);
+                        }
                     }
                 });
     }
