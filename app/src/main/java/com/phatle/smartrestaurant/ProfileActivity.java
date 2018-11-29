@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,8 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -55,7 +58,12 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -95,6 +103,8 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView btnMenuClose;
     private boolean notificationVisible = false;
 
+    ProgressDialog bar;
+    String URLDownload;
     public InterfacePassDataRestaurant mListener;
     public InterfacePassDataRestaurantHome mListenerFragmentHome;
     public InterfacePassDataRestaurantBookmark mListenerFragmentBookmark;
@@ -688,6 +698,7 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onNext(VersionResponse versionResponse) {
                         Log.d("Phat","onNextVersion");
 
+                        URLDownload = versionResponse.getUrl();
                         String currentVersion = getString(R.string.app_version);
                         String[]CurrentVersion = currentVersion.split("\\.");
                         String[]NewVersion = versionResponse.getNewVersion().split("\\.");
@@ -707,6 +718,7 @@ public class ProfileActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(SweetAlertDialog sDialog) {
                                             sDialog.dismissWithAnimation();
+                                            new DownloadNewVersion().execute();
                                         }
                                     })
                                     .setCancelText(getString(R.string.close_btn))
@@ -727,6 +739,7 @@ public class ProfileActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(SweetAlertDialog sDialog) {
                                             sDialog.dismissWithAnimation();
+                                            new DownloadNewVersion().execute();
                                         }
                                     })
                                     .setCancelText(getString(R.string.close_btn))
@@ -748,6 +761,7 @@ public class ProfileActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(SweetAlertDialog sDialog) {
                                             sDialog.dismissWithAnimation();
+                                            new DownloadNewVersion().execute();
                                         }
                                     })
                                     .setCancelText(getString(R.string.close_btn))
@@ -854,5 +868,131 @@ public class ProfileActivity extends AppCompatActivity {
                 notificationVisible = true;
             }
         }, 1000);
+    }
+    class DownloadNewVersion extends AsyncTask<String,Integer,Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            bar = new ProgressDialog(ProfileActivity.this);
+            bar.setCancelable(false);
+
+            bar.setMessage("Downloading...");
+
+            bar.setIndeterminate(true);
+            bar.setCanceledOnTouchOutside(false);
+            bar.show();
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            super.onProgressUpdate(progress);
+
+            bar.setIndeterminate(false);
+            bar.setMax(100);
+            bar.setProgress(progress[0]);
+            String msg = "";
+            if(progress[0]>99){
+
+                msg="Finishing... ";
+
+            }else {
+
+                msg="Downloading... "+progress[0]+"%";
+            }
+            bar.setMessage(msg);
+
+        }
+        @Override
+        protected void onPostExecute(Boolean result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+
+            bar.dismiss();
+
+            if(result){
+
+                Toast.makeText(getApplicationContext(),"Download Completed",
+                        Toast.LENGTH_SHORT).show();
+
+            }else{
+
+                Toast.makeText(getApplicationContext(),"Error: Try Again",
+                        Toast.LENGTH_SHORT).show();
+
+
+            }
+
+        }
+
+        @Override
+        protected Boolean doInBackground(String... arg0) {
+            Boolean flag = false;
+
+            try {
+
+//                String APK_URL = "http://upfile.vn/download/guest/A~jmAqXmNVye/odXtKCZC7VXr/PlWKgP7iZBzi/LlpyLCAyaxaL/c324f44360218d9b0/1543514020/60722f649d5a1c1a4b132161ae5bae86bb97ac86f02d148ac/app-debug.apk";
+                URL url = new URL(URLDownload);
+
+                HttpURLConnection c = (HttpURLConnection) url.openConnection();
+                c.setRequestMethod("GET");
+                c.setDoOutput(true);
+                c.connect();
+
+
+                String PATH = Environment.getExternalStorageDirectory()+"/Download/";
+                File file = new File(PATH);
+                file.mkdirs();
+
+                File outputFile = new File(file,"app-debug.apk");
+
+                if(outputFile.exists()){
+                    outputFile.delete();
+                }
+
+                FileOutputStream fos = new FileOutputStream(outputFile);
+                InputStream is = c.getInputStream();
+
+                int total_size = 8330841;//size of apk
+
+                byte[] buffer = new byte[1024];
+                int len1 = 0;
+                int per = 0;
+                int downloaded=0;
+                while ((len1 = is.read(buffer)) != -1) {
+                    fos.write(buffer, 0, len1);
+                    downloaded +=len1;
+                    per = (int) (downloaded * 100 / total_size);
+                    publishProgress(per);
+                }
+                fos.close();
+                is.close();
+
+                OpenNewVersion(PATH);
+
+                flag = true;
+            } catch (Exception e) {
+                Log.e("Phat", "Update Error: " + e.getMessage());
+                Log.e("Phat", "Update Error: " + e.getLocalizedMessage());
+                Log.e("Phat", "Update Error: " + e.getCause());
+
+
+                flag = false;
+            }
+            return flag;
+
+        }
+
+    }
+
+    void OpenNewVersion(String location) {
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(new File(location + "app-debug.apk")),
+                "application/vnd.android.package-archive");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
     }
 }

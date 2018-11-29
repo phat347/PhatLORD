@@ -13,6 +13,10 @@ public class VersionResponse {
     @Expose
     private Boolean isForceUpdate;
 
+    @SerializedName("url")
+    @Expose
+    private String url;
+
     public String getNewVersion() {
         return newVersion;
     }
@@ -27,6 +31,14 @@ public class VersionResponse {
 
     public void setIsForceUpdate(Boolean isForceUpdate) {
         this.isForceUpdate = isForceUpdate;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 }
