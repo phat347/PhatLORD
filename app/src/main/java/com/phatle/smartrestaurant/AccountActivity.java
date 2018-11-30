@@ -230,7 +230,7 @@ public class AccountActivity extends AppCompatActivity {
                         pDialog.setCancelable(false);
                         pDialog.show();
                         String userId = user.getUid();
-                        StorageReference filepath = mStorage.child("Images");
+                        StorageReference filepath = mStorage.child("Images" + user.getDisplayName()).child(uri.getLastPathSegment());
                         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
