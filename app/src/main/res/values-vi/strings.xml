@@ -31,4 +31,5 @@
     <string name="close_btn">Đóng</string>
     <string name="update_phase1">Vui lòng cập nhật phiên bản </string>
     <string name="update_phase2"> để có trải nghiệm tốt hơn</string>
+    <string name="random">Bốc thăm random</string>
 </resources>

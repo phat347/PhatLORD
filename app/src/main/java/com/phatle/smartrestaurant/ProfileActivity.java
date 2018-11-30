@@ -319,6 +319,7 @@ public class ProfileActivity extends AppCompatActivity {
         mListMenu.add(new DrawerItem(getResources().getString(R.string.contact),R.drawable.ic_leftmenu_phone));
         mListMenu.add(new DrawerItem(getResources().getString(R.string.app_info),R.drawable.ic_leftmeu_info));
         mListMenu.add(new DrawerItem(getResources().getString(R.string.language),R.drawable.ic_leftmenu_translate));
+        mListMenu.add(new DrawerItem(getResources().getString(R.string.random),R.drawable.ic_random));
 
         mAdapterMenu = new DrawerItemAdapter(mListMenu);
 
@@ -388,6 +389,11 @@ public class ProfileActivity extends AppCompatActivity {
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ProfileActivity.this,pair);
                     startActivityForResult(profileIntent,123,options.toBundle());
 
+                }
+                if(drawerItem.getItemName().equals(getResources().getString(R.string.random)))
+                {
+                    Intent NationalIntent = new Intent(ProfileActivity.this,NationalActivity.class);
+                    startActivity(NationalIntent);
                 }
             }
         });

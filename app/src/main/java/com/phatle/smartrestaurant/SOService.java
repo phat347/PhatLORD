@@ -19,4 +19,7 @@ public interface SOService {
 
     @GET("/api/json/get/N16jf5uCr")
     Observable<VersionResponse> getVersion();
+
+    @GET("/api/json/get/4ykF0L9AH")
+    Observable<List<NationalTeamResponse>> getNationalAnswers();
 }

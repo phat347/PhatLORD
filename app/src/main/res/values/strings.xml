@@ -31,4 +31,5 @@
     <string name="close_btn">Close</string>
     <string name="update_phase1">Please update to version </string>
     <string name="update_phase2"> for better experience</string>
+    <string name="random">Random</string>
 </resources>
