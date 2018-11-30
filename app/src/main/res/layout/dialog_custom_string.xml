@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+
+
+    <ImageView
+        android:id="@+id/dialog_img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_warning" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/red"
+        android:textSize="10pt"
+        android:textStyle="bold"
+        android:text="Lỗi" />
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/gray"
+        android:textSize="10pt"
+        android:text="Message" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_close"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Đóng"
+            android:textColor="@color/white"
+            android:background="@color/gray"
+            android:textAlignment="center"
+            android:textSize="10pt"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Thử lại"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:textSize="10pt"
+            android:background="@drawable/background_rectangle"
+            />
+    </LinearLayout>
+
+</LinearLayout>

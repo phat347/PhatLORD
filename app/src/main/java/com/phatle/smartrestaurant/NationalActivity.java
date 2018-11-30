@@ -24,7 +24,6 @@ public class NationalActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private BottomBarAdapter pagerAdapter;
-    RestaurantDrawerItem IntentItem;
 
     TextView toolbarTitle;
     ImageView backBtn;
