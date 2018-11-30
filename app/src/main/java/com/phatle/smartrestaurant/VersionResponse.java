@@ -17,6 +17,10 @@ public class VersionResponse {
     @Expose
     private String url;
 
+    @SerializedName("size")
+    @Expose
+    private int size;
+
     public String getNewVersion() {
         return newVersion;
     }
@@ -41,4 +45,11 @@ public class VersionResponse {
         this.url = url;
     }
 
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 }

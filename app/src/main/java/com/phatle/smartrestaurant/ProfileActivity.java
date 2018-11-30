@@ -18,10 +18,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -105,6 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     ProgressDialog bar;
     String URLDownload;
+    int appSize;
     public InterfacePassDataRestaurant mListener;
     public InterfacePassDataRestaurantHome mListenerFragmentHome;
     public InterfacePassDataRestaurantBookmark mListenerFragmentBookmark;
@@ -698,6 +701,7 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onNext(VersionResponse versionResponse) {
                         Log.d("Phat","onNextVersion");
 
+                        appSize = versionResponse.getSize();
                         URLDownload = versionResponse.getUrl();
                         String currentVersion = getString(R.string.app_version);
                         String[]CurrentVersion = currentVersion.split("\\.");
@@ -954,7 +958,7 @@ public class ProfileActivity extends AppCompatActivity {
                 FileOutputStream fos = new FileOutputStream(outputFile);
                 InputStream is = c.getInputStream();
 
-                int total_size = 8330841;//size of apk
+                int total_size = appSize;//size of apk
 
                 byte[] buffer = new byte[1024];
                 int len1 = 0;
@@ -969,7 +973,22 @@ public class ProfileActivity extends AppCompatActivity {
                 fos.close();
                 is.close();
 
-                OpenNewVersion(PATH);
+//                OpenNewVersion(PATH);
+
+                File toInstall = new File(PATH + "app-debug.apk");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Uri apkUri = FileProvider.getUriForFile(ProfileActivity.this, BuildConfig.APPLICATION_ID + ".provider", toInstall);
+                    Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+                    intent.setData(apkUri);
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    ProfileActivity.this.startActivity(intent);
+                } else {
+                    Uri apkUri = Uri.fromFile(toInstall);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    ProfileActivity.this.startActivity(intent);
+                }
 
                 flag = true;
             } catch (Exception e) {
@@ -986,13 +1005,15 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    void OpenNewVersion(String location) {
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(new File(location + "app-debug.apk")),
-                "application/vnd.android.package-archive");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-
-    }
+    //Cách install apk đã lỗi thời và không áp dụng cho API 24+
+//    void OpenNewVersion(String location) {
+//
+//        Intent intent = new Intent(Intent.ACTION_VIEW);
+//        String x = Uri.fromFile(new File(location + "app-debug.apk")).toString();
+//        intent.setDataAndType(Uri.fromFile(new File(location + "app-debug.apk")),
+//                "application/vnd.android.package-archive");
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
+//
+//    }
 }
