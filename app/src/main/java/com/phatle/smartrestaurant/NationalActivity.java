@@ -48,6 +48,14 @@ public class NationalActivity extends AppCompatActivity {
         mListenerMatch = listener;
     }
 
+    public InterfacePassMatchItem2 mListenerRanked;
+    public interface InterfacePassMatchItem2{
+        void onPass(List<MatchResponse> list);
+    }
+    public void setListenerMatch2(InterfacePassMatchItem2 listener){
+        mListenerRanked = listener;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +78,7 @@ public class NationalActivity extends AppCompatActivity {
         pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new RandomFragment());
         pagerAdapter.addFragments(new MatchHistoryFragment());
-        pagerAdapter.addFragments(new FragmentTest());
+        pagerAdapter.addFragments(new RankTableFragment());
 
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -119,9 +127,15 @@ public class NationalActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(List<MatchResponse> matchResponses) {
+                        mListMatch = matchResponses;
                         if(mListenerMatch != null)
                         {
                             mListenerMatch.onPass(matchResponses);
+
+                        }
+                        if(mListenerRanked != null)
+                        {
+                            mListenerRanked.onPass(matchResponses);
 
                         }
                     }

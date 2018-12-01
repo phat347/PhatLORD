@@ -29,11 +29,53 @@ public class RandomFragment extends Fragment {
 
 
 
-
-        random_btn = view.findViewById(R.id.fab);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+
+        random_btn = view.findViewById(R.id.fab);
+        random_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int randomNum = ThreadLocalRandom.current().nextInt(1, mList.size() + 1);
+                for (int i = 0; i < mList.size(); i++) {
+                    if(mList.get(i).getId().equals(randomNum))
+                    {
+                        recyclerView.smoothScrollToPosition(i);
+                        CustomDialogString dialog = new CustomDialogString(getContext(), "Số " + mList.get(i).getId(), "Bạn bốc trúng "+ mList.get(i).getName(),mList.get(i).getImg());
+                        dialog.setupOkButton("OK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.dismiss();
+                                random_btn.show();
+                            }
+                        });
+                        dialog.show();
+                        dialog.setCanceledOnTouchOutside(false);
+                    }
+
+                }
+            }
+        });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy < 0){
+                    random_btn.show();
+                }
+                else if (dy > 0)
+                {
+                    random_btn.hide();
+                }
+            }
+        });
+
 
         ((NationalActivity) getActivity()).setListener(new NationalActivity.InterfacePassNationalteam() {
             @Override
