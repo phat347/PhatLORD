@@ -31,13 +31,21 @@ public class NationalActivity extends AppCompatActivity {
 
     public List<NationalTeamResponse> mList;
 
+    public List<MatchResponse> mListMatch;
     public InterfacePassNationalteam mListener;
     public interface InterfacePassNationalteam{
-        //gửi Data từ API khi load xong vô Fragment RestaurantSearch
         void onPass(List<NationalTeamResponse> list);
     }
     public void setListener(InterfacePassNationalteam listener){
         mListener = listener;
+    }
+
+    public InterfacePassMatchItem mListenerMatch;
+    public interface InterfacePassMatchItem{
+        void onPass(List<MatchResponse> list);
+    }
+    public void setListenerMatch(InterfacePassMatchItem listener){
+        mListenerMatch = listener;
     }
 
     @Override
@@ -61,7 +69,7 @@ public class NationalActivity extends AppCompatActivity {
 
         pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new RandomFragment());
-        pagerAdapter.addFragments(new FragmentTest());
+        pagerAdapter.addFragments(new MatchHistoryFragment());
         pagerAdapter.addFragments(new FragmentTest());
 
         viewPager.setAdapter(pagerAdapter);
@@ -87,6 +95,37 @@ public class NationalActivity extends AppCompatActivity {
         pDialog.setTitleText("Loading");
         pDialog.setCancelable(false);
         pDialog.show();
+        mService.getMatchAnswers().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<MatchResponse>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        new SweetAlertDialog(NationalActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Không thể lấy dữ liệu!")
+                                .setContentText("Kiểm tra kết nối mạng hoặc vui lòng thử lại sau")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                    }
+                                })
+                                .show();
+                    }
+
+                    @Override
+                    public void onNext(List<MatchResponse> matchResponses) {
+                        if(mListenerMatch != null)
+                        {
+                            mListenerMatch.onPass(matchResponses);
+
+                        }
+                    }
+                });
         mService.getNationalAnswers().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<NationalTeamResponse>>() {
                     @Override

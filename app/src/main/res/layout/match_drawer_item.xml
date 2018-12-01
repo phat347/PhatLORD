@@ -1,0 +1,72 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    app:cardCornerRadius="11dp"
+    android:layout_margin="30dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:id="@+id/notification_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/mu_pogba"/>
+        <TextView
+            android:id="@+id/home_name"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:textSize="10pt"
+            android:layout_toRightOf="@+id/notification_img"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/score_line"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            />
+        <ImageView
+
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:id="@+id/notification_img2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/mu_pogba"
+            android:layout_alignParentRight="true"/>
+        <TextView
+            android:textSize="10pt"
+            android:id="@+id/away_name"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:layout_toLeftOf="@+id/notification_img2"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
+
+
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

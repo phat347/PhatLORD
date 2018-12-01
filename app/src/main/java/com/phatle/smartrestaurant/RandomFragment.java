@@ -73,6 +73,7 @@ public class RandomFragment extends Fragment {
                                     @Override
                                     public void onClick(View view) {
                                         dialog.dismiss();
+                                        random_btn.show();
                                     }
                                 });
                                 dialog.show();

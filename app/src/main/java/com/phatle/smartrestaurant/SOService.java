@@ -22,4 +22,8 @@ public interface SOService {
 
     @GET("/api/json/get/4ykF0L9AH")
     Observable<List<NationalTeamResponse>> getNationalAnswers();
+
+    @GET("/api/json/get/VJSJ6WsRS")
+    Observable<List<MatchResponse>> getMatchAnswers();
+
 }
