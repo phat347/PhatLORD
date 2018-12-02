@@ -61,7 +61,22 @@ public class RankTableFragment extends Fragment {
         Collections.sort(mListPlayer, new PlayerPointComparator());
 
         // sort theo hiệu số
-        Collections.sort(mListPlayer, new PlayerGDComparator());
+
+        for (int i = 0; i <mListPlayer.size(); i++) {
+            for (int j = i+1; j < mListPlayer.size(); j++) {
+                //nếu = điểm thì so hiệu số
+                if(mListPlayer.get(i).getPoint()==mListPlayer.get(j).getPoint())
+                {
+                    if(mListPlayer.get(i).getGd() < mListPlayer.get(j).getGd())
+                    {
+                        Player temp = mListPlayer.get(i);
+                        mListPlayer.set(i,mListPlayer.get(j));
+                        mListPlayer.set(j,temp);
+                    }
+                }
+            }
+        }
+
 
         mAdapter = new PlayersAdapter(mListPlayer,getContext());
         recyclerView.setAdapter(mAdapter);

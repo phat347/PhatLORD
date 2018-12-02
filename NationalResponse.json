@@ -1,0 +1,194 @@
+[
+  {
+    "name": "Tuyển Anh",
+    "id": 1,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nEngland.png",
+    "fw": 103,
+    "mf": 102,
+    "df": 101
+  },
+  {
+    "name": "Tuyển Pháp",
+    "id": 2,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nFrance.png",
+    "fw": 103,
+    "mf": 104,
+    "df": 101
+  },
+  {
+    "name": "Tuyển Đức",
+    "id": 3,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nGermany.png",
+    "fw": 103,
+    "mf": 102,
+    "df": 102
+  },
+  {
+    "name": "Tuyển Ý",
+    "id": 4,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nItaly.png",
+    "fw": 102,
+    "mf": 96,
+    "df": 97
+  },
+  {
+    "name": "Tuyển Bỉ",
+    "id": 5,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nBelgium.png",
+    "fw": 106,
+    "mf": 100,
+    "df": 101
+  },
+  {
+    "name": "Tuyển Hà Lan",
+    "id": 6,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nHoland.png",
+    "fw": 94,
+    "mf": 96,
+    "df": 98
+  },
+  {
+    "name": "Tuyển Wale",
+    "id": 7,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nWale.png",
+    "fw": 98,
+    "mf": 89,
+    "df": 97
+  },
+  {
+    "name": "Tuyển Bồ Đào Nha",
+    "id": 8,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nPortugal.png",
+    "fw": 103,
+    "mf": 98,
+    "df": 96
+  },
+  {
+    "name": "Tuyển Tây Ban Nha",
+    "id": 9,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nSpain.png",
+    "fw": 104,
+    "mf": 103,
+    "df": 105
+  },
+  {
+    "name": "Tuyển Phần Lan",
+    "id": 10,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nFinland.png",
+    "fw": 89,
+    "mf": 86,
+    "df": 85
+  },
+  {
+    "name": "Tuyển IceLand",
+    "id": 11,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nIceland.png",
+    "fw": 87,
+    "mf": 92,
+    "df": 86
+  },
+  {
+    "name": "Tuyển Nga",
+    "id": 12,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nRussia.png",
+    "fw": 93,
+    "mf": 92,
+    "df": 90
+  },
+  {
+    "name": "Tuyển Mỹ",
+    "id": 13,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nUSA.png",
+    "fw": 92,
+    "mf": 93,
+    "df": 90
+  },
+  {
+    "name": "Tuyển Venezuela",
+    "id": 14,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nVenezuela.png",
+    "fw": 96,
+    "mf": 84,
+    "df": 87
+  },
+  {
+    "name": "Tuyển Ba Lan",
+    "id": 15,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nPoland.png",
+    "fw": 103,
+    "mf": 92,
+    "df": 96
+  },
+  {
+    "name": "Tuyển Brazil",
+    "id": 16,
+    "img": "https://sv1.uphinhnhanh.com/images/2018/11/30/nBrazil.png",
+    "fw": 105,
+    "mf": 99,
+    "df": 103
+  },
+  {
+    "name": "Tuyển Uruquay",
+    "id": 17,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nUruquay.png",
+    "fw": 107,
+    "mf": 88,
+    "df": 97
+  },
+  {
+    "name": "Tuyển CH Czech",
+    "id": 18,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nCzech.png",
+    "fw": 89,
+    "mf": 89,
+    "df": 90
+  },
+  {
+    "name": "Tuyển Thụy Sĩ",
+    "id": 19,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nSwitzerland.png",
+    "fw": 91,
+    "mf": 94,
+    "df": 92
+  },
+  {
+    "name": "Tuyển Peru",
+    "id": 20,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nPeru.png",
+    "fw": 92,
+    "mf": 87,
+    "df": 85
+  },
+  {
+    "name": "Tuyển Mexico",
+    "id": 21,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nMexico.png",
+    "fw": 96,
+    "mf": 93,
+    "df": 94
+  },
+  {
+    "name": "Tuyển Ai Cập",
+    "id": 22,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nEgypt.png",
+    "fw": 99,
+    "mf": 90,
+    "df": 86
+  },
+  {
+    "name": "Tuyển Colombia",
+    "id": 23,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nComlumbia.png",
+    "fw": 105,
+    "mf": 95,
+    "df": 93
+  },
+  {
+    "name": "Tuyển Hungary",
+    "id": 24,
+    "img": "https://uphinhnhanh.com/images/2018/11/30/nHungary.png",
+    "fw": 90,
+    "mf": 89,
+    "df": 88
+  }
+]

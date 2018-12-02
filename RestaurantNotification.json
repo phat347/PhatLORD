@@ -1,0 +1,38 @@
+[
+  {
+    "img": "android.resource://com.phatle.smartrestaurant/drawable/img_res1",
+    "name": "Nhà hàng của Pogba",
+    "description": "Nhà hàng của Pogba sẽ đóng của vào lúc 8:00PM",
+    "time": 24
+  },
+  {
+    "img": "android.resource://com.phatle.smartrestaurant/drawable/mu_pogba",
+    "name": "Paul Pogba",
+    "description": "Paul Pogba đã theo dõi bạn",
+    "time": 24
+  },
+  {
+    "img": "android.resource://com.phatle.smartrestaurant/drawable/mu_martial",
+    "name": "Anthony Martial",
+    "description": "Anthony Martial đã theo dõi bạn",
+    "time": 23
+  },
+  {
+    "img": "android.resource://com.phatle.smartrestaurant/drawable/mu_mourinho",
+    "name": "Jose Mourinho",
+    "description": "Jose Mourinho đã theo dõi bạn",
+    "time": 23
+  },
+  {
+    "img": "android.resource://com.phatle.smartrestaurant/drawable/img_res3",
+    "name": "Nhà hàng của Martial",
+    "description": "Nhà hàng của Martial giảm giá 50% vào hôm nay",
+    "time": 22
+  },
+  {
+    "img": "android.resource://com.phatle.smartrestaurant/drawable/img_res2",
+    "name": "Nhà hàng của Lukaku",
+    "description": "Nhà hàng của Lukaku sẽ giảm giá 50% vào Black Friday",
+    "time": 2
+  }
+]
