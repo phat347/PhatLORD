@@ -79,20 +79,159 @@ public class NationalActivity extends AppCompatActivity {
         pagerAdapter.addFragments(new RandomFragment());
         pagerAdapter.addFragments(new MatchHistoryFragment());
         pagerAdapter.addFragments(new RankTableFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
+//        pagerAdapter.addFragments(new RandomFragment());
 
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+//        tabLayout.addTab(tabLayout.newTab().setText("Ngành hàng 1"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Ngành hàng 2"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Ngành hàng 3"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Ngành hàng 4"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Ngành hàng 5"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Ngành hàng 6"));
+//        TabLayout.Tab tab1 = tabLayout.getTabAt(0);
+//        TabLayout.Tab tab2 = tabLayout.getTabAt(1);
+//        TabLayout.Tab tab3 = tabLayout.getTabAt(2);
+//        TabLayout.Tab tab4 = tabLayout.getTabAt(3);
+//        TabLayout.Tab tab5 = tabLayout.getTabAt(4);
+//        TabLayout.Tab tab6 = tabLayout.getTabAt(5);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
+//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                if(tab.getPosition()  == 0)
+//                {
+//                    viewPager.setCurrentItem(0,true);
+//                }
+//
+//                if(tab.getPosition()  == 1)
+//                {
+//                    viewPager.setCurrentItem(3,true);
+//                }
+//                if(tab.getPosition()  == 2)
+//                {
+//                    viewPager.setCurrentItem(6,true);
+//                }
+//                if(tab.getPosition()  == 3)
+//                {
+//                    viewPager.setCurrentItem(9,true);
+//                }
+//                if(tab.getPosition()  == 4)
+//                {
+//                    viewPager.setCurrentItem(12,true);
+//                }
+//                if(tab.getPosition()  == 5)
+//                {
+//                    viewPager.setCurrentItem(15,true);
+//                }
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
+//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                if(position<=2)
+//                {
+//                    tab1.select();
+//                    if(position==2)
+//                    {
+//                        viewPager.setCurrentItem(2);
+//                    }
+//                }
+//                else if(position <=5)
+//                {
+//                    tab2.select();
+//                    if(position==5)
+//                    {
+//                        viewPager.setCurrentItem(5);
+//                    }
+//                }
+//                else if(position <=8)
+//                {
+//                    tab3.select();
+//                    if(position==8)
+//                    {
+//                        viewPager.setCurrentItem(8);
+//                    }
+//                }
+//                else if(position <=11)
+//                {
+//                    tab4.select();
+//                    if(position==11)
+//                    {
+//                        viewPager.setCurrentItem(11);
+//                    }
+//                }
+//                else if(position <=14)
+//                {
+//                    tab5.select();
+//                    if(position==14)
+//                    {
+//                        viewPager.setCurrentItem(14);
+//                    }
+//                }
+//                else if(position <=17)
+//                {
+//                    tab6.select();
+//                }
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
         TextView tv1 = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(0)).getChildAt(1));
         tv1.setScaleY(-1);
         tv1.setText("Bốc thăm");
+//        tv1.setText("Ngành hàng 1");
         TextView tv2 = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(1)).getChildAt(1));
         tv2.setScaleY(-1);
         tv2.setText("Lịch sử");
+//        tv2.setText("Ngành hàng 2");
         TextView tv3 = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(2)).getChildAt(1));
         tv3.setScaleY(-1);
         tv3.setText("BXH");
+//        tv3.setText("Ngành hàng 3");
+//        TextView tv4 = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(3)).getChildAt(1));
+//        tv4.setScaleY(-1);
+//        tv4.setText("Ngành hàng 4");
+//        TextView tv5 = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(4)).getChildAt(1));
+//        tv5.setScaleY(-1);
+
+//        tv5.setText("Ngành hàng 5");
+//        TextView tv6 = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(5)).getChildAt(1));
+//        tv6.setScaleY(-1);
+
+//        tv6.setText("Ngành hàng 6");
 
         loadAnswers();
     }
