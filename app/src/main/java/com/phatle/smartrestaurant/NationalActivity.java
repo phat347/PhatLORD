@@ -79,7 +79,7 @@ public class NationalActivity extends AppCompatActivity {
         pagerAdapter.addFragments(new RandomFragment());
         pagerAdapter.addFragments(new MatchHistoryFragment());
         pagerAdapter.addFragments(new RankTableFragment());
-//        pagerAdapter.addFragments(new FragmentTest());
+        pagerAdapter.addFragments(new FragmentTest());
 //        pagerAdapter.addFragments(new RandomFragment());
 //        pagerAdapter.addFragments(new RandomFragment());
 //        pagerAdapter.addFragments(new RandomFragment());
@@ -221,9 +221,9 @@ public class NationalActivity extends AppCompatActivity {
         TextView tv3 = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(2)).getChildAt(1));
         tv3.setScaleY(-1);
         tv3.setText("BXH");
-//        TextView tv4 = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(3)).getChildAt(1));
-//        tv4.setScaleY(-1);
-//        tv4.setText("Test");
+        TextView tv4 = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(3)).getChildAt(1));
+        tv4.setScaleY(-1);
+        tv4.setText("Test");
 //        tv3.setText("Ngành hàng 3");
 //        TextView tv4 = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(3)).getChildAt(1));
 //        tv4.setScaleY(-1);
