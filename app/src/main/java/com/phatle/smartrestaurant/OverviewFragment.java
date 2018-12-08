@@ -14,8 +14,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.varunest.sparkbutton.SparkButton;
+import com.varunest.sparkbutton.SparkEventListener;
 
 import java.io.Serializable;
 
@@ -23,10 +26,11 @@ public class OverviewFragment extends Fragment{
 
     RestaurantDrawerItem IntentItem;
     ImageView restaurantImage, clockTime;
-    TextView name, type, status1, status2, overallRating, clockTimeStatus,decription;
+    TextView name, type, status1, status2, overallRating, clockTimeStatus,decription,textBookmark;
     ImageView dollar1, dollar2, dollar3, dollar4;
     FrameLayout itemLayout;
     LinearLayout btnDirect,btnPhone;
+    SparkButton btnBookmark;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,7 +52,33 @@ public class OverviewFragment extends Fragment{
         clockTime = view.findViewById(R.id.res_time_img);
         clockTimeStatus = view.findViewById(R.id.res_time_text);
         decription = view.findViewById(R.id.restaurant_description);
+        textBookmark = view.findViewById(R.id.res_bookmark_text);
         decription.setText(IntentItem.getDecription());
+        btnBookmark = view.findViewById(R.id.res_bookmark_img);
+        btnBookmark.setEventListener(new SparkEventListener() {
+            @Override
+            public void onEvent(ImageView button, boolean buttonState) {
+                if(buttonState)
+                {
+                    textBookmark.setTextColor(getResources().getColor(R.color.green));
+                    Toast.makeText(getContext(), "Đã thêm vào bookmark", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    textBookmark.setTextColor(getResources().getColor(R.color.gray));
+                    Toast.makeText(getContext(), "Đã xóa khỏi bookmark", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onEventAnimationEnd(ImageView button, boolean buttonState) {
+
+            }
+
+            @Override
+            public void onEventAnimationStart(ImageView button, boolean buttonState) {
+
+            }
+        });
         btnPhone = view.findViewById(R.id.btn_phone_call);
         btnPhone.setOnClickListener(new View.OnClickListener() {
             @Override
