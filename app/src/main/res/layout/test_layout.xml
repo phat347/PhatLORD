@@ -1,39 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:gravity="center">
+    android:splitMotionEvents="false"
+    >
+    <!--<com.varunest.sparkbutton.SparkButton-->
+        <!--android:id="@+id/btn_spark"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--app:sparkbutton_activeImage="@drawable/ic_dollarsign"-->
+        <!--app:sparkbutton_inActiveImage="@drawable/ic_dollarsign_inactive"-->
+        <!--app:sparkbutton_iconSize="40dp"-->
+        <!--app:sparkbutton_primaryColor="@color/green_app"-->
+        <!--app:sparkbutton_secondaryColor="@color/green_app"-->
+        <!--&gt;-->
+    <!--</com.varunest.sparkbutton.SparkButton>-->
 
 
-    <com.varunest.sparkbutton.SparkButton
-        android:id="@+id/btn_spark"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:sparkbutton_activeImage="@drawable/ic_dollarsign"
-        app:sparkbutton_inActiveImage="@drawable/ic_dollarsign_inactive"
-        app:sparkbutton_iconSize="40dp"
-        app:sparkbutton_primaryColor="@color/green_app"
-        app:sparkbutton_secondaryColor="@color/green_app"
-        >
-    </com.varunest.sparkbutton.SparkButton>
+    <!--<android.support.v7.widget.AppCompatRatingBar-->
+        <!--android:rating="1.3"-->
+        <!--android:numStars="5"-->
+        <!--android:scaleX="0.8"-->
+        <!--android:scaleY="0.8"-->
+        <!--android:secondaryProgressTint="#00000000"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:stepSize="0.1"/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:splitMotionEvents="false">
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:id="@+id/swipeImg"
+            android:layout_marginTop="20dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_random"
+            />
+        <ImageView
+            android:layout_margin="10dp"
+            android:id="@+id/swipeImg2"
+            android:layout_marginTop="20dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_random"/>
+        <ImageView
+            android:layout_margin="10dp"
+            android:id="@+id/swipeImg3"
+            android:layout_marginTop="20dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_random"/>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/check"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        app:backgroundTint="@color/green_app"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_check"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="10dp"
+        />
 
 
-    <android.support.v7.widget.AppCompatRatingBar
-        android:rating="1.3"
-        android:numStars="5"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        android:secondaryProgressTint="#00000000"
-        android:layout_marginTop="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:stepSize="0.1"/>
-
-
-
-
-</LinearLayout>
+</FrameLayout>

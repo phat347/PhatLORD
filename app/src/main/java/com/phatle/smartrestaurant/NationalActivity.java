@@ -22,7 +22,7 @@ import rx.schedulers.Schedulers;
 public class NationalActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    public NoSwipePager viewPager;
     private BottomBarAdapter pagerAdapter;
 
     TextView toolbarTitle;
