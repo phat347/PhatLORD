@@ -79,5 +79,8 @@ dependencies {
 
     implementation 'com.github.varunest:sparkbutton:1.0.6'
 
+
+    //Badge Notification
+    implementation 'com.nex3z:notification-badge:1.0.2'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -39,28 +39,67 @@
         android:gravity="center"
         android:splitMotionEvents="false">
 
-        <ImageView
-            android:layout_margin="10dp"
-            android:id="@+id/swipeImg"
-            android:layout_marginTop="20dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_random"
-            />
-        <ImageView
-            android:layout_margin="10dp"
-            android:id="@+id/swipeImg2"
-            android:layout_marginTop="20dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_random"/>
-        <ImageView
-            android:layout_margin="10dp"
-            android:id="@+id/swipeImg3"
-            android:layout_marginTop="20dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_random"/>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_margin="10dp"
+                android:id="@+id/swipeImg"
+                android:layout_marginTop="20dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_random"
+                />
+            <com.nex3z.notificationbadge.NotificationBadge
+                android:id="@+id/badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                >
+
+            </com.nex3z.notificationbadge.NotificationBadge>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_margin="10dp"
+                android:id="@+id/swipeImg2"
+                android:layout_marginTop="20dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_random"
+                />
+            <com.nex3z.notificationbadge.NotificationBadge
+                android:id="@+id/badge2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                >
+
+            </com.nex3z.notificationbadge.NotificationBadge>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_margin="10dp"
+                android:id="@+id/swipeImg3"
+                android:layout_marginTop="20dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_random"
+                />
+            <com.nex3z.notificationbadge.NotificationBadge
+                android:id="@+id/badge3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                >
+
+            </com.nex3z.notificationbadge.NotificationBadge>
+        </FrameLayout>
 
     </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.phatle.smartrestaurant;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -19,9 +20,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.nex3z.notificationbadge.NotificationBadge;
 import com.varunest.sparkbutton.SparkButton;
 import com.varunest.sparkbutton.SparkEventListener;
 
@@ -32,17 +35,25 @@ import java.util.List;
 public class FragmentTest extends Fragment{
 
     SparkButton btn;
+    NotificationBadge mBadge,mBadge2,mBadge3;
     FloatingActionButton checkImg;
     ImageView swipeTest,swipeTest2,swipeTest3;
     float initialX, initialY;
 
+    int countBadge,countBadge2,countBadge3 = 0;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.test_layout, container, false);
+
+        int centerWidth = this.getResources().getDisplayMetrics().widthPixels/2;
 
 //        btn = view.findViewById(R.id.btn_spark);
 
         checkImg = view.findViewById(R.id.check);
         checkImg.hide();
+
+        mBadge = view.findViewById(R.id.badge);
+        mBadge2 = view.findViewById(R.id.badge2);
+        mBadge3 = view.findViewById(R.id.badge3);
 
         swipeTest = view.findViewById(R.id.swipeImg);
         swipeTest2 = view.findViewById(R.id.swipeImg2);
@@ -125,25 +136,51 @@ public class FragmentTest extends Fragment{
                         if (finalY - initialY >= 40) {
 //                            Toast.makeText(getContext(), "Swipe xuống", Toast.LENGTH_SHORT).show();
 
+
                             Log.d("Phat","   Bottom X:"+view.getBottom()+"  Bottom Y:"+view.getWidth()/2);
 
                             Log.d("Phat","  GetX:"+swipeTest.getX()+"  GetY:"+swipeTest.getY());
-                            PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("X", swipeTest.getX(),195); // The view will be animated such that it moves to positionAnimateX.
+                            PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("X", swipeTest.getX(),centerWidth); // The view will be animated such that it moves to positionAnimateX.
                             PropertyValuesHolder yHolder = PropertyValuesHolder.ofFloat("Y", swipeTest.getY(), swipeTest.getY()+800); // The view will be animated such that it moves to positionAnimateY.
                             ValueAnimator valueAnimator = ObjectAnimator.ofPropertyValuesHolder(swipeTest, xHolder, yHolder);
                             valueAnimator.setDuration(300);
                             valueAnimator.start();
-                            checkImg.show();
-                            new Handler().postDelayed(new Runnable() {
+                            valueAnimator.addListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animator) {
+
+                                }
 
                                 @Override
-                                public void run() {
-                                    if(checkImg.isShown())
-                                    {
-                                        checkImg.hide();
-                                    }
+                                public void onAnimationEnd(Animator animator) {
+                                    animator.removeListener(this);
+                                    animator.setDuration(300);
+                                    ((ValueAnimator) animator).reverse();
+                                    checkImg.show();
+                                    mBadge.setNumber(++countBadge);
+                                    new Handler().postDelayed(new Runnable() {
+
+                                        @Override
+                                        public void run() {
+                                            if(checkImg.isShown())
+                                            {
+                                                checkImg.hide();
+                                            }
+                                        }
+                                    }, 800);
                                 }
-                            }, 1000);
+
+                                @Override
+                                public void onAnimationCancel(Animator animator) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animator) {
+
+                                }
+                            });
+
                         }
 
                         if (initialY > finalY) {
@@ -245,22 +282,46 @@ public class FragmentTest extends Fragment{
                             Log.d("Phat","   Bottom X:"+view.getBottom()+"  Bottom Y:"+view.getWidth()/2);
 
                             Log.d("Phat","  GetX:"+swipeTest2.getX()+"  GetY:"+swipeTest2.getY());
-                            PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("X", swipeTest2.getX(),195); // The view will be animated such that it moves to positionAnimateX.
+                            PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("X", swipeTest2.getX(),swipeTest2.getX()); // The view will be animated such that it moves to positionAnimateX.
                             PropertyValuesHolder yHolder = PropertyValuesHolder.ofFloat("Y", swipeTest2.getY(), swipeTest2.getY()+1000); // The view will be animated such that it moves to positionAnimateY.
                             ValueAnimator valueAnimator = ObjectAnimator.ofPropertyValuesHolder(swipeTest2, xHolder, yHolder);
                             valueAnimator.setDuration(300);
                             valueAnimator.start();
-                            checkImg.show();
-                            new Handler().postDelayed(new Runnable() {
+                            valueAnimator.addListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animator) {
+
+                                }
 
                                 @Override
-                                public void run() {
-                                    if(checkImg.isShown())
-                                    {
-                                        checkImg.hide();
-                                    }
+                                public void onAnimationEnd(Animator animator) {
+                                    animator.removeListener(this);
+                                    animator.setDuration(300);
+                                    ((ValueAnimator) animator).reverse();
+                                    checkImg.show();
+                                    mBadge2.setNumber(++countBadge2);
+                                    new Handler().postDelayed(new Runnable() {
+
+                                        @Override
+                                        public void run() {
+                                            if(checkImg.isShown())
+                                            {
+                                                checkImg.hide();
+                                            }
+                                        }
+                                    }, 800);
                                 }
-                            }, 1000);
+
+                                @Override
+                                public void onAnimationCancel(Animator animator) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animator) {
+
+                                }
+                            });
                         }
 
                         if (initialY > finalY) {
@@ -365,22 +426,46 @@ public class FragmentTest extends Fragment{
                             Log.d("Phat","   Bottom X:"+view.getBottom()+"  Bottom Y:"+view.getWidth()/2);
 
                             Log.d("Phat","  GetX:"+swipeTest3.getX()+"  GetY:"+swipeTest3.getY());
-                            PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("X", swipeTest3.getX(),195); // The view will be animated such that it moves to positionAnimateX.
+                            PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("X", swipeTest3.getX(),-centerWidth); // The view will be animated such that it moves to positionAnimateX.
                             PropertyValuesHolder yHolder = PropertyValuesHolder.ofFloat("Y", swipeTest3.getY(), swipeTest3.getY()+1000); // The view will be animated such that it moves to positionAnimateY.
                             ValueAnimator valueAnimator = ObjectAnimator.ofPropertyValuesHolder(swipeTest3, xHolder, yHolder);
                             valueAnimator.setDuration(300);
                             valueAnimator.start();
-                            checkImg.show();
-                            new Handler().postDelayed(new Runnable() {
+                            valueAnimator.addListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animator) {
+
+                                }
 
                                 @Override
-                                public void run() {
-                                    if(checkImg.isShown())
-                                    {
-                                        checkImg.hide();
-                                    }
+                                public void onAnimationEnd(Animator animator) {
+                                    animator.removeListener(this);
+                                    animator.setDuration(300);
+                                    ((ValueAnimator) animator).reverse();
+                                    checkImg.show();
+                                    mBadge3.setNumber(++countBadge3);
+                                    new Handler().postDelayed(new Runnable() {
+
+                                        @Override
+                                        public void run() {
+                                            if(checkImg.isShown())
+                                            {
+                                                checkImg.hide();
+                                            }
+                                        }
+                                    }, 800);
                                 }
-                            }, 1000);
+
+                                @Override
+                                public void onAnimationCancel(Animator animator) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animator) {
+
+                                }
+                            });
                         }
 
                         if (initialY > finalY) {
