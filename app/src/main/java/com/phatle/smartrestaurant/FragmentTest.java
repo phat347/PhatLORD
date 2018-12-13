@@ -20,6 +20,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -154,8 +156,9 @@ public class FragmentTest extends Fragment{
                                 @Override
                                 public void onAnimationEnd(Animator animator) {
                                     animator.removeListener(this);
-                                    animator.setDuration(300);
-                                    ((ValueAnimator) animator).reverse();
+                                    animator.setDuration(0);
+                                    animator.setInterpolator(new ReverseInterpolator());
+                                    animator.start();
                                     checkImg.show();
                                     mBadge.setNumber(++countBadge);
                                     new Handler().postDelayed(new Runnable() {
@@ -296,8 +299,9 @@ public class FragmentTest extends Fragment{
                                 @Override
                                 public void onAnimationEnd(Animator animator) {
                                     animator.removeListener(this);
-                                    animator.setDuration(300);
-                                    ((ValueAnimator) animator).reverse();
+                                    animator.setDuration(0);
+                                    animator.setInterpolator(new ReverseInterpolator());
+                                    animator.start();
                                     checkImg.show();
                                     mBadge2.setNumber(++countBadge2);
                                     new Handler().postDelayed(new Runnable() {
@@ -440,8 +444,9 @@ public class FragmentTest extends Fragment{
                                 @Override
                                 public void onAnimationEnd(Animator animator) {
                                     animator.removeListener(this);
-                                    animator.setDuration(300);
-                                    ((ValueAnimator) animator).reverse();
+                                    animator.setDuration(0);
+                                    animator.setInterpolator(new ReverseInterpolator());
+                                    animator.start();
                                     checkImg.show();
                                     mBadge3.setNumber(++countBadge3);
                                     new Handler().postDelayed(new Runnable() {
@@ -522,5 +527,22 @@ public class FragmentTest extends Fragment{
 //        recyclerView.setAdapter(mAdapter);
 //        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
         return view;
+    }
+    public class ReverseInterpolator implements Interpolator {
+
+        private final Interpolator delegate;
+
+        public ReverseInterpolator(Interpolator delegate){
+            this.delegate = delegate;
+        }
+
+        public ReverseInterpolator(){
+            this(new LinearInterpolator());
+        }
+
+        @Override
+        public float getInterpolation(float input) {
+            return 1 - delegate.getInterpolation(input);
+        }
     }
 }

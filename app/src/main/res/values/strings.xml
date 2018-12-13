@@ -25,7 +25,7 @@
     <string name="sign_in_with_facebook">Sign in with Facebook</string>
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="no_result">No result found!</string>
-    <string name="app_version">1.0.2</string>
+    <string name="app_version">1.0.3</string>
     <string name="update_available">Update Available!</string>
     <string name="update_btn">Update</string>
     <string name="close_btn">Close</string>
