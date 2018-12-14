@@ -13,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -520,12 +521,12 @@ public class FragmentTest extends Fragment{
 
 //        TextView mTitle = ((ProfileActivity) getActivity()).findViewById(R.id.toolbar_title);
 //        mTitle.setText("Test");
-//        int[] s = {R.drawable.ic_circle,R.drawable.ic_circle,R.drawable.ic_save,R.drawable.ic_circle,R.drawable.ic_warning,R.drawable.ic_circle,R.drawable.ic_circle,R.drawable.ic_circle,R.drawable.ic_circle};
+        int[] s = {R.drawable.ic_circle,R.drawable.ic_circle,R.drawable.ic_save,R.drawable.ic_circle,R.drawable.ic_warning,R.drawable.ic_circle,R.drawable.ic_circle,R.drawable.ic_circle,R.drawable.ic_circle};
 //
-//        DragItemAdapter mAdapter = new DragItemAdapter(s,getContext());
-//        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-//        recyclerView.setAdapter(mAdapter);
-//        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+        DragItemAdapter mAdapter = new DragItemAdapter(s,getContext());
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         return view;
     }
     public class ReverseInterpolator implements Interpolator {
