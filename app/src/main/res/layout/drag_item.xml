@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+<RelativeLayout
+    android:padding="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp">
     <ImageView
@@ -8,5 +10,37 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:src="@drawable/ic_random"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/item_name"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item 1"
+        android:textSize="10pt"
+        android:layout_toRightOf="@+id/drag_item_img"/>
+    <TextView
+        android:id="@+id/item_qty"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số lượng: 1"
+        android:textSize="10pt"
+        android:layout_toRightOf="@+id/drag_item_img"
+        android:layout_below="@+id/item_name"
+        />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="800$"
+        android:textColor="@color/red"
+        android:textSize="10pt"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        />
+
+
+</RelativeLayout>

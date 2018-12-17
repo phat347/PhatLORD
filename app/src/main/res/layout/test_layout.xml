@@ -43,15 +43,18 @@
         >
 
         <FrameLayout
+            android:id="@+id/holder_item1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
             <ImageView
                 android:layout_margin="10dp"
                 android:id="@+id/swipeImg"
                 android:layout_marginTop="20dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_random"
+                android:src="@drawable/ic_cake"
                 />
             <com.nex3z.notificationbadge.NotificationBadge
                 android:id="@+id/badge"
@@ -61,9 +64,46 @@
                 >
 
             </com.nex3z.notificationbadge.NotificationBadge>
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="100dp"
+                android:layout_gravity="center|bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    >
+                    <TextView
+                        android:id="@+id/item_1"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bánh"
+                        android:textSize="8pt"
+                        />
+                    <View
+                        android:background="@color/gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp">
+                    </View>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:id="@+id/item_price1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10$"
+                        android:textSize="8pt"
+                        />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/holder_item2"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
@@ -72,7 +112,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_random"
+                android:src="@drawable/ic_milk"
                 />
             <com.nex3z.notificationbadge.NotificationBadge
                 android:id="@+id/badge2"
@@ -82,8 +122,45 @@
                 >
 
             </com.nex3z.notificationbadge.NotificationBadge>
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="100dp"
+                android:layout_gravity="center|bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    >
+                    <TextView
+                        android:id="@+id/item_2"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sữa"
+                        android:textSize="8pt"
+                        />
+                    <View
+                        android:background="@color/gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp">
+                    </View>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:id="@+id/item_price2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20$"
+                        android:textSize="8pt"
+                        />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </FrameLayout>
         <FrameLayout
+            android:id="@+id/holder_item3"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
@@ -92,7 +169,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_random"
+                android:src="@drawable/ic_candy"
                 />
             <com.nex3z.notificationbadge.NotificationBadge
                 android:id="@+id/badge3"
@@ -102,6 +179,41 @@
                 >
 
             </com.nex3z.notificationbadge.NotificationBadge>
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="100dp"
+                android:layout_gravity="center|bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    >
+                    <TextView
+                        android:id="@+id/item_3"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kẹo"
+                        android:textSize="8pt"
+                        />
+                    <View
+                        android:background="@color/gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp">
+                    </View>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:id="@+id/item_price3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5$"
+                        android:textSize="8pt"
+                        />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </FrameLayout>
 
     </LinearLayout>
@@ -116,68 +228,74 @@
         android:layout_marginBottom="80dp"
         />
 
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/bottom_sheet"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.design.widget.AppBarLayout
-        app:elevation="0dp"
-        android:id="@+id/appbar"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/transparent"
-        app:behavior_peekHeight="80dp"
-        app:layout_behavior="@string/bottom_sheet_behavior">
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/main.collapsing"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:background="@color/transparent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="false"
-            app:layout_scrollFlags="scroll">
-            <LinearLayout
+            android:background="@color/transparent"
+            app:behavior_peekHeight="80dp"
+            app:elevation="0dp"
+            app:layout_behavior="@string/bottom_sheet_behavior">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/main.collapsing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:background="@color/transparent"
+                android:fitsSystemWindows="false"
+                app:layout_scrollFlags="scroll">
 
-                <ImageView
-                    android:layout_gravity="center"
-                    android:layout_width="200dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/straw_basket"
-                    android:scaleType="fitXY"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@color/white">
-                    <TextView
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tiền: 8000$"
-                        android:textSize="10pt"
-                        />
-                    <View
-                        android:background="@color/gray"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp">
+                    android:orientation="vertical">
 
-                    </View>
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_view"
+                    <ImageView
+                        android:layout_width="200dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/straw_basket" />
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="vertical">
 
-                    </android.support.v7.widget.RecyclerView>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Tiền: 8000$"
+                            android:textSize="10pt" />
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/gray">
+
+                        </View>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </android.support.v7.widget.RecyclerView>
+
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
 
-        </android.support.design.widget.CollapsingToolbarLayout>
+            </android.support.design.widget.CollapsingToolbarLayout>
 
-    </android.support.design.widget.AppBarLayout>
+        </android.support.design.widget.AppBarLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
 </FrameLayout>

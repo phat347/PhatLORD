@@ -25,12 +25,14 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nex3z.notificationbadge.NotificationBadge;
 import com.varunest.sparkbutton.SparkButton;
 import com.varunest.sparkbutton.SparkEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -43,10 +45,15 @@ public class FragmentTest extends Fragment{
     ImageView swipeTest,swipeTest2,swipeTest3;
     float initialX, initialY;
 
+    TextView itemName1,itemName2,itemName3,itemPrice1,itemPrice2,itemPrice3;
+    FrameLayout holder1,holder2,holder3;
+    List<DragItem> mList = new ArrayList<>();
+    DragItemAdapter mAdapter;
     int countBadge,countBadge2,countBadge3 = 0;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.test_layout, container, false);
 
+        mList.clear();
         int centerWidth = this.getResources().getDisplayMetrics().widthPixels/2;
 
 //        btn = view.findViewById(R.id.btn_spark);
@@ -57,6 +64,18 @@ public class FragmentTest extends Fragment{
         mBadge = view.findViewById(R.id.badge);
         mBadge2 = view.findViewById(R.id.badge2);
         mBadge3 = view.findViewById(R.id.badge3);
+
+        holder1 = view.findViewById(R.id.holder_item1);
+        holder2 = view.findViewById(R.id.holder_item2);
+        holder3 = view.findViewById(R.id.holder_item3);
+
+        itemName1 = view.findViewById(R.id.item_1);
+        itemName2 = view.findViewById(R.id.item_2);
+        itemName3 = view.findViewById(R.id.item_3);
+
+        itemPrice1 = view.findViewById(R.id.item_price1);
+        itemPrice2 = view.findViewById(R.id.item_price2);
+        itemPrice3 = view.findViewById(R.id.item_price3);
 
         swipeTest = view.findViewById(R.id.swipeImg);
         swipeTest2 = view.findViewById(R.id.swipeImg2);
@@ -143,6 +162,8 @@ public class FragmentTest extends Fragment{
                             Log.d("Phat","   Bottom X:"+view.getBottom()+"  Bottom Y:"+view.getWidth()/2);
 
                             Log.d("Phat","  GetX:"+swipeTest.getX()+"  GetY:"+swipeTest.getY());
+                            mList.add(new DragItem(R.drawable.ic_cake,"Bánh","10",1));
+                            mAdapter.updateAnswers(mList);
                             PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("X", swipeTest.getX(),centerWidth); // The view will be animated such that it moves to positionAnimateX.
                             PropertyValuesHolder yHolder = PropertyValuesHolder.ofFloat("Y", swipeTest.getY(), swipeTest.getY()+800); // The view will be animated such that it moves to positionAnimateY.
                             ValueAnimator valueAnimator = ObjectAnimator.ofPropertyValuesHolder(swipeTest, xHolder, yHolder);
@@ -283,9 +304,11 @@ public class FragmentTest extends Fragment{
                         if (finalY - initialY >= 40) {
 //                            Toast.makeText(getContext(), "Swipe xuống", Toast.LENGTH_SHORT).show();
 
+                            mList.add(new DragItem(R.drawable.ic_milk,"Sữa","20",1));
                             Log.d("Phat","   Bottom X:"+view.getBottom()+"  Bottom Y:"+view.getWidth()/2);
 
                             Log.d("Phat","  GetX:"+swipeTest2.getX()+"  GetY:"+swipeTest2.getY());
+                            mAdapter.updateAnswers(mList);
                             PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("X", swipeTest2.getX(),swipeTest2.getX()); // The view will be animated such that it moves to positionAnimateX.
                             PropertyValuesHolder yHolder = PropertyValuesHolder.ofFloat("Y", swipeTest2.getY(), swipeTest2.getY()+1000); // The view will be animated such that it moves to positionAnimateY.
                             ValueAnimator valueAnimator = ObjectAnimator.ofPropertyValuesHolder(swipeTest2, xHolder, yHolder);
@@ -428,6 +451,8 @@ public class FragmentTest extends Fragment{
                         if (finalY - initialY >= 40) {
 //                            Toast.makeText(getContext(), "Swipe xuống", Toast.LENGTH_SHORT).show();
 
+                            mList.add(new DragItem(R.drawable.ic_candy,"Kẹo","5",1));
+                            mAdapter.updateAnswers(mList);
                             Log.d("Phat","   Bottom X:"+view.getBottom()+"  Bottom Y:"+view.getWidth()/2);
 
                             Log.d("Phat","  GetX:"+swipeTest3.getX()+"  GetY:"+swipeTest3.getY());
@@ -521,9 +546,9 @@ public class FragmentTest extends Fragment{
 
 //        TextView mTitle = ((ProfileActivity) getActivity()).findViewById(R.id.toolbar_title);
 //        mTitle.setText("Test");
-        int[] s = {R.drawable.ic_circle,R.drawable.ic_circle,R.drawable.ic_save,R.drawable.ic_circle,R.drawable.ic_warning,R.drawable.ic_circle,R.drawable.ic_circle,R.drawable.ic_circle,R.drawable.ic_circle};
+
 //
-        DragItemAdapter mAdapter = new DragItemAdapter(s,getContext());
+        mAdapter = new DragItemAdapter(mList,getContext());
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
