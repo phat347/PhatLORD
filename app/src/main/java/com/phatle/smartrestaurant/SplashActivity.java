@@ -17,6 +17,11 @@ import com.facebook.AccessToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
+import com.microsoft.appcenter.AppCenter; import com.microsoft.appcenter.analytics.Analytics; import com.microsoft.appcenter.crashes.Crashes;
+
 public class SplashActivity extends AppCompatActivity {
 
     private ProgressBar mProgressBar;
@@ -37,6 +42,8 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCenter.start(getApplication(), "64d16538-5044-4c45-8783-7342bb96551e",
+                Analytics.class, Crashes.class);
         setContentView(R.layout.activity_splash);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar2);
         appName = findViewById(R.id.app_name);
